@@ -284,7 +284,6 @@ return {
     -- require('mini.misc').setup()
     -- require('mini.move').setup()
     require("mini.operators").setup()
-    require("mini.pairs").setup()
     -- require('mini.splitjoin').setup()
     -- require('mini.trailspace').setup()
     -- require('mini.visits').setup()

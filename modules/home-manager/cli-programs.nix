@@ -72,6 +72,7 @@
     fish.enable = true;
     fzf.enable = true;
     git.enable = true;
+    helix.enable = true;
     lazygit.enable = true;
     neovim.enable = true;
     starship.enable = true;

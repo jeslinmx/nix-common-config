@@ -34,13 +34,6 @@
         XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
       };
     };
-    packages = [
-      "org.keepassxc.KeePassXC"
-      "org.telegram.desktop"
-      "net.ankiweb.Anki"
-      "com.rafaelmardojai.Blanket"
-      "org.pipewire.Helvum"
-    ];
   };
 
   # unnixed stuff

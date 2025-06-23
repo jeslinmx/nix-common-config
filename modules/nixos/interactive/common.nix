@@ -4,7 +4,6 @@
       (nixosModules)
       base-common
       interactive-chinese-input
-      interactive-console
       interactive-enable-standard-hardware
       interactive-enable-via-qmk
       interactive-greetd

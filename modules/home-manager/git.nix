@@ -4,8 +4,6 @@
   ...
 }: {
   programs.git = {
-    userName = "Jeshua Lin";
-    userEmail = "jeslinmx@users.noreply.github.com";
     difftastic = {
       enable = true;
       display = "side-by-side";

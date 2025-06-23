@@ -1,10 +1,8 @@
-{inputs, ...}: {
+{...}: {
   config,
   lib,
   ...
 }: let
-  inherit (inputs.private-config.lib) zerotier-networks;
-
   # Convert a string like "8056c2e21c36f91e" to the zerotier network interface name like "ztmjfpigyc"
   ifrname = let
     inherit (lib) bitAnd bitOr bitXor concatStrings elemAt findFirst foldl length range substring stringLength stringToCharacters toLower zipLists;
@@ -43,16 +41,23 @@
   in
     nwid: "zt" + (toBase32 (nwid40 (bytes nwid)));
 in {
-  options.zerotier.network-interfaces = lib.mkOption {
-    type = lib.types.attrsOf lib.types.str;
-    description = "Mapping of ZeroTier network IDs to interface names";
-    readOnly = true;
-    default = builtins.listToAttrs (builtins.map (nwid: lib.nameValuePair nwid (ifrname nwid)) config.services.zerotierone.joinNetworks);
+  options.zerotier = {
+    networks = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      description = "ZeroTier network configurations";
+      default = {};
+    };
+    network-interfaces = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      description = "Mapping of ZeroTier network IDs to interface names";
+      readOnly = true;
+      default = builtins.listToAttrs (builtins.map (nwid: lib.nameValuePair nwid (ifrname nwid)) config.services.zerotierone.joinNetworks);
+    };
   };
   config = {
     services.zerotierone = {
       enable = true;
-      joinNetworks = builtins.attrNames zerotier-networks;
+      joinNetworks = builtins.attrNames config.zerotier.networks;
     };
 
     # enable networkd and have it configure the specified DNS servers on the zt* interfaces
@@ -81,7 +86,7 @@ in {
               };
             }
         )
-        zerotier-networks;
+        config.zerotier.networks;
     };
 
     # resolved is needed for networkd's dns assignments to take effect

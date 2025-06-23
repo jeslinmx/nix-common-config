@@ -2,9 +2,7 @@
   config,
   lib,
   ...
-}: let
-  cfg = config.hmUsers;
-in {
+}: {
   imports = [inputs.home-manager.nixosModules.home-manager];
 
   options = let
@@ -16,7 +14,9 @@ in {
     };
   };
 
-  config = {
+  config = let
+    cfg = config.hmUsers;
+  in {
     users = {
       mutableUsers = true;
       users = lib.mkMerge (lib.mapAttrsToList (

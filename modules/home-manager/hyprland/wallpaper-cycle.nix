@@ -20,7 +20,7 @@
         }
       )
 
-      swww img "$next_img"
+      swww img --resize crop "$next_img"
     '';
   };
 in {

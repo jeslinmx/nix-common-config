@@ -11,6 +11,7 @@
 
     # nixpkgs
     nixpkgs.url = "nixpkgs/release-25.05";
+    nixpkgs-darwin.url = "nixpkgs/nixpkgs-25.05-darwin";
 
     # NixOS modules
     home-manager = {
@@ -19,14 +20,14 @@
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
-      inputs = {
-        flake-parts.follows = "flake-parts";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Darwin modules
-    home-manager-darwin.url = "github:nix-community/home-manager/release-25.05";
+    home-manager-darwin = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
     nix-rosetta-builder = {
       url = "github:cpick/nix-rosetta-builder";
       inputs.nixpkgs.follows = "nixpkgs";

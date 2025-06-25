@@ -96,6 +96,9 @@
       tokei
       wiki-tui
       mask
+      jq
+      gojq
+      yq
       ;
   };
   home.file = {

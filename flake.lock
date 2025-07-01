@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "arcwtf": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1720943281,
-        "narHash": "sha256-JzZs0qFaFYaY24o5incgl8u4DGkKASan+b55N+9Jwag=",
-        "owner": "kikaraage",
-        "repo": "arcwtf",
-        "rev": "73ccc7bd3c8dd130d67746c413ca5cf6a57a9f72",
-        "type": "github"
-      },
-      "original": {
-        "owner": "kikaraage",
-        "ref": "v1.3-firefox",
-        "repo": "arcwtf",
-        "type": "github"
-      }
-    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -588,7 +571,6 @@
     },
     "root": {
       "inputs": {
-        "arcwtf": "arcwtf",
         "devshell": "devshell",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

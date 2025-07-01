@@ -52,12 +52,7 @@
           };
           "extensions.pocket.enabled" = false;
           "apz.overscroll.enabled" = true;
-          # for arcwtf
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-          "svg.context-properties.content.enabled" = true;
-          "uc.tweak.hide-forward-button" = true;
-          "uc.tweak.popup-search" = false;
-          "uc.tweak.longer-sidebar" = true;
+          "sidebar.verticalTabs" = true;
 
           # fonts
           "font.size.variable.x-western" = 14;
@@ -138,29 +133,12 @@
               install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
             }
           );
-      in
-        (extensions "force_installed" {
-          "ATBC@EasonWong" = "adaptive-tab-bar-colour";
-          "{bda3a2e1-851d-4bf9-83c1-0d1ac026a675}" = "bible-previewer";
-          "{74145f27-f039-47ce-a470-a662b129930a}" = "clearurls";
-          "gdpr@cavi.au.dk" = "consent-o-matic";
-          "{0fb022fc-3f93-42d8-9789-100037ae1801}" = "copy-image-as-base64";
-          "FirefoxColor@mozilla.com" = "firefox-color";
-          "keepassxc-browser@keepassxc.org" = "keepassxc-browser";
-          "{3c078156-979c-498b-8990-85f7987dd929}" = "sidebery";
-          "userchrome-toggle@joolee.nl" = "userchrome-toggle";
-          "sponsorBlocker@ajay.app" = "sponsorblock";
-          "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = "styl-us";
-          "uBlock0@raymondhill.net" = "ublock-origin";
-          "{7be2ba16-0f1e-4d93-9ebc-5164397477a9}" = "videospeed";
-          "{4d9d2bcc-7acd-404b-8c8c-b1ac947facfc}" = "consent-o-matic";
-        })
-        // (extensions "blocked" {
-          "amazondotcom@search.mozilla.org" = "";
-          "bing@search.mozilla.org" = "";
-          "google@search.mozilla.org" = "";
-          "wikipedia@search.mozilla.org" = "";
-        });
+      in (extensions "blocked" {
+        "amazondotcom@search.mozilla.org" = "";
+        "bing@search.mozilla.org" = "";
+        "google@search.mozilla.org" = "";
+        "wikipedia@search.mozilla.org" = "";
+      });
       Containers = {
         Default = [
           {
@@ -183,19 +161,4 @@
     };
   };
   stylix.targets.firefox.profileNames = ["default"];
-  home.file = let
-    inherit (pkgs.stdenv.hostPlatform) isDarwin;
-    cfg = config.programs.firefox;
-    configPath = ".mozilla/firefox";
-    profilesPath =
-      if isDarwin
-      then "${configPath}/Profiles"
-      else configPath;
-    defaultProfilePath = "${profilesPath}/${cfg.profiles.default.path}/chrome";
-  in {
-    ${defaultProfilePath} = {
-      recursive = false;
-      source = inputs.arcwtf;
-    };
-  };
 }

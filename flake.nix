@@ -52,10 +52,6 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
-    arcwtf = {
-      url = "github:kikaraage/arcwtf/v1.3-firefox";
-      flake = false;
-    };
   };
 
   outputs = {

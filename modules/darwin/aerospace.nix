@@ -1,9 +1,7 @@
-{...}: {...}: {
+{...}: {lib, ...}: {
   system.defaults = {
-    dock = {expose-group-apps = true;};
-    spaces = {
-      spans-displays = true;
-    };
+    dock.expose-group-apps = true;
+    spaces.spans-displays = true;
   };
 
   services.aerospace = {
@@ -26,8 +24,8 @@
       };
       mode = {
         main.binding = {
-          alt-slash = "layout tiles horizontal vertical";
-          alt-comma = "layout accordion horizontal vertical";
+          alt-t = "layout tiles horizontal vertical";
+          alt-a = "layout accordion horizontal vertical";
           alt-h = "focus left";
           alt-j = "focus down";
           alt-k = "focus up";

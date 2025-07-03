@@ -47,7 +47,7 @@
       ShowSeconds = true;
     };
     NSGlobalDomain = {
-      NSWindowShouldDragOnGesture = false;
+      NSWindowShouldDragOnGesture = true;
       "com.apple.keyboard.fnState" = false; # Fn keys function as media keys
       "com.apple.springing.enabled" = true;
       "com.apple.springing.delay" = 0.7; # spring directories open faster

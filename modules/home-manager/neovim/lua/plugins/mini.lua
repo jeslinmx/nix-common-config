@@ -250,8 +250,13 @@ return {
         { mode = "i", keys = "<C-r>" },
         { mode = "c", keys = "<C-r>" },
         { mode = "n", keys = "<C-w>" },
+        { mode = "x", keys = "<C-w>" },
         { mode = "n", keys = "z" },
         { mode = "x", keys = "z" },
+        { mode = "n", keys = "[" },
+        { mode = "x", keys = "[" },
+        { mode = "n", keys = "]" },
+        { mode = "x", keys = "]" },
       },
       clues = (function()
         local c = require "mini.clue"

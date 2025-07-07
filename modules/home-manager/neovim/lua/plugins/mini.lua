@@ -200,6 +200,10 @@ return {
         end,
       },
     }
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { fg = "#000000", bg = _G.palette.base0D })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { fg = "#000000", bg = _G.palette.base0B })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", { fg = "#000000", bg = _G.palette.base0E })
+
     require("mini.tabline").setup {
       tabpage_section = "right",
       format = function(buf_id, label)

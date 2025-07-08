@@ -12,7 +12,7 @@ o.termguicolors = true
 -- statusline and cmdline
 o.showmode = false
 o.ruler = false -- hide row:col and position% indicators
-opt.shortmess = "IaT" -- hide Vim intro, abbreviate [readonly], [Modified] etc. messages in cmdline, truncate cmdline at middle
+opt.shortmess = "IaTFcs" -- hide Vim intro, abbreviate [readonly], [Modified] etc. messages in cmdline, truncate cmdline at middle, hide fileinfo, completion, and search messages
 
 --- EDITOR ---
 o.clipboard = "unnamedplus"

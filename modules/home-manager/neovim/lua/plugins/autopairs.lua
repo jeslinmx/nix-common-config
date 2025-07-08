@@ -1,16 +1,33 @@
 return {
   {
     "windwp/nvim-autopairs",
-    config = function(_, opts)
-      require("nvim-autopairs").setup(opts)
-
-      -- setup cmp for autopairs
-      local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-      require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
+    config = function()
       local npairs = require "nvim-autopairs"
       local Rule = require "nvim-autopairs.rule"
       local cond = require "nvim-autopairs.conds"
+
+      -- autocompletion compatibility
+      npairs.setup { map_bs = false, map_cr = false }
+      _G._npairs_cr = function()
+        if vim.fn.pumvisible() ~= 0 then
+          if vim.fn.complete_info({ "selected" }).selected ~= -1 then
+            return npairs.esc "<c-y>"
+          else
+            return npairs.esc "<c-e>" .. npairs.autopairs_cr()
+          end
+        else
+          return npairs.autopairs_cr()
+        end
+      end
+      _G._npairs_bs = function()
+        if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ "mode" }).mode == "eval" then
+          return npairs.esc "<c-e>" .. npairs.autopairs_bs()
+        else
+          return npairs.autopairs_bs()
+        end
+      end
+      vim.api.nvim_set_keymap("i", "<cr>", "v:lua._npairs_cr()", { expr = true, noremap = true })
+      vim.api.nvim_set_keymap("i", "<bs>", "v:lua._npairs_bs()", { expr = true, noremap = true })
 
       -- whitespace handling
       local brackets = { { "(", ")" }, { "[", "]" }, { "{", "}" } }

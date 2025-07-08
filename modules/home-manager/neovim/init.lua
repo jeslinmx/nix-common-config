@@ -19,9 +19,13 @@ _G.palette = _G.palette
   }
 
 -- useful helper for debugging Lua
-_G.v = function(x)
-  print(vim.inspect(x))
+_G.v = function(...)
+  Snacks.debug.inspect(...)
 end
+_G.bt = function()
+  Snacks.debug.backtrace()
+end
+vim.print = _G.v
 
 require "lazy_init"
 require "options"

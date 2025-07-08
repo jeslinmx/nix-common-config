@@ -102,18 +102,7 @@ return {
     scroll = {},
     quickfile = {},
     toggle = {},
-    indent = {
-      enabled = true,
-      scope = { enabled = true },
-      chunk = {
-        enabled = true,
-        char = {
-          corner_top = "╭",
-          corner_bottom = "╰",
-          arrow = "┤",
-        },
-      },
-    },
+    indent = {},
     dim = {},
   },
 

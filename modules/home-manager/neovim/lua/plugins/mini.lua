@@ -272,6 +272,8 @@ return {
           c.gen_clues.windows(),
           c.gen_clues.z(),
           { mode = { "n", "v" }, keys = "<leader>b", desc = "+Buffers" },
+          { mode = { "n", "v" }, keys = "<leader>e", desc = "+Editor" },
+          { mode = { "n", "v" }, keys = "<leader>g", desc = "+Git" },
           { mode = { "n", "v" }, keys = "<leader>l", desc = "+LSP" },
           { mode = { "n", "v" }, keys = "<leader>t", desc = "+Trouble" },
           { mode = { "n", "v" }, keys = "<leader><leader>", desc = "+Telescope" },

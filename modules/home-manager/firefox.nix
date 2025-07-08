@@ -20,8 +20,7 @@
           "browser.uiCustomization.state" = builtins.toJSON {
             "placements" = {
               "nav-bar" = [
-                "userchrome-toggle_joolee_nl-browser-action"
-                "sync-button"
+                "sidebar-button"
                 "customizableui-special-spring1"
                 "back-button"
                 "stop-reload-button"
@@ -32,16 +31,6 @@
                 "customizableui-special-spring3"
               ];
               "toolbar-menubar" = ["menubar-items"];
-              "unified-extensions-area" = builtins.map (
-                extId: let
-                  lowercaseId = lib.toLower extId;
-                  sanitizedId = let
-                    illegalCharacters = ["{" "}" "@" "."];
-                    replacements = builtins.map (x: "_") illegalCharacters;
-                  in
-                    builtins.replaceStrings illegalCharacters replacements lowercaseId;
-                in "${sanitizedId}-browser-action"
-              ) (builtins.attrNames config.programs.firefox.policies.ExtensionSettings);
             };
             "dirtyAreaCache" = [
               "unified-extensions-area"

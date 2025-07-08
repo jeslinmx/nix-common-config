@@ -16,6 +16,16 @@ map("t", "jj", "<C-\\><C-N>", { desc = "escape terminal mode" })
 map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
 map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
 
+-- editor
+map("n", "<leader>ed", Snacks.dim.enable, { desc = "dim outside of scope" })
+map("n", "<leader>eD", Snacks.dim.enable, { desc = "undim" })
+
+-- git
+map("n", "<leader>gb", Snacks.git.blame_line, { desc = "blame current line" })
+map("n", "<leader>gg", Snacks.lazygit.open, { desc = "open lazygit" })
+map("n", "<leader>gl", Snacks.lazygit.log_file, { desc = "open file log (lazygit)" })
+map("n", "<leader>gL", Snacks.lazygit.log, { desc = "open repo log (lazygit)" })
+
 -- tabufline
 map("n", "<leader>bn", "<cmd>enew<cr>", { desc = "buffer new" })
 map("n", "<leader>bq", require("mini.bufremove").delete, { desc = "buffer close" })

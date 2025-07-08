@@ -30,31 +30,4 @@ return {
   },
 
   cmd = "Trouble",
-  keys = {
-    {
-      "<leader>tt",
-      open_or_focus { mode = "diagnostics" },
-      desc = "Diagnostics",
-    },
-    {
-      "<leader>ts",
-      open_or_focus { mode = "symbols", focus = false },
-      desc = "Symbols",
-    },
-    {
-      "<leader>tr",
-      open_or_focus { mode = "lsp", focus = false, win = { position = "right" } },
-      desc = "LSP definitions, declarations, references, ...",
-    },
-    {
-      "<leader>tl",
-      open_or_focus { mode = "loclist" },
-      desc = "Locations",
-    },
-    {
-      "<leader>tq",
-      open_or_focus { mode = "qflist" },
-      desc = "Quickfix",
-    },
-  },
 }

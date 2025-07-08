@@ -58,6 +58,13 @@ end, { desc = "List workspace folders" })
 map("n", "<leader>lc", vim.lsp.buf.rename, { desc = "Go to type definition" })
 -- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
 
+-- Trouble
+map("n", "<leader>td", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diagnostics" })
+map("n", "<leader>tl", "<cmd>Trouble loclist toggle focus=true<cr>", { desc = "Locations" })
+map("n", "<leader>tt", "<cmd>Trouble lsp toggle focus=true<cr>", { desc = "LSP" })
+map("n", "<leader>tq", "<cmd>Trouble quickfix toggle focus=true<cr>", { desc = "Quickfixes" })
+map("n", "<leader>ts", "<cmd>Trouble symbols toggle focus=true<cr> win.position=left", { desc = "Symbols" })
+
 -- Telescope
 -- map("n", "<leader><leader>a", "<cmd>Telescope autocommands<cr>", { desc = "autocommands" })
 map("n", "<leader><leader>b", "<cmd>Telescope buffers<cr>", { desc = "buffers" })

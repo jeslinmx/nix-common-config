@@ -64,6 +64,10 @@ return {
       end
       return MiniStatusline.is_truncated(args.trunc_width) and "%f" or "%F"
     end
+    local noice = require "noice"
+    local section_lastmessage = function(args)
+      return noice.api.status.message.has and noice.api.status.message.get() or section_filename(args)
+    end
     local section_filestatus = function()
       local flags = {}
       if not vim.bo.modifiable then

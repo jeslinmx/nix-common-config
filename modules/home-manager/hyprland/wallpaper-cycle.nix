@@ -32,6 +32,7 @@ in {
         Type = "oneshot";
         Environment = [
           "SWWW_TRANSITION=any"
+          "SWWW_TRANSITION_DURATION=1"
           "SWWW_TRANSITION_FPS=60"
         ];
         ExecStart = lib.getExe next-wallpaper;
@@ -39,10 +40,10 @@ in {
     };
     timers.next-wallpaper = {
       Unit = {
-        Description = "Change next wallpaper every minute";
+        Description = "Change next wallpaper every 3 minutes";
         After = "wayland-session@Hyprland.target";
       };
-      Timer.OnCalendar = "*:*:00";
+      Timer.OnCalendar = "*:00/3:00";
       Install.WantedBy = ["wayland-session@Hyprland.target"];
     };
   };

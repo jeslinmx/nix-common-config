@@ -131,6 +131,7 @@ in {
           window-rewrite = {
             "class<firefox>" = "󰈹";
             "class<kitty>" = "";
+            "class<com.mitchellh.ghostty>" = "";
             "class<org.telegram.desktop>" = "";
             "class<org.keepassxc.KeePassXC>" = "󰟵";
             "class<net.ankiweb.Anki>" = "󰘸";

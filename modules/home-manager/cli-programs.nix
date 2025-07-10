@@ -2,6 +2,7 @@
   imports = builtins.attrValues {
     inherit
       (homeModules)
+      asciinema
       atuin
       comma
       fish

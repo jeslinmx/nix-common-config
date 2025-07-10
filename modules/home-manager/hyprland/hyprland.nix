@@ -38,7 +38,7 @@ in {
     in rec {
       # source = [ "~/.config/hypr/custom.conf" ];
 
-      "$terminal" = "${lib.getExe config.programs.kitty.package} --single-instance";
+      "$terminal" = lib.getExe config.programs.ghostty.package;
       "$menu" = lib.getExe config.programs.rofi.finalPackage;
 
       general = {

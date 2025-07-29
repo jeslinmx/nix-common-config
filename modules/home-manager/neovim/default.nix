@@ -25,7 +25,7 @@
         # ansiblels
         ansible-language-server
         ansible-lint
-        python311
+        python311 # also for pylsp obviously
         # bashls
         bash-language-server
         # gopls

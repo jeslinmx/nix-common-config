@@ -107,3 +107,23 @@ map("n", "<leader><leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "bran
 map("n", "<leader><leader>gf", "<cmd>Telescope git_files<cr>", { desc = "files" })
 map("n", "<leader><leader>gs", "<cmd>Telescope git_stash<cr>", { desc = "stash" })
 map("n", "<leader><leader>gd", "<cmd>Telescope git_status<cr>", { desc = "diff/status" })
+
+-- Leetcode
+map("n", "<leader>ct", "<cmd>Leet tabs<cr>", { desc = "Tabs" })
+map("n", "<leader>ci", "<cmd>Leet info<cr>", { desc = "Info" })
+map("n", "<leader>cr", "<cmd>Leet reset<cr>", { desc = "Reset" })
+map("n", "<leader>cl", "<cmd>Leet last_submit<cr>", { desc = "Last submission" })
+map("n", "<leader>cL", "<cmd>Leet lang<cr>", { desc = "Language" })
+map("n", "<leader>cC", "<cmd>Leet console<cr>", { desc = "Console" })
+map("n", "<leader>cf", "<cmd>Leet fold<cr>", { desc = "Fold" })
+map("n", "<leader>cc", "<cmd>Leet menu<cr>", { desc = "Menu" })
+map("n", "<leader>c<s-cr>", "<cmd>Leet submit<cr>", { desc = "Submit" })
+map("n", "<leader>ct", "<cmd>Leet desc<cr>", { desc = "Description" })
+map("n", "<leader>c<cr>", "<cmd>Leet run<cr>", { desc = "Run" })
+map("n", "<leader>ch", "<cmd>Leet hints<cr>", { desc = "Hints" })
+map("n", "<leader>cy", "<cmd>Leet yank<cr>", { desc = "Yank" })
+map("n", "<leader>cb", "<cmd>Leet open<cr>", { desc = "Open in browser" })
+
+map("n", "<leader>cpp", "<cmd>Leet list<cr>", { desc = "List" })
+map("n", "<leader>cpd", "<cmd>Leet daily<cr>", { desc = "Daily" })
+map("n", "<leader>cpr", "<cmd>Leet random<cr>", { desc = "Random" })

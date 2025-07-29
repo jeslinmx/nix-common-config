@@ -11,6 +11,7 @@
       g = "git";
       v = "nvim";
       vi = "nvim";
+      vc = "nvim leetcode";
       f = "fuck";
       S = "sudo -v; sudo -E";
       s = "kitty +kitten ssh";

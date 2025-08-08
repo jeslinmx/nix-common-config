@@ -48,7 +48,6 @@
     ssh = {
       enable = true;
       addKeysToAgent = "yes";
-      hashKnownHosts = true;
       controlMaster = "auto";
       controlPersist = "3s";
       extraConfig = ''

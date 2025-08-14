@@ -21,7 +21,7 @@
     home-manager.enable = true;
     carapace.enable = true;
     pandoc.enable = true;
-    thefuck.enable = true;
+    pay-respects.enable = true;
     bat.enable = true;
     btop.enable = true;
     zoxide.enable = true;

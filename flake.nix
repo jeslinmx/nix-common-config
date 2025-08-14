@@ -10,12 +10,12 @@
     };
 
     # nixpkgs
-    nixpkgs.url = "nixpkgs/release-25.05";
-    nixpkgs-darwin.url = "nixpkgs/nixpkgs-25.05-darwin";
+    nixpkgs.url = "nixpkgs/master";
+    nixpkgs-darwin.url = "nixpkgs/master";
 
     # NixOS modules
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
@@ -25,7 +25,7 @@
 
     # Darwin modules
     home-manager-darwin = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     nix-rosetta-builder = {
@@ -35,11 +35,8 @@
 
     # Home Manager modules
     stylix = {
-      url = "github:danth/stylix/release-25.05";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
+      url = "github:danth/stylix/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-index-database = {

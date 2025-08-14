@@ -13,4 +13,8 @@
       "--remember --remember-user-session" # remember last selected user and their selected session
     ]}";
   };
+  console = {
+    packages = [pkgs.cozette];
+    font = "${pkgs.cozette}/share/consolefonts/cozette6x13.psfu";
+  };
 }

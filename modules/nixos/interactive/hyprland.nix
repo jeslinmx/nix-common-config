@@ -4,7 +4,6 @@
       enable = true;
       withUWSM = true;
     };
-    hyprlock.enable = true;
   };
   networking.networkmanager.enable = true;
   services.logind = {

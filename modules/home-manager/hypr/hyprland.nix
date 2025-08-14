@@ -5,13 +5,12 @@
   ...
 } @ args: let
   common = (import ./common.nix) args;
-  inherit (common) brightness-command mute-command volume-command move-monitor-command scrot-base-command;
+  inherit (common) mute-command volume-command move-monitor-command scrot-base-command terminal-command emoji-picker-command clipboard-command;
 in {
   wayland.windowManager.hyprland = let
     cfg = config.wayland.windowManager.hyprland;
   in {
     enable = true;
-    systemd.enable = false; # conflicts with UWSM
     sourceFirst = false; # put source statements at end
     settings = let
       directionKeys = [["up" "k"] ["down" "j"] ["left" "h"] ["right" "l"]];
@@ -36,11 +35,6 @@ in {
             )
         ) (lib.zipLists keys args);
     in rec {
-      # source = [ "~/.config/hypr/custom.conf" ];
-
-      "$terminal" = lib.getExe config.programs.ghostty.package;
-      "$menu" = lib.getExe config.programs.rofi.finalPackage;
-
       general = {
         gaps_in = 4;
         gaps_out = 8;
@@ -115,34 +109,19 @@ in {
 
       exec-once = [
         "systemctl --user start hyprpolkitagent"
-        "uwsm app -- ${lib.getExe config.programs.waybar.package} &"
-        "uwsm app -- ${lib.getExe' pkgs.swww "swww-daemon"} &"
         "uwsm app -- fcitx5 -d -r &"
-        "${lib.getExe pkgs.swww} restore"
         "uwsm finalize"
-        "$menu -show combi"
       ];
 
       env = [
         "XCURSOR_SIZE,24"
         "HYPRCURSOR_SIZE,24"
-        "SWWW_TRANSITION,any"
-        "SWWW_TRANSITION_FPS,60"
-      ];
-
-      workspace = [
-        "f[1], gapsout:0"
-        "w[tv1], gapsout:0"
       ];
 
       windowrulev2 = let
         rule = dispatchers: conditions: lib.map (d: "${d}, ${conditions}") dispatchers;
       in
         [
-          "bordersize 0, onworkspace:w[tv1]"
-          "rounding 0, onworkspace:w[tv1]"
-          "bordersize 0, onworkspace:f[1]"
-          "rounding 0, onworkspace:f[1]"
           "suppressevent maximize, class:.*"
           "float, class:(org.telegram.desktop) title:(Media viewer)"
           "workspace special:magic, class:(org.telegram.desktop)"
@@ -159,29 +138,21 @@ in {
       bind =
         [
           "SUPER, RETURN, togglesplit"
-          "SUPER, SPACE, exec, $menu -show combi"
-          "ALT SUPER, SPACE, exec, $menu -show run"
-          "SUPER, E, exec, $menu -show file-browser-extended"
-          "SUPER, EQUAL, exec, $menu -show calc"
-          "SUPER, PERIOD, exec, $menu -show emoji -kb-custom-1 Ctrl+c -kb-secondary-copy ''"
           "SUPER, F11, fullscreen, 1"
-          "SUPER, T, exec, $terminal"
           "SUPER, Q, killactive"
-          "SUPER, C, exec, swaync-client --close-latest"
-          "SUPER, V, exec, swaync-client -t"
           "SUPER, F, togglefloating"
           "SUPER, F, centerwindow"
           "SUPER, P, pseudo" # dwindle
           "SUPER, G, togglegroup"
           "CTRL SUPER, G, lockactivegroup, toggle"
           "SUPER, S, togglespecialworkspace, magic"
-          "SUPER, escape, exec, hyprlock"
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioPrev, exec, playerctl previous"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SINK@"}"
-          "ALT, XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
-          ", XF86AudioMicMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
+          "SUPER, escape, global, caelestia:lock"
+          "SUPER, delete, global, caelestia:session"
+          "SUPER, SPACE, global, caelestia:launcher"
+          "SUPER, PERIOD, exec, ${emoji-picker-command}"
+          "SUPER, V, exec, ${clipboard-command}"
+          "SUPER, T, exec, ${terminal-command}"
+          "SUPER, C, global, caelestia:clearNotifs"
         ]
         # switch focus with SUPER + direction
         ++ (produceBinds {dispatcher = "movefocus";})
@@ -242,46 +213,26 @@ in {
           "CTRL SUPER, print, exec, ${scrot-base-command} --mode region"
         ];
 
+      bindl =
+        [
+          ", XF86AudioPlay, exec, playerctl play-pause"
+          ", XF86AudioPrev, exec, playerctl previous"
+          ", XF86AudioNext, exec, playerctl next"
+          ", XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SINK@"}"
+          "ALT, XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
+          ", XF86AudioMicMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
+        ]
+        # brightness keys
+        ++ [
+          ",XF86MonBrightnessUp,   global, caelestia:brightnessUp"
+          ",XF86MonBrightnessDown, global, caelestia:brightnessDown"
+        ];
+
       binde =
         [
           # Switch within groups with CTRL + [SHIFT] + SUPER + tab
           "CTRL SUPER, tab, changegroupactive, f"
           "CTRL SHIFT SUPER, tab, changegroupactive, b"
-        ]
-        # volume keys; use ALT to target mic, use CTRL for fine adjustment
-        ++ (lib.concatMap ({
-            mod,
-            dev,
-            amt,
-          }: [
-            "${mod}, XF86AudioRaiseVolume, exec, ${volume-command dev amt}"
-            "${mod}, XF86AudioLowerVolume, exec, ${volume-command dev (-amt)}"
-          ]) [
-            {
-              mod = "";
-              dev = "@DEFAULT_AUDIO_SINK@";
-              amt = 5;
-            }
-            {
-              mod = "CTRL";
-              dev = "@DEFAULT_AUDIO_SINK@";
-              amt = 1;
-            }
-            {
-              mod = "ALT";
-              dev = "@DEFAULT_AUDIO_SOURCE@";
-              amt = 5;
-            }
-            {
-              mod = "CTRL ALT";
-              dev = "@DEFAULT_AUDIO_SOURCE@";
-              amt = 1;
-            }
-          ])
-        # brightness keys
-        ++ [
-          ",XF86MonBrightnessUp,   exec, ${brightness-command 10}"
-          ",XF86MonBrightnessDown, exec, ${brightness-command (-10)}"
         ]
         # resize windows with ALT + SUPER + direction
         ++ (produceBinds {
@@ -295,6 +246,37 @@ in {
           dispatcher = "resizeactive";
           args = let dist = "1"; in ["0 -${dist}" "0 ${dist}" "-${dist} 0" "${dist} 0"];
         });
+      # volume keys; use ALT to target mic, use CTRL for fine adjustment
+      bindel =
+        lib.concatMap ({
+          mod,
+          dev,
+          amt,
+        }: [
+          "${mod}, XF86AudioRaiseVolume, exec, ${volume-command dev amt}"
+          "${mod}, XF86AudioLowerVolume, exec, ${volume-command dev (-amt)}"
+        ]) [
+          {
+            mod = "";
+            dev = "@DEFAULT_AUDIO_SINK@";
+            amt = 5;
+          }
+          {
+            mod = "CTRL";
+            dev = "@DEFAULT_AUDIO_SINK@";
+            amt = 1;
+          }
+          {
+            mod = "ALT";
+            dev = "@DEFAULT_AUDIO_SOURCE@";
+            amt = 5;
+          }
+          {
+            mod = "CTRL ALT";
+            dev = "@DEFAULT_AUDIO_SOURCE@";
+            amt = 1;
+          }
+        ];
 
       bindm = [
         "SUPER, z, movewindow"

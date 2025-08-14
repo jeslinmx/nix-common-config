@@ -5,8 +5,7 @@
 }: {
   services.greetd = {
     enable = true;
-    vt = 7;
-    settings.default_session.command = "${lib.getExe pkgs.greetd.tuigreet} ${builtins.concatStringsSep " " [
+    settings.default_session.command = "${lib.getExe pkgs.tuigreet} ${builtins.concatStringsSep " " [
       "--time --time-format '%Y/%m/%d (%a) %H:%M:%S'" # display current time
       "--user-menu" # display menu of users
       "--asterisks" # show feedback when entering password

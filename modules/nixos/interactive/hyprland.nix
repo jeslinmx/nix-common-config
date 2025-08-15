@@ -6,8 +6,4 @@
     };
   };
   networking.networkmanager.enable = true;
-  services.logind = {
-    powerKey = "hibernate";
-    lidSwitchDocked = "suspend";
-  };
 }

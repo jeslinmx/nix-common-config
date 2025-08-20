@@ -9,6 +9,7 @@
       (homeModules)
       caelestia
       hypr-hyprland
+      hypr-hypridle
       hypr-wallpaper-cycle
       ;
   };

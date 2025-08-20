@@ -146,7 +146,7 @@ in {
           "SUPER, G, togglegroup"
           "CTRL SUPER, G, lockactivegroup, toggle"
           "SUPER, S, togglespecialworkspace, magic"
-          "SUPER, escape, global, caelestia:lock"
+          "SUPER, escape, exec, loginctl lock"
           "SUPER, delete, global, caelestia:session"
           "SUPER, SPACE, global, caelestia:launcher"
           "SUPER, PERIOD, exec, ${emoji-picker-command}"

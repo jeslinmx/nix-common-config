@@ -85,6 +85,7 @@
       };
     };
   };
+  systemd.user.services.caelestia.Service.Environment = ["QT_QPA_PLATFORMTHEME=gtk3"];
 
   systemd.user.services = {
     ssh-agent = {

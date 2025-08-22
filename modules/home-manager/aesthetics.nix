@@ -3,12 +3,14 @@
   pkgs,
   ...
 }: {
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Colloid";
-      package = pkgs.colloid-icon-theme;
-    };
+  stylix.icons = {
+    dark = "Colloid-Dark";
+    light = "Colloid-Light";
+    package = pkgs.colloid-icon-theme;
+  };
+  gtk.iconTheme = {
+    name = config.stylix.icons.${config.stylix.polarity};
+    package = config.stylix.icons.package;
   };
   fonts.fontconfig = {
     enable = true;

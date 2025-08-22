@@ -6,9 +6,9 @@
 }: let
   next-wallpaper = pkgs.writeShellApplication {
     name = "next-wallpaper";
-    runtimeInputs = [config.programs.caelestia-shell.cliPackage];
+    runtimeInputs = [config.programs.caelestia.cli.package];
     text = ''
-      caelestia wallpaper -r ${config.programs.caelestia-shell.settings.paths.wallpaperDir}
+      caelestia wallpaper -r ${config.programs.caelestia.settings.paths.wallpaperDir}
     '';
   };
 in {

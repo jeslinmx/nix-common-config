@@ -1,17 +1,16 @@
-{homeModules, ...}: {
-  config,
-  lib,
-  pkgs,
+{
+  homeModules,
+  inputs,
   ...
-}: {
+}: {config, ...}: {
   imports = builtins.attrValues {
     inherit
       (homeModules)
-      caelestia
       hypr-hyprland
       hypr-hypridle
       hypr-wallpaper-cycle
       ;
+    inherit (inputs.caelestia-shell.homeManagerModules) default;
   };
 
   services = {
@@ -19,7 +18,7 @@
     cliphist.enable = true;
     mpris-proxy.enable = true;
   };
-  programs.caelestia-shell = {
+  programs.caelestia = {
     enable = true;
     settings = {
       appearance = {
@@ -71,6 +70,18 @@
       };
       services = {
         useTwelveHourClock = false;
+      };
+    };
+    cli = {
+      enable = true;
+      settings = {
+        theme = {
+          enableTerm = false;
+          enableHypr = false;
+          enableBtop = false;
+          enableGtk = false;
+          enableQt = false;
+        };
       };
     };
   };

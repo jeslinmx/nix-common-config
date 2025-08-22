@@ -37,4 +37,5 @@
   terminal-command = lib.getExe config.programs.ghostty.package;
   emoji-picker-command = "caelestia emoji -p";
   clipboard-command = "caelestia clipboard";
+  fileman-command = "io.elementary.files";
 }

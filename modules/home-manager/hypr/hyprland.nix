@@ -5,7 +5,7 @@
   ...
 } @ args: let
   common = (import ./common.nix) args;
-  inherit (common) mute-command volume-command move-monitor-command scrot-base-command terminal-command emoji-picker-command clipboard-command;
+  inherit (common) mute-command volume-command move-monitor-command scrot-base-command terminal-command emoji-picker-command clipboard-command fileman-command;
 in {
   wayland.windowManager.hyprland = let
     cfg = config.wayland.windowManager.hyprland;
@@ -152,6 +152,7 @@ in {
           "SUPER, PERIOD, exec, ${emoji-picker-command}"
           "SUPER, V, exec, ${clipboard-command}"
           "SUPER, T, exec, ${terminal-command}"
+          "SUPER, E, exec, ${fileman-command}"
           "SUPER, C, global, caelestia:clearNotifs"
         ]
         # switch focus with SUPER + direction

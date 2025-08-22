@@ -48,6 +48,7 @@
         loupe
         zathura
         ;
+      inherit (pkgs.pantheon) elementary-files;
     }
     ++ [
       pkgs.pavucontrol

@@ -89,7 +89,6 @@
       ouch
       visidata
       httpie
-      mitmproxy
       dust
       hyperfine
       tokei

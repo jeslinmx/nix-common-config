@@ -13,11 +13,10 @@
       vi = "nvim";
       vc = "nvim leetcode";
       S = "sudo -v; sudo -E";
-      s = "kitty +kitten ssh";
+      sshe = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null";
       t = "tmux new-session -A -s 0";
       "/" = "grep";
       lg = "lazygit";
-      cm = "chezmoi";
       dc = "docker compose";
     };
     functions = {

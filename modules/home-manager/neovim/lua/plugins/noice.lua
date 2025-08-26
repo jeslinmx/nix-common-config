@@ -1,6 +1,9 @@
 return {
   "folke/noice.nvim",
-  dependencies = { "MunifTanjim/nui.nvim" },
+  dependencies = {
+    "MunifTanjim/nui.nvim",
+    "nvim-treesitter/nvim-treesitter",
+  },
 
   opts = {
     cmdline = {

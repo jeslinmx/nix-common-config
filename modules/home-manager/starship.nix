@@ -1,4 +1,4 @@
-{...}: {lib, ...}: {
+_: {lib, ...}: {
   programs.starship = {
     settings = {
       format = lib.concatStrings [

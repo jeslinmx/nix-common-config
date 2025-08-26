@@ -1,4 +1,4 @@
-{...}: {
+_: {
   xdg = {
     enable = true; # manage XDG base directories
     userDirs = {

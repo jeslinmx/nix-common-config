@@ -1,4 +1,4 @@
-{...}: {pkgs, ...}: {
+_: {pkgs, ...}: {
   home.packages = [pkgs.asciinema];
   home.file.".config/asciinema/config.toml".source = pkgs.writers.writeTOML "config.toml" {
     recording = {

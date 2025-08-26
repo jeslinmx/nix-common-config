@@ -1,4 +1,4 @@
-{...}: {
+_: {
   programs.atuin = {
     flags = ["--disable-up-arrow"];
     settings = {

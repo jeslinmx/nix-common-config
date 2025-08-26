@@ -1,4 +1,4 @@
-{...}: {
+_: {
   lib,
   pkgs,
   config,
@@ -20,7 +20,7 @@
       enable = lib.mkDefault false;
       enableOnBoot = true;
       liveRestore = true;
-      autoPrune = podman.autoPrune;
+      inherit (podman) autoPrune;
     };
   };
   hardware.nvidia-container-toolkit.enable = lib.mkDefault (builtins.elem "nvidia" config.services.xserver.videoDrivers);

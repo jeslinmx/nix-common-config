@@ -1,4 +1,4 @@
-{...}: {...}: {
+_: _: {
   system.defaults = {
     spaces = {
       spans-displays = false;

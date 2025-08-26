@@ -1,4 +1,4 @@
-{...}: {
+_: {
   config,
   pkgs,
   ...
@@ -10,7 +10,7 @@
   };
   gtk.iconTheme = {
     name = config.stylix.icons.${config.stylix.polarity};
-    package = config.stylix.icons.package;
+    inherit (config.stylix.icons) package;
   };
   fonts.fontconfig = {
     enable = true;

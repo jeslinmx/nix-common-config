@@ -1,4 +1,4 @@
-{...}: {
+_: {
   programs.tmux = {
     aggressiveResize = true;
     baseIndex = 1;

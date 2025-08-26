@@ -122,12 +122,12 @@
               install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
             }
           );
-      in (extensions "blocked" {
+      in extensions "blocked" {
         "amazondotcom@search.mozilla.org" = "";
         "bing@search.mozilla.org" = "";
         "google@search.mozilla.org" = "";
         "wikipedia@search.mozilla.org" = "";
-      });
+      };
       Containers = {
         Default = [
           {

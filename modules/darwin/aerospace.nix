@@ -1,4 +1,4 @@
-{...}: {lib, ...}: {
+_: {lib, ...}: {
   system.defaults = {
     dock.expose-group-apps = true;
     spaces.spans-displays = true;

@@ -1,4 +1,4 @@
-{...}: {pkgs, ...}: {
+_: {pkgs, ...}: {
   networking.firewall.allowedTCPPorts = [3389 3390]; # for RDP
   services = {
     xserver = {

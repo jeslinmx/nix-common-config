@@ -1,4 +1,4 @@
-{...}: {
+_: {
   environment.etc."ssh/sshd_config.d/10-nix-darwin.conf".text = ''
     AuthorizedKeysFile none
     PermitRootLogin no

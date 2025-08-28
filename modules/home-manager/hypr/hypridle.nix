@@ -4,7 +4,7 @@ _: _: {
     settings = {
       general = {
         lock_cmd = "caelestia shell lock lock";
-        before_sleep_cmd = "loginctl lock-session";
+        before_sleep_cmd = "caelestia shell lock lock";
         after_sleep_cmd = "hyprctl dispatch dpms on";
       };
 
@@ -16,7 +16,7 @@ _: _: {
         }
         {
           timeout = 315;
-          on-timeout = "loginctl lock-session";
+          on-timeout = "caelestia shell lock lock";
         }
       ];
     };

@@ -9,7 +9,8 @@ _: {
     power-profiles-daemon.enable = true;
     logind = {
       powerKey = "hibernate";
-      lidSwitchDocked = "suspend";
+      lidSwitch = "suspend";
+      lidSwitchDocked = "ignore";
     };
   };
 }

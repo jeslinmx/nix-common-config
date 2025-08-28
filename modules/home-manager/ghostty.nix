@@ -1,5 +1,10 @@
-_: _: {
+_: {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.ghostty = {
+    package = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce null);
     clearDefaultKeybinds = true;
     settings = {
       focus-follows-mouse = true;

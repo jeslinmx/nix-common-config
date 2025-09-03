@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local Snacks = require "snacks"
 
 map("i", "<C-a>", "<Home>", { desc = "move to beginning of line" })
 map("i", "<C-e>", "<End>", { desc = "move to end of line" })
@@ -8,122 +9,128 @@ map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 
-map("n", "<Esc>", "<cmd>noh<cr>", { desc = "clear highlights" })
+map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
+map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
 
 map("i", "jj", "<Esc>", { desc = "escape insert mode" })
 map("t", "jj", "<C-\\><C-N>", { desc = "escape terminal mode" })
 
-map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
-map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
+map("n", "<Esc>", "<cmd>noh<cr>", { desc = "clear highlights" })
 
--- editor
-map("n", "<leader>ed", Snacks.dim.enable, { desc = "dim outside of scope" })
-map("n", "<leader>eD", Snacks.dim.enable, { desc = "undim" })
+map("n", "-", function()
+  Snacks.picker.explorer { focus = "list" }
+end, { desc = "browse containing folder" })
 
--- git
-map("n", "<leader>gb", Snacks.git.blame_line, { desc = "blame current line" })
-map("n", "<leader>gg", Snacks.lazygit.open, { desc = "open lazygit" })
-map("n", "<leader>gl", Snacks.lazygit.log_file, { desc = "open file log (lazygit)" })
-map("n", "<leader>gL", Snacks.lazygit.log, { desc = "open repo log (lazygit)" })
+-- terminals
+map({ "n", "t" }, "<C-\\>", Snacks.terminal.toggle, { desc = "create/toggle terminal" })
+map({ "n", "t" }, "<C-A-\\>", function()
+  return Snacks.terminal.toggle(nil, { win = { position = "right" } })
+end, { desc = "create/toggle v-terminal" })
+
+-- leap
+map("n", "s", "<Plug>(leap)", { desc = "leap" })
+map("n", "S", "<Plug>(leap-from-window)", { desc = "leap across windows" })
+map({ "x", "o" }, "s", "<Plug>(leap-forward)", { desc = "leap forward" })
+map({ "x", "o" }, "S", "<Plug>(leap-backward)", { desc = "leap backward" })
+map({ "n", "o" }, "gs", function()
+  require("leap.remote").action()
+end, { desc = "leap temporarily" })
 
 -- tabufline
-map("n", "<leader>bn", "<cmd>enew<cr>", { desc = "buffer new" })
-map("n", "<leader>bq", require("mini.bufremove").delete, { desc = "buffer close" })
 map("n", "<tab>", "<cmd>bnext<cr>", { desc = "buffer goto next" })
 map("n", "<S-tab>", "<cmd>bprev<cr>", { desc = "buffer goto prev" })
 
--- terminals
-map({ "n", "t" }, "<C-\\>", require("snacks").terminal.toggle, { desc = "toggle terminals" })
+-- ## LEADER KEYBINDS ## --
+map("n", "<leader><leader>", Snacks.dashboard.open, { desc = "Open dashboard" })
 
--- leap
-map("n", "s", "<Plug>(leap)", { desc = "Leap" })
-map("n", "S", "<Plug>(leap-from-window)", { desc = "Leap across windows" })
-map({ "x", "o" }, "s", "<Plug>(leap-forward)", { desc = "Leap forward" })
-map({ "x", "o" }, "S", "<Plug>(leap-backward)", { desc = "Leap backward" })
-map({ "n", "o" }, "gs", function()
-  require("leap.remote").action()
-end, { desc = "Leap temporarily" })
+-- editor
+map("n", "<leader>ed", Snacks.dim.enable, { desc = "dim outside of scope" })
+map("n", "<leader>eD", Snacks.dim.disable, { desc = "undim" })
 
-map("n", "-", function()
-  require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"))
-  require("mini.files").reveal_cwd()
-end, { desc = "browse containing folder " })
-map("n", "<leader><leader><leader>", function()
-  require("snacks").dashboard()
-end, { desc = "Open dashboard" })
+-- git
+map("n", "<leader>gg", Snacks.lazygit.open, { desc = "lazygit" })
+map("n", "<leader>gb", Snacks.picker.git_log_line, { desc = "blame line" })
+map("n", "<leader>gB", Snacks.picker.git_branches, { desc = "branches" })
+map("n", "<leader>gf", Snacks.picker.git_files, { desc = "files" })
+map("n", "<leader>g/", Snacks.picker.git_grep, { desc = "grep" })
+map("n", "<leader>gl", Snacks.picker.git_log_file, { desc = "log" })
+map("n", "<leader>gL", Snacks.picker.git_log, { desc = "repo log" })
+map("n", "<leader>gs", Snacks.picker.git_status, { desc = "status" })
+map("n", "<leader>gS", Snacks.picker.git_stash, { desc = "stash" })
+
+-- buffers
+map("n", "<leader>bn", "<cmd>enew<cr>", { desc = "new" })
+map("n", "<leader>bq", require("mini.bufremove").delete, { desc = "close" })
+map("n", "<leader>bb", Snacks.picker.buffers, { desc = "picker" })
 
 -- LSP
-map("n", "<leader>ld", vim.lsp.buf.definition, { desc = "Go to definition" })
-map("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
-map("n", "<leader>li", vim.lsp.buf.implementation, { desc = "Go to implementation" })
-map("n", "<leader>lt", vim.lsp.buf.type_definition, { desc = "Go to type definition" })
-map("n", "<leader>l.", vim.lsp.buf.code_action, { desc = "Show code actions" })
-map("n", "<leader>lr", vim.lsp.buf.references, { desc = "Show references" })
-map("n", "<leader>ls", vim.lsp.buf.signature_help, { desc = "Show signature help" })
-map("n", "<leader>la", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
-map("n", "<leader>lx", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
-map("n", "<leader>ll", function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-end, { desc = "List workspace folders" })
-map("n", "<leader>lc", vim.lsp.buf.rename, { desc = "Go to type definition" })
--- map("n", "<leader>ds", vim.diagnostic.setloclist, { desc = "LSP diagnostic loclist" })
-
--- Trouble
-map("n", "<leader>td", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diagnostics" })
-map("n", "<leader>tl", "<cmd>Trouble loclist toggle focus=true<cr>", { desc = "Locations" })
-map("n", "<leader>tt", "<cmd>Trouble lsp toggle focus=true<cr>", { desc = "LSP" })
-map("n", "<leader>tq", "<cmd>Trouble quickfix toggle focus=true<cr>", { desc = "Quickfixes" })
-map("n", "<leader>ts", "<cmd>Trouble symbols toggle focus=true<cr> win.position=left", { desc = "Symbols" })
-
--- Telescope
--- map("n", "<leader><leader>a", "<cmd>Telescope autocommands<cr>", { desc = "autocommands" })
-map("n", "<leader><leader>b", "<cmd>Telescope buffers<cr>", { desc = "buffers" })
--- map("n", "<leader><leader>c", "<cmd>Telescope commands<cr>", { desc = "commands" })
-map("n", "<leader><leader>f", "<cmd>Telescope find_files<cr>", { desc = "files" })
-map(
-  "n",
-  "<leader><leader>F",
-  "<cmd>Telescope find_files follow=true no_ignore=true hidden=true<cr>",
-  { desc = "all files" }
-)
-map("n", "<leader><leader>r", "<cmd>Telescope live_grep<cr>", { desc = "ripgrep" })
-map("n", "<leader><leader>:", "<cmd>Telescope command_history<cr>", { desc = "command history" })
-map("n", "<leader><leader>h", "<cmd>Telescope help_tags<cr>", { desc = "help" })
-map("n", "<leader><leader>j", "<cmd>Telescope jumplist<cr>", { desc = "jumps" })
-map("n", "<leader><leader>m", "<cmd>Telescope man_pages<cr>", { desc = "man" })
-map("n", "<leader><leader>n", "<cmd>Noice telescope<cr>", { desc = "notifications" })
-map("n", "<leader><leader>t", "<cmd>Telescope filetypes<cr>", { desc = "filetypes" })
-map("n", "<leader><leader>q", "<cmd>Telescope oldfiles<cr>", { desc = "recently closed" })
-map("n", "<leader><leader>u", "<cmd>Telescope undo<cr>", { desc = "undotree" })
-map("n", "<leader><leader>o", "<cmd>Telescope vim_options<cr>", { desc = "options" })
-map("n", "<leader><leader>'", "<cmd>Telescope marks<cr>", { desc = "marks" })
-map("n", '<leader><leader>"', "<cmd>Telescope registers<cr>", { desc = "registers" })
-map("n", "<leader><leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "current buffer (fuzzy)" })
-
-map("n", "<leader><leader>gc", "<cmd>Telescope git_bcommits<cr>", { desc = "commits (current file)" })
-map({ "n", "v" }, "<leader><leader>gc", "<cmd>Telescope git_bcommits_range<cr>", { desc = "commits (range)" })
-map("n", "<leader><leader>gC", "<cmd>Telescope git_commits<cr>", { desc = "commits (working dir)" })
-map("n", "<leader><leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "branches" })
-map("n", "<leader><leader>gf", "<cmd>Telescope git_files<cr>", { desc = "files" })
-map("n", "<leader><leader>gs", "<cmd>Telescope git_stash<cr>", { desc = "stash" })
-map("n", "<leader><leader>gd", "<cmd>Telescope git_status<cr>", { desc = "diff/status" })
+map("n", "<leader>d", Snacks.picker.diagnostics_buffer, { desc = "diagnostics (buffer)" })
+map("n", "<leader>D", Snacks.picker.diagnostics, { desc = "diagnostics (project)" })
+map("n", "<leader>lc", Snacks.picker.lsp_config, { desc = "config" })
+map("n", "<leader>ld", Snacks.picker.lsp_definitions, { desc = "definitions" })
+map("n", "<leader>lD", Snacks.picker.lsp_declarations, { desc = "declarations" })
+map("n", "<leader>li", Snacks.picker.lsp_implementations, { desc = "implementations" })
+map("n", "<leader>lr", Snacks.picker.lsp_references, { desc = "references" })
+map("n", "<leader>ls", Snacks.picker.lsp_symbols, { desc = "symbols" })
+map("n", "<leader>lt", Snacks.picker.lsp_type_definitions, { desc = "type definitions" })
+map("n", "<leader>la", vim.lsp.buf.add_workspace_folder, { desc = "add workspace folder" })
+map("n", "<leader>lx", vim.lsp.buf.remove_workspace_folder, { desc = "remove workspace folder" })
 
 -- Leetcode
-map("n", "<leader>ct", "<cmd>Leet tabs<cr>", { desc = "Tabs" })
-map("n", "<leader>ci", "<cmd>Leet info<cr>", { desc = "Info" })
-map("n", "<leader>cx", "<cmd>Leet reset<cr>", { desc = "Reset" })
-map("n", "<leader>cl", "<cmd>Leet last_submit<cr>", { desc = "Last submission" })
-map("n", "<leader>cL", "<cmd>Leet lang<cr>", { desc = "Language" })
-map("n", "<leader>cc", "<cmd>Leet console<cr>", { desc = "Console" })
-map("n", "<leader>cf", "<cmd>Leet fold<cr>", { desc = "Fold" })
-map("n", "<leader>cm", "<cmd>Leet menu<cr>", { desc = "Menu" })
-map("n", "<leader>cR", "<cmd>Leet submit<cr>", { desc = "Submit" })
-map("n", "<leader>cd", "<cmd>Leet desc<cr>", { desc = "Description" })
-map("n", "<leader>cr", "<cmd>Leet run<cr>", { desc = "Run" })
-map("n", "<leader>ch", "<cmd>Leet hints<cr>", { desc = "Hints" })
-map("n", "<leader>cy", "<cmd>Leet yank<cr>", { desc = "Yank" })
-map("n", "<leader>cb", "<cmd>Leet open<cr>", { desc = "Open in browser" })
+map("n", "<leader>1t", "<cmd>Leet tabs<cr>", { desc = "tabs" })
+map("n", "<leader>1i", "<cmd>Leet info<cr>", { desc = "info" })
+map("n", "<leader>1x", "<cmd>Leet reset<cr>", { desc = "reset" })
+map("n", "<leader>1l", "<cmd>Leet last_submit<cr>", { desc = "last submission" })
+map("n", "<leader>1L", "<cmd>Leet lang<cr>", { desc = "language" })
+map("n", "<leader>1c", "<cmd>Leet console<cr>", { desc = "console" })
+map("n", "<leader>1f", "<cmd>Leet fold<cr>", { desc = "fold" })
+map("n", "<leader>1m", "<cmd>Leet menu<cr>", { desc = "menu" })
+map("n", "<leader>1R", "<cmd>Leet submit<cr>", { desc = "submit" })
+map("n", "<leader>1d", "<cmd>Leet desc<cr>", { desc = "description" })
+map("n", "<leader>1r", "<cmd>Leet run<cr>", { desc = "run" })
+map("n", "<leader>1h", "<cmd>Leet hints<cr>", { desc = "hints" })
+map("n", "<leader>1y", "<cmd>Leet yank<cr>", { desc = "yank" })
+map("n", "<leader>1b", "<cmd>Leet open<cr>", { desc = "open in browser" })
+map("n", "<leader>1pp", "<cmd>Leet list<cr>", { desc = "list" })
+map("n", "<leader>1pd", "<cmd>Leet daily<cr>", { desc = "daily" })
+map("n", "<leader>1pr", "<cmd>Leet random<cr>", { desc = "random" })
+-- other pickers
+map("n", "<leader>a", Snacks.picker.autocmds, { desc = "autocmds" })
+map("n", "<leader>c", Snacks.picker.commands, { desc = "commands" })
+map("n", "<leader>f", Snacks.picker.explorer, { desc = "files" })
+map("n", "<leader>F", function()
+  Snacks.picker.explorer { hidden = true, ignored = true }
+end, { desc = "all files" })
+map("n", "<leader>h", Snacks.picker.highlights, { desc = "highlights" })
+map("n", "<leader>i", Snacks.picker.icons, { desc = "icons" })
+map("n", "<leader>j", Snacks.picker.jumps, { desc = "jumps" })
+map("n", "<leader>k", Snacks.picker.keymaps, { desc = "keymaps" })
+map("n", "<leader>L", Snacks.picker.lazy, { desc = "lazy" })
+map("n", "<leader>m", Snacks.picker.man, { desc = "man" })
+map("n", "<leader>n", Snacks.picker.noice, { desc = "notifications" })
+map("n", "<leader>o", Snacks.picker.resume, { desc = "open last picker" })
+map("n", "<leader>p", Snacks.picker.projects, { desc = "projects" })
+map("n", "<leader>Pa", Snacks.picker.picker_actions, { desc = "picker actions" })
+map("n", "<leader>Pf", Snacks.picker.picker_format, { desc = "picker format" })
+map("n", "<leader>Pl", Snacks.picker.picker_layouts, { desc = "picker layouts" })
+map("n", "<leader>Pp", Snacks.picker.picker_preview, { desc = "picker preview" })
+map("n", "<leader>r", Snacks.picker.recent, { desc = "recent" })
+map("n", "<leader>s", Snacks.picker.spelling, { desc = "spelling" })
+map("n", "<leader>t", Snacks.picker.treesitter, { desc = "treesitter" })
+map("n", "<leader>u", Snacks.picker.undo, { desc = "undo" })
+map("n", "<leader>v", Snacks.picker.cliphist, { desc = "cliphist" })
+map("n", "<leader>z", Snacks.picker.zoxide, { desc = "zoxide" })
+map("n", '<leader>"', Snacks.picker.registers, { desc = "registers" })
+map("n", "<leader>'", Snacks.picker.marks, { desc = "marks" })
+map("n", "<leader>.", Snacks.picker.qflist, { desc = "quickfixes" })
+map("n", "<leader>/", Snacks.picker.grep, { desc = "grep" })
+map("n", "<leader>?", Snacks.picker.help, { desc = "help" })
+map("n", "<leader>-", Snacks.picker.explorer, { desc = "explorer" })
+map("n", "<leader>:", Snacks.picker.command_history, { desc = "command history" })
+-- q
+-- w
+-- x
+-- y
 
-map("n", "<leader>cpp", "<cmd>Leet list<cr>", { desc = "List" })
-map("n", "<leader>cpd", "<cmd>Leet daily<cr>", { desc = "Daily" })
-map("n", "<leader>cpr", "<cmd>Leet random<cr>", { desc = "Random" })
+-- map("n", "<leader><leader>t", Snacks.picker.buffers, { desc = "filetypes" })
+-- map("n", "<leader><leader>o", Snacks.picker.buffers, { desc = "options" })

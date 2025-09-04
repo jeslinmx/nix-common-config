@@ -16,9 +16,9 @@ map("i", "jj", "<Esc>", { desc = "escape insert mode" })
 map("t", "jj", "<C-\\><C-N>", { desc = "escape terminal mode" })
 
 map("n", "<Esc>", "<cmd>noh<cr>", { desc = "clear highlights" })
-
 map("n", "-", function()
-  Snacks.picker.explorer { focus = "list" }
+  require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"))
+  require("mini.files").reveal_cwd()
 end, { desc = "browse containing folder" })
 
 -- terminals

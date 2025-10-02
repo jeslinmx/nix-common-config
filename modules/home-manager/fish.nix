@@ -53,7 +53,8 @@ _: {pkgs, ...}: {
           set fish_greeting ""
       end
       fish_add_path -p ~/.local/bin
-      fish_vi_key_bindings
+      fish_default_key_bindings -M insert
+      fish_vi_key_bindings --no-erase insert
       set fish_cursor_visual block
       set fish_cursor_insert line
       set fish_cursor_replace_one underscore

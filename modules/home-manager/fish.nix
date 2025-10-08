@@ -1,16 +1,25 @@
-_: {pkgs, ...}: {
+_: {
+  lib,
+  pkgs,
+  ...
+}: let
+  PAGER = "bat";
+  EDITOR = "nvr -sl"; # TODO: override nvr default behaviour of placing $NVIM at /tmp/nvimsocket, so running nvim outside of nvim always starts a new instance; nvr -sl --servername $NVIM works within nvim but fails if $NVIM is not set (instead of falling back to default neovim behavior of generating something under /run)
+  MANPAGER = "${EDITOR} -c 'Man!' --remote";
+in {
   home = {
+    packages = with pkgs; [neovim-remote bat kjv];
     sessionVariables = {
-      PAGER = "less -R";
-    };
-    shellAliases = {
+      inherit PAGER MANPAGER;
+      EDITOR = lib.mkForce EDITOR;
+      VISUAL = EDITOR;
     };
   };
   programs.fish = {
     shellAbbrs = {
       g = "git";
-      v = "nvim";
-      vi = "nvim";
+      v = EDITOR;
+      vi = EDITOR;
       vc = "nvim leetcode";
       S = "sudo -v; sudo -E";
       sshe = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null";
@@ -20,7 +29,7 @@ _: {pkgs, ...}: {
       dc = "docker compose";
     };
     functions = {
-      l = "for arg in $argv; test -d $arg; and ll $arg; or less $arg; end";
+      l = "for arg in $argv; ${PAGER} $arg || ll $arg; end";
       y = ''
         set tmp (mktemp -t "yazi-cwd.XXXXX")
         yazi --cwd-file="$tmp" $argv
@@ -63,5 +72,4 @@ _: {pkgs, ...}: {
       abbr -a !! --position anywhere -f last_history
     '';
   };
-  home.packages = [pkgs.kjv];
 }

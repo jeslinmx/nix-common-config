@@ -15,19 +15,8 @@ o.ruler = false -- hide row:col and position% indicators
 opt.shortmess = "IaTFcs" -- hide Vim intro, abbreviate [readonly], [Modified] etc. messages in cmdline, truncate cmdline at middle, hide fileinfo, completion, and search messages
 
 --- EDITOR ---
-o.clipboard = "unnamedplus"
-if vim.env.SSH_TTY then
-  g.clipboard = {
-    name = "OSC 52",
-    copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy "+",
-      ["*"] = require("vim.ui.clipboard.osc52").copy "*",
-    },
-    paste = {
-      ["+"] = require("vim.ui.clipboard.osc52").paste "+",
-      ["*"] = require("vim.ui.clipboard.osc52").paste "*",
-    },
-  }
+if not vim.env.SSH_TTY then
+  o.clipboard = "unnamedplus"
 end
 
 -- Gutter

@@ -47,6 +47,9 @@ _: {
     vimAlias = true;
     vimdiffAlias = true;
   };
-  xdg.configFile."nvim/lua".source = ./lua;
+  xdg.configFile = {
+    "nvim/lua".source = ./lua;
+    "nvim/after".source = ./after;
+  };
   stylix.targets.neovim.enable = false;
 }

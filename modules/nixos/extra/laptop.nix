@@ -10,7 +10,6 @@ _: {
     logind = {
       powerKey = "hibernate";
       lidSwitch = "suspend";
-      lidSwitchDocked = "ignore";
     };
   };
 }

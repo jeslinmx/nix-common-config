@@ -4,7 +4,6 @@ _: {
   ...
 }: {
   programs.neovim = {
-    defaultEditor = true;
     extraLuaConfig = with config.lib.stylix.colors.withHashtag;
       ''
         _G.palette = {
@@ -43,9 +42,20 @@ _: {
         ;
       inherit (pkgs.python312Packages) python-lsp-server;
     };
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
+  };
+  home = {
+    packages = with pkgs; [
+      (writeShellApplication {
+        name = "v";
+        runtimeInputs = [neovim-remote config.programs.neovim.finalPackage];
+        text = "if [ -v NVIM ]; then nvr -l \"$@\"; else \${NVR_CMD:-nvim} \"$@\"; fi";
+      })
+    ];
+    sessionVariables = rec {
+      EDITOR = "v --remote-wait";
+      VISUAL = EDITOR;
+      MANPAGER = "v -c 'Man!'";
+    };
   };
   xdg.configFile = {
     "nvim/lua".source = ./lua;

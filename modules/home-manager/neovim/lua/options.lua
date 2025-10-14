@@ -16,7 +16,11 @@ opt.shortmess = "IaTFcs" -- hide Vim intro, abbreviate [readonly], [Modified] et
 
 --- EDITOR ---
 if not vim.env.SSH_TTY then
+  -- on local shells, default to system clipboard (using whatever autodetected clipboard provider)
   o.clipboard = "unnamedplus"
+else
+  -- over SSH, default to vim buffer (if clipboard explicitly invoked, use osc52)
+  g.clipboard = "osc52"
 end
 
 -- Gutter

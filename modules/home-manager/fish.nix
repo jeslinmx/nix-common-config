@@ -1,25 +1,7 @@
-_: {
-  lib,
-  pkgs,
-  ...
-}: let
-  PAGER = "bat";
-  EDITOR = "nvr -sl"; # TODO: override nvr default behaviour of placing $NVIM at /tmp/nvimsocket, so running nvim outside of nvim always starts a new instance; nvr -sl --servername $NVIM works within nvim but fails if $NVIM is not set (instead of falling back to default neovim behavior of generating something under /run)
-  MANPAGER = "${EDITOR} -c 'Man!' --remote";
-in {
-  home = {
-    packages = with pkgs; [neovim-remote bat kjv];
-    sessionVariables = {
-      inherit PAGER MANPAGER;
-      EDITOR = lib.mkForce EDITOR;
-      VISUAL = EDITOR;
-    };
-  };
+_: {...}: {
   programs.fish = {
     shellAbbrs = {
       g = "git";
-      v = EDITOR;
-      vi = EDITOR;
       vc = "nvim leetcode";
       S = "sudo -v; sudo -E";
       sshe = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null";
@@ -29,7 +11,6 @@ in {
       dc = "docker compose";
     };
     functions = {
-      l = "for arg in $argv; ${PAGER} $arg || ll $arg; end";
       y = ''
         set tmp (mktemp -t "yazi-cwd.XXXXX")
         yazi --cwd-file="$tmp" $argv
@@ -37,19 +18,6 @@ in {
             cd -- "$cwd"
         end
         rm -f -- "$tmp"
-      '';
-      fzfkjv = ''
-        fzf --query "$argv" \
-          --disabled --no-sort --multi --no-header --no-keep-right --layout=reverse-list --prompt "kjv " \
-          --bind "start:reload(kjv {q}),change:reload(kjv {q})" \
-          --preview "awk -F '  ' '{print \$2}' {+f}" --preview-window "down,wrap"
-      '';
-      fzftar = ''
-        tar -tf "$argv" \
-        | grep -e '[^/]$' \
-        | fzf --multi --prompt=' ' --print0 \
-          --preview="tar -xf \"$argv\" --to-stdout {} | bat --file-name \"{}\" --color=always --style=numbers,rule,snip" \
-        | xargs --null --no-run-if-empty tar -xOf $argv
       '';
       multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
       last_history = "echo $history[1]";

@@ -80,10 +80,10 @@
     yazi.enable = true;
   };
 
-  # unnixed stuff
-  home.packages = builtins.attrValues {
-    inherit
-      (pkgs)
+  home = {
+    # unnixed stuff
+    packages = with pkgs; [
+      kjv
       fd
       dig
       lazydocker
@@ -98,12 +98,41 @@
       jq
       gojq
       yq
-      ;
-  };
-  home.file = {
-    ".config/lazydocker/config.yml".source = pkgs.writers.writeYAML "config.yml" {
-      commandTemplates = {
-        dockerCompose = "podman compose";
+      (writeShellApplication {
+        name = "l";
+        text = ''
+          for ARG in "$@"; do
+            if [ -d "$ARG" ]; then eza -l "$ARG";
+            else $PAGER "$ARG"; fi
+          done
+        '';
+      })
+      (writeShellApplication {
+        name = "fzfkjv";
+        text = ''
+          fzf --query "$*" \
+            --disabled --no-sort --multi --no-header --no-keep-right --layout=reverse-list --prompt "kjv " \
+            --bind "start:reload(kjv {q}),change:reload(kjv {q})" \
+            --preview "awk -F '  ' '{print \$2}' {+f}" --preview-window "down,wrap"
+        '';
+      })
+      (writeShellApplication {
+        name = "fzftar";
+        text = ''
+          tar -tf "$@" \
+          | grep -e '[^/]$' \
+          | fzf --multi --prompt=' ' --print0 \
+            --preview="tar -xf \"$*\" --to-stdout {} | bat --file-name \"{}\" --color=always --style=numbers,rule,snip" \
+          | xargs --null --no-run-if-empty tar -xOf "$@"
+        '';
+      })
+    ];
+    sessionVariables = {PAGER = "bat";};
+    file = {
+      ".config/lazydocker/config.yml".source = pkgs.writers.writeYAML "config.yml" {
+        commandTemplates = {
+          dockerCompose = "podman compose";
+        };
       };
     };
   };

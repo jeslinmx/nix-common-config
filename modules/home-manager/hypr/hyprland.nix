@@ -52,7 +52,8 @@ in {
       decoration = {
         rounding = 10;
         active_opacity = 1.0;
-        inactive_opacity = 0.95;
+        dim_inactive = true;
+        dim_strength = 0.2;
         shadow.enabled = false;
         blur = {
           enabled = false;
@@ -126,10 +127,11 @@ in {
           "float, class:(org.telegram.desktop) title:(Media viewer)"
           "workspace special:magic, class:(org.telegram.desktop)"
           "workspace special:magic, class:(teams-for-linux)"
+          "opacity 1.0 0.2, floating:1"
         ]
         ++ (
           rule
-          ["float" "pin" "noinitialfocus" "size 25% 25%" "move 100%-w-${builtins.toString (general.gaps_out + general.border_size)} 100%-w-${builtins.toString (general.gaps_out + general.border_size)}"]
+          ["float" "pin" "keepaspectratio" "opacity 1.0 1.0" "noinitialfocus" "size 25% 25%" "move 100%-w-${builtins.toString (general.gaps_out + general.border_size)} 100%-w-${builtins.toString (general.gaps_out + general.border_size)}"]
           "class:(firefox), title:(Picture-in-Picture)"
         );
 

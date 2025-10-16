@@ -1,10 +1,11 @@
 _: {
   config,
+  lib,
   pkgs,
   ...
 }: {
   programs.neovim = {
-    extraLuaConfig = with config.lib.stylix.colors.withHashtag;
+    extraLuaConfig = lib.mkIf (builtins.hasAttr "stylix" config) (with config.lib.stylix.colors.withHashtag;
       ''
         _G.palette = {
           base00 = '${base00}', base01 = '${base01}', base02 = '${base02}', base03 = '${base03}',
@@ -14,7 +15,7 @@ _: {
         }
         _G.config_is_hm = true
       ''
-      + builtins.readFile ./init.lua;
+      + builtins.readFile ./init.lua);
     extraPackages = builtins.attrValues {
       inherit
         (pkgs)
@@ -61,5 +62,4 @@ _: {
     "nvim/lua".source = ./lua;
     "nvim/after".source = ./after;
   };
-  stylix.targets.neovim.enable = false;
 }

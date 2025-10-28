@@ -22,9 +22,6 @@ _: {
         zig # for LSP
         bc # for coq_3p
         postgresql # for dadbod
-        # ansiblels
-        ansible-language-server
-        ansible-lint
         python311 # also for pylsp obviously
         # bashls
         bash-language-server

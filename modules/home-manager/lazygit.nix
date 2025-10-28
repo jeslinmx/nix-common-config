@@ -28,7 +28,7 @@ _: {
           order = "date-order";
           showGraph = "always";
         };
-        paging.externalDiffCommand = "${lib.getExe' config.programs.git.difftastic.package "difft"} --color=always";
+        paging.externalDiffCommand = "${lib.getExe' config.programs.difftastic.package "difft"} --color=always";
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;

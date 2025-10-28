@@ -47,10 +47,12 @@
     };
     ssh = {
       enable = true;
-      addKeysToAgent = "yes";
-      controlMaster = "auto";
-      controlPersist = "3s";
-      controlPath = "~/.ssh/control/%C";
+      matchBlocks."*" = {
+        addKeysToAgent = "yes";
+        controlMaster = "auto";
+        controlPersist = "3s";
+        controlPath = "~/.ssh/control/%C";
+      };
       extraConfig = ''
         IgnoreUnknown UseKeychain
         UseKeychain yes

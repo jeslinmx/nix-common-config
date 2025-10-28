@@ -22,7 +22,6 @@ _: {
     extraPackages = builtins.attrValues {
       inherit
         (pkgs)
-        zig # for LSP
         bc # for coq_3p
         postgresql # for dadbod
         python311 # also for pylsp obviously

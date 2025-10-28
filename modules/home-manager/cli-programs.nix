@@ -10,6 +10,7 @@
       git
       lazygit
       neovim
+      ssh
       starship
       # termshark
       tmux
@@ -45,21 +46,6 @@
         "--glob=!.git/*"
       ];
     };
-    ssh = {
-      enable = true;
-      matchBlocks."*" = {
-        addKeysToAgent = "yes";
-        controlMaster = "auto";
-        controlPersist = "3s";
-        controlPath = "~/.ssh/control/%C";
-      };
-      extraConfig = ''
-        IgnoreUnknown UseKeychain
-        UseKeychain yes
-        SetEnv TERM=xterm-256color
-      '';
-      includes = ["~/.ssh/config.d/*.conf"];
-    };
     gh = {
       enable = true;
       settings = {
@@ -77,6 +63,7 @@
     helix.enable = true;
     lazygit.enable = true;
     neovim.enable = true;
+    ssh.enable = true;
     starship.enable = true;
     tmux.enable = true;
     yazi.enable = true;

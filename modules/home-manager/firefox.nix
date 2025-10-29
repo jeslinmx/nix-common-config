@@ -105,6 +105,10 @@
               urls = [{template = "https://psref.lenovo.com/Search?kw={searchTerms}";}];
               definedAliases = ["psref"];
             };
+            "Literal Word" = {
+              urls = [{template = "https://nasb.literalword.com/?q={searchTerms}";}];
+              definedAliases = ["word"];
+            };
             "google".metaData.hidden = true;
             "amazondotcom-us".metaData.hidden = true;
             "bing".metaData.hidden = true;
@@ -122,12 +126,13 @@
               install_url = "https://addons.mozilla.org/en-US/firefox/downloads/latest/${slug}/latest.xpi";
             }
           );
-      in extensions "blocked" {
-        "amazondotcom@search.mozilla.org" = "";
-        "bing@search.mozilla.org" = "";
-        "google@search.mozilla.org" = "";
-        "wikipedia@search.mozilla.org" = "";
-      };
+      in
+        extensions "blocked" {
+          "amazondotcom@search.mozilla.org" = "";
+          "bing@search.mozilla.org" = "";
+          "google@search.mozilla.org" = "";
+          "wikipedia@search.mozilla.org" = "";
+        };
       Containers = {
         Default = [
           {

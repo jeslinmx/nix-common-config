@@ -16,6 +16,15 @@ return {
   version = "*",
 
   config = function()
+    -- UI
+    require("mini.base16").setup { palette = _G.palette }
+
+    local MiniIcons = require "mini.icons"
+    MiniIcons.setup()
+    MiniIcons.mock_nvim_web_devicons()
+    MiniIcons.tweak_lsp_kind()
+
+    local MiniStatusline = require "mini.statusline"
     -- statusline sections
     local section_mode = function(args)
       local CTRL_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
@@ -53,7 +62,7 @@ return {
       end
 
       -- Add filetype icon
-      local icon = _G.MiniIcons ~= nil and _G.MiniIcons.get("filetype", filetype) or ""
+      local icon = MiniIcons ~= nil and MiniIcons.get("filetype", filetype) or ""
 
       return MiniStatusline.is_truncated(args.trunc_width) and icon or icon .. " " .. filetype
     end
@@ -127,13 +136,9 @@ return {
       -- Use `virtcol()` to correctly handle multi-byte characters
       return '%02l/%02L %02v/%02{virtcol("$") - 1}'
     end
-    -- UI
-    require("mini.base16").setup { palette = _G.palette }
-    require("mini.statusline").setup {
+    MiniStatusline.setup {
       content = {
         active = function()
-          local MiniStatusline = require "mini.statusline"
-
           local small = 40
           local medium = 75
           local wide = 120
@@ -181,8 +186,6 @@ return {
           }
         end,
         inactive = function()
-          local MiniStatusline = require "mini.statusline"
-
           local small = 40
           local medium = 75
           local wide = 120
@@ -228,13 +231,40 @@ return {
         return " " .. table.concat(t, " ") .. " "
       end,
     }
-    require("mini.icons").setup()
-    require("mini.icons").mock_nvim_web_devicons()
-    require("mini.icons").tweak_lsp_kind()
+
+    local MiniFiles = require "mini.files"
+    local show_dotfiles = false
+    local filter_show = function(_)
+      return true
+    end
+    local filter_hide = function(fs_entry)
+      return not vim.startswith(fs_entry.name, ".")
+    end
+    local toggle_dotfiles = function()
+      show_dotfiles = not show_dotfiles
+      local new_filter = show_dotfiles and filter_show or filter_hide
+      MiniFiles.refresh { content = { filter = new_filter } }
+    end
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "MiniFilesBufferCreate",
+      callback = function(args)
+        local buf_id = args.data.buf_id
+        -- Tweak left-hand side of mapping to your liking
+        vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
+      end,
+    })
+    MiniFiles.setup {
+      windows = { preview = true, width_focus = 25, width_nofocus = 15, width_preview = 50 },
+      mappings = { close = "<Esc>", go_in = "<S-CR>", go_in_plus = "<CR>", go_out = "_", go_out_plus = "-" },
+    }
 
     -- Editing
     require("mini.ai").setup()
     -- require('mini.align').setup()
+    require("mini.diff").setup()
+    require("mini.operators").setup()
+    require("mini.trailspace").setup()
+    -- require('mini.move').setup()
 
     -- Mappings
     require("mini.clue").setup {
@@ -285,22 +315,14 @@ return {
     -- Window/buffer management
     require("mini.sessions").setup { autoread = true, autowrite = true } -- todo: MiniSessions.write and select interactively
 
-    -- LSP
-    -- require('mini.cursorword').setup()
+    -- LSP-like
+    require("mini.cursorword").setup()
+    -- require('mini.splitjoin').setup()
 
-    require("mini.diff").setup()
+    -- Other
     -- require('mini.extra').setup()
-    require("mini.files").setup {
-      windows = { preview = true, width_focus = 25, width_nofocus = 15, width_preview = 50 },
-      mappings = { close = "<Esc>", go_in = "<S-CR>", go_in_plus = "<CR>", go_out = "_", go_out_plus = "-" },
-    }
     require("mini.git").setup()
     -- require('mini.misc').setup()
-    -- require('mini.move').setup()
-    require("mini.operators").setup()
-    require("mini.cursorword").setup {}
-    -- require('mini.splitjoin').setup()
-    -- require('mini.trailspace').setup()
     -- require('mini.visits').setup()
   end,
 

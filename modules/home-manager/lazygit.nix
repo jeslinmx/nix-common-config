@@ -28,7 +28,10 @@ _: {
           order = "date-order";
           showGraph = "always";
         };
-        paging.externalDiffCommand = "${lib.getExe' config.programs.difftastic.package "difft"} --color=always";
+        pagers = [
+          {externalDiffCommand = "${lib.getExe' config.programs.difftastic.package "difft"} --color=always";}
+          {pager = "${lib.getExe config.programs.delta.package}  --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";}
+        ];
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;

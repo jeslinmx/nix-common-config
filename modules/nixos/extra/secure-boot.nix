@@ -15,7 +15,7 @@
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
     lanzaboote.enable = true;
-    lanzaboote.pkiBundle = "/etc/secureboot/";
+    lanzaboote.pkiBundle = "/var/lib/sbctl";
     # for TPM auto-unlocking
     # note that when the boot environment changes (e.g. UEFI firmware update, new secure boot keys enrolled),
     # the PCRs will be invalidated, and thus the TPM will stop dispensing the previously enrolled key

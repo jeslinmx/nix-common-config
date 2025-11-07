@@ -7,9 +7,9 @@ _: {
       percentageAction = 3;
     };
     power-profiles-daemon.enable = true;
-    logind = {
-      powerKey = "hibernate";
-      lidSwitch = "suspend";
+    logind.settings.Login = {
+      HandlePowerKey = "hibernate";
+      HandleLidSwitch = "suspend";
     };
   };
 }

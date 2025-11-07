@@ -3,8 +3,8 @@ _: {pkgs, ...}: {
     inherit
       (pkgs)
       corefonts
-      vistafonts
-      vistafonts-chs
+      vista-fonts
+      vista-fonts-chs
       ;
   };
 }

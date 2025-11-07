@@ -262,6 +262,7 @@ return {
     MiniFiles.setup {
       windows = { preview = true, width_focus = 25, width_nofocus = 15, width_preview = 50 },
       mappings = { close = "<Esc>", go_in = "<S-CR>", go_in_plus = "<CR>", go_out = "_", go_out_plus = "-" },
+      content = { filter = filter_hide }
     }
 
     -- Editing

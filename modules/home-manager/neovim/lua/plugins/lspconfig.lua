@@ -6,7 +6,6 @@ return {
   },
 
   config = function()
-    local lspconfig = require "lspconfig"
     local servers =
       { "bashls", "gopls", "lua_ls", "nixd", "pylsp", "ts_ls", "tailwindcss", "emmet_language_server", "superhtml" }
 
@@ -37,16 +36,17 @@ return {
       },
     }
 
-    -- lsps with default config
-    for _, lsp in ipairs(servers) do
-      lspconfig[lsp].setup(require("coq").lsp_ensure_capabilities {
+    -- default config
+    vim.lsp.config(
+      "*",
+      require("coq").lsp_ensure_capabilities {
         on_attach = on_attach,
         on_init = on_init,
         capabilities = capabilities,
-      })
-    end
+      }
+    )
 
-    lspconfig.lua_ls.setup {
+    vim.lsp.config.lua_ls = {
       settings = {
         Lua = {
           diagnostics = {
@@ -66,7 +66,7 @@ return {
       },
     }
 
-    lspconfig.nixd.setup {
+    vim.lsp.config.nixd = {
       settings = {
         nixd = {
           options = {
@@ -81,7 +81,7 @@ return {
       },
     }
 
-    lspconfig.jsonls.setup {
+    vim.lsp.config.jsonls = {
       settings = {
         json = {
           schemas = require("schemastore").json.schemas {
@@ -95,7 +95,7 @@ return {
       },
     }
 
-    lspconfig.yamlls.setup {
+    vim.lsp.config.yamlls = {
       settings = {
         yaml = {
           schemaStore = { enable = false, url = "" }, -- disable builtin support
@@ -104,8 +104,10 @@ return {
       },
     }
 
-    lspconfig.ts_ls.setup {}
-    lspconfig.tailwindcss.setup {}
+    -- enable lsps
+    for _, lsp in ipairs(servers) do
+      vim.lsp.enable(lsp)
+    end
   end,
 
   event = { "BufReadPost", "BufNewFile" },

@@ -25,33 +25,54 @@ return {
     MiniIcons.tweak_lsp_kind()
 
     local MiniStatusline = require "mini.statusline"
+    local noice = require "noice"
     -- statusline sections
+    local small = 40
+    local medium = 75
+    local wide = 120
+    local xwide = 140
+    local C_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
+    local C_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
+    local modes = {
+      ["n"] = { "", "NORMAL", "MiniStatuslineModeNormal" },
+      ["v"] = { "󰈈", "VISUAL", "MiniStatuslineModeVisual" },
+      ["V"] = { "󱀦", "V-LINE", "MiniStatuslineModeVisual" },
+      [C_V] = { "󱈝", "V-BLCK", "MiniStatuslineModeVisual" },
+      ["s"] = { "", "SELECT", "MiniStatuslineModeVisual" },
+      ["S"] = { "", "S-LINE", "MiniStatuslineModeVisual" },
+      [C_S] = { "󰒅", "S-BLCK", "MiniStatuslineModeVisual" },
+      ["i"] = { "󰏫", "INSERT", "MiniStatuslineModeInsert" },
+      ["R"] = { "󰯍", "REPLCE", "MiniStatuslineModeReplace" },
+      ["c"] = { ":", "EX-CMD", "MiniStatuslineModeCommand" },
+      ["t"] = { "", "TERMNL", "MiniStatuslineModeOther" },
+      ["r"] = { "", "RETURN", "MiniStatuslineModeOther" },
+      ["!"] = { "", "......", "MiniStatuslineModeOther" },
+    }
     local section_mode = function(args)
-      local CTRL_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
-      local CTRL_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
-      local modes = setmetatable({
-        ["n"] = { long = " NORMAL", short = "", hl = "MiniStatuslineModeNormal" },
-        ["v"] = { long = "󰈈 VISUAL", short = "󰈈", hl = "MiniStatuslineModeVisual" },
-        ["V"] = { long = "󱀦 V-LINE", short = "󱀦", hl = "MiniStatuslineModeVisual" },
-        [CTRL_V] = { long = "󱈝 V-BLCK", short = "󱈝", hl = "MiniStatuslineModeVisual" },
-        ["s"] = { long = " SELECT", short = "", hl = "MiniStatuslineModeVisual" },
-        ["S"] = { long = " S-LINE", short = "", hl = "MiniStatuslineModeVisual" },
-        [CTRL_S] = { long = "󰒅 S-BLCK", short = "󰒅", hl = "MiniStatuslineModeVisual" },
-        ["i"] = { long = "󰏫 INSERT", short = "󰏫", hl = "MiniStatuslineModeInsert" },
-        ["R"] = { long = "󰯍 REPLCE", short = "󰯍", hl = "MiniStatuslineModeReplace" },
-        ["c"] = { long = ":", short = ":", hl = "MiniStatuslineModeCommand" },
-        ["t"] = { long = " TERMNL", short = "", hl = "MiniStatuslineModeOther" },
-        ["r"] = { long = " ", short = "", hl = "MiniStatuslineModeOther" },
-        ["!"] = { long = " ......", short = "", hl = "MiniStatuslineModeOther" },
-      }, {
-        -- By default return 'Unknown' but this shouldn't be needed
-        __index = function()
-          return { long = "Unknown", short = "U", hl = "%#MiniStatuslineModeOther#" }
-        end,
-      })
-      local mode_info = modes[vim.fn.mode()]
-      local mode = MiniStatusline.is_truncated(args.trunc_width) and mode_info.short or mode_info.long
-      return { hl = mode_info.hl, strings = { mode } }
+      local mode_info = vim.fn.get(modes, vim.fn.mode(), { "?", "UNKNWN", "MiniStatuslineModeOther" })
+      return MiniStatusline.is_truncated(args.trunc_width) and { mode_info[1], mode_info[3] }
+        or { mode_info[1] .. " " .. mode_info[2], mode_info[3] }
+    end
+    local section_diff = function(args)
+      local summary = vim.b.minidiff_summary
+      if MiniStatusline.is_truncated(args.trunc_width) or summary == nil then
+        return ""
+      end
+
+      local diff = {}
+      if vim.fn.get(summary, "n_ranges", 0) > 0 then
+        diff[#diff + 1] = "%#diffLine#" .. summary.n_ranges
+      end
+      if vim.fn.get(summary, "add", 0) > 0 then
+        diff[#diff + 1] = "%#diffAdded#" .. summary.add
+      end
+      if vim.fn.get(summary, "change", 0) > 0 then
+        diff[#diff + 1] = "%#diffChanged#" .. summary.change
+      end
+      if vim.fn.get(summary, "delete", 0) > 0 then
+        diff[#diff + 1] = "%#diffRemoved#" .. summary.delete
+      end
+      return table.concat(diff, " ")
     end
     local section_filetype = function(args)
       local filetype = vim.bo.filetype
@@ -77,11 +98,14 @@ return {
       return MiniStatusline.is_truncated(args.trunc_width) and ""
         or ("%#SagaSep# » " .. (require("lspsaga.symbol.winbar").get_bar() or ""))
     end
-    local noice = require "noice"
     local section_lastmessage = function(args)
       return noice.api.status.message.has and noice.api.status.message.get() or section_filename(args)
     end
-    local section_filestatus = function()
+    local section_filestatus = function(args)
+      if MiniStatusline.is_truncated(args.trunc_width) then
+        return ""
+      end
+
       local flags = {}
       if not vim.bo.modifiable then
         flags[#flags + 1] = "󰏯"
@@ -109,7 +133,7 @@ return {
       for i, v in ipairs(Mcustom.attached_lsp[bufnr]) do
         lsp_list[i] = v.name
       end
-      local lsps = table.concat(lsp_list, "+")
+      local lsps = table.concat(lsp_list, ",")
       if lsps == "" then
         return ""
       end
@@ -140,24 +164,34 @@ return {
       -- Use `virtcol()` to correctly handle multi-byte characters
       return '%02l/%02L %02v/%02{virtcol("$") - 1}'
     end
+    local devinfo_hl, inactive_hl, filename_hl, fileinfo_hl =
+      vim.api.nvim_get_hl(0, { name = "MiniStatuslineDevinfo" }),
+      vim.api.nvim_get_hl(0, { name = "MiniStatuslineInactive" }),
+      vim.api.nvim_get_hl(0, { name = "MiniStatuslineFilename" }),
+      vim.api.nvim_get_hl(0, { name = "MiniStatuslineFileinfo" })
+    vim.api.nvim_set_hl(0, "MiniStatuslineDevinfoToFilename", { bg = devinfo_hl.bg, fg = filename_hl.bg })
     MiniStatusline.setup {
       content = {
         active = function()
-          local small = 40
-          local medium = 75
-          local wide = 120
-          local xwide = 140
-
+          local mode_text, mode_hl_name = unpack(section_mode { trunc_width = wide })
+          local mode_hl = vim.api.nvim_get_hl(0, { name = mode_hl_name })
+          vim.api.nvim_set_hl(0, "MiniStatuslineModeToDevinfo", { bg = mode_hl.bg, fg = devinfo_hl.bg })
           return MiniStatusline.combine_groups {
-            section_mode { trunc_width = wide },
+            { hl = mode_hl_name, strings = { mode_text } },
+            "%#MiniStatuslineModeToDevinfo#",
             {
               hl = "MiniStatuslineDevinfo",
               strings = {
-                MiniStatusline.section_git { trunc_width = medium, icon = "" }
-                  .. MiniStatusline.section_diff { trunc_width = small, icon = "" },
+                MiniStatusline.section_git { trunc_width = medium, icon = "" },
+                section_diff { trunc_width = small },
               },
             },
-            { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
+            "%#MiniStatuslineDevinfoToFilename#",
+            {
+              -- reset color
+              hl = "MiniStatuslineInactive",
+              strings = {},
+            },
 
             "%<", -- Mark general truncate point
 
@@ -165,8 +199,8 @@ return {
               hl = "MiniStatuslineFilename",
               strings = {
                 section_filename { trunc_width = xwide },
-                section_filestatus(),
-                section_breadcrumbs { trunc_width = medium },
+                section_filestatus {},
+                -- section_breadcrumbs { trunc_width = medium },
               },
             },
             { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
@@ -174,38 +208,35 @@ return {
             "%=", -- End left alignment
             "%=", -- End center alignment
 
+            "%#MiniStatuslineDevinfoToFilename#",
             {
               hl = "MiniStatuslineDevinfo",
               strings = {
                 section_lsp { trunc_width = medium },
-              },
-            },
-            {
-              hl = "MiniStatuslineFileinfo",
-              strings = {
-                section_fileencoding { trunc_width = small },
                 section_fileformat { trunc_width = medium },
                 section_filesize { trunc_width = wide },
+                section_fileencoding { trunc_width = small },
+              },
+            },
+            "%#MiniStatuslineModeToDevinfo#",
+            {
+              hl = mode_hl_name,
+              strings = {
                 section_location { trunc_width = wide },
               },
             },
           }
         end,
         inactive = function()
-          local small = 40
-          local medium = 75
-          local wide = 120
-          local xwide = 140
-
           return MiniStatusline.combine_groups {
             {
               hl = "MiniStatuslineInactive",
               strings = {
-                MiniStatusline.section_diff { trunc_width = small, icon = "" },
+                section_diff { trunc_width = small },
                 "%<", -- Mark general truncate point
                 "%=", -- End left alignment
                 section_filename { trunc_width = xwide },
-                section_filestatus(),
+                section_filestatus {},
                 "%=", -- End center alignment
               },
             },
@@ -213,9 +244,9 @@ return {
         end,
       },
     }
-    vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { fg = "#000000", bg = _G.palette.base0D })
-    vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { fg = "#000000", bg = _G.palette.base0B })
-    vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", { fg = "#000000", bg = _G.palette.base0E })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { fg = _G.palette.base00, bg = _G.palette.base0D })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { fg = _G.palette.base00, bg = _G.palette.base0B })
+    vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", { fg = _G.palette.base00, bg = _G.palette.base0E })
 
     require("mini.tabline").setup {
       tabpage_section = "right",
@@ -262,7 +293,7 @@ return {
     MiniFiles.setup {
       windows = { preview = true, width_focus = 25, width_nofocus = 15, width_preview = 50 },
       mappings = { close = "<Esc>", go_in = "<S-CR>", go_in_plus = "<CR>", go_out = "_", go_out_plus = "-" },
-      content = { filter = filter_hide }
+      content = { filter = filter_hide },
     }
 
     -- Editing

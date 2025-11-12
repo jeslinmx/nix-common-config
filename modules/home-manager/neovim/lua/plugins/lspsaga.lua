@@ -7,7 +7,6 @@ return {
   config = function()
     require("lspsaga").setup {
       symbol_in_winbar = {
-        enable = false,
         show_file = false,
       },
       finder = {
@@ -69,7 +68,7 @@ return {
         enable = false,
       },
       ui = {
-        border = "rounded",
+        border = "none",
         code_action = "",
       },
     }

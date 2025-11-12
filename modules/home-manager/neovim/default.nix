@@ -45,6 +45,8 @@ _: {
         typescript-language-server
         prettierd
         tailwindcss-language-server
+        emmet-language-server
+        superhtml
         ;
       inherit (pkgs.python312Packages) python-lsp-server;
     };

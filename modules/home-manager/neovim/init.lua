@@ -29,8 +29,8 @@ vim.print = _G.v
 
 require "lazy_init"
 require "options"
-require "autocmds"
-require "highlights"
 vim.schedule(function()
   require "mappings"
+  require "autocmds"
+  require "highlights"
 end)

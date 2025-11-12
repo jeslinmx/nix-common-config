@@ -7,7 +7,8 @@ return {
 
   config = function()
     local lspconfig = require "lspconfig"
-    local servers = { "bashls", "gopls", "lua_ls", "nixd", "pylsp", "ts_ls", "tailwindcss" }
+    local servers =
+      { "bashls", "gopls", "lua_ls", "nixd", "pylsp", "ts_ls", "tailwindcss", "emmet_language_server", "superhtml" }
 
     local on_attach = function(client, bufnr) end
 

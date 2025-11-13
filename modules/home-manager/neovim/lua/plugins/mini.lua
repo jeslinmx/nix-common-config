@@ -187,11 +187,7 @@ return {
               },
             },
             "%#MiniStatuslineDevinfoToFilename#",
-            {
-              -- reset color
-              hl = "MiniStatuslineInactive",
-              strings = {},
-            },
+            { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
 
             "%<", -- Mark general truncate point
 
@@ -219,34 +215,43 @@ return {
               },
             },
             "%#MiniStatuslineModeToDevinfo#",
-            {
-              hl = mode_hl_name,
-              strings = {
-                section_location { trunc_width = wide },
-              },
-            },
+            { hl = mode_hl_name, strings = { section_location { trunc_width = wide } } },
           }
         end,
         inactive = function()
           return MiniStatusline.combine_groups {
+            { hl = "MiniStatuslineDevinfo", strings = { (section_mode { trunc_width = wide })[1] } },
+            " ",
             {
-              hl = "MiniStatuslineInactive",
+              hl = "MiniStatuslineDevinfo",
               strings = {
+                MiniStatusline.section_git { trunc_width = medium, icon = "" },
                 section_diff { trunc_width = small },
-                "%<", -- Mark general truncate point
-                "%=", -- End left alignment
-                section_filename { trunc_width = xwide },
-                section_filestatus {},
-                "%=", -- End center alignment
               },
             },
+            "%#MiniStatuslineDevinfoToFilename#",
+            { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
+
+            "%<", -- Mark general truncate point
+
+            {
+              hl = "MiniStatuslineFilename",
+              strings = {
+                section_filename { trunc_width = xwide },
+                section_filestatus {},
+              },
+            },
+            { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
+
+            "%=", -- End left alignment
+            "%=", -- End center alignment
+
+            "%#MiniStatuslineDevinfoToFilename#",
+            { hl = "MiniStatuslineDevinfo", strings = { section_location { trunc_width = wide } } },
           }
         end,
       },
     }
-    vim.api.nvim_set_hl(0, "MiniStatuslineModeInsert", { fg = _G.palette.base00, bg = _G.palette.base0D })
-    vim.api.nvim_set_hl(0, "MiniStatuslineModeVisual", { fg = _G.palette.base00, bg = _G.palette.base0B })
-    vim.api.nvim_set_hl(0, "MiniStatuslineModeReplace", { fg = _G.palette.base00, bg = _G.palette.base0E })
 
     require("mini.tabline").setup {
       tabpage_section = "right",

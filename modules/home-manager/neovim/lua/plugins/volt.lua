@@ -7,7 +7,7 @@ return {
       maxkeys = 5,
       show_count = true,
       excluded_modes = { "i", "c" },
-      winopts = { border = "rounded", relative = "editor" },
+      winopts = { border = "none" },
       keyformat = {
         ["<C>"] = "^",
         ["<M>"] = "⎇",

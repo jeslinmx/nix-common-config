@@ -130,7 +130,10 @@ return {
     scroll = {},
     quickfile = {},
     toggle = {},
-    indent = {},
+    indent = {
+      indent = { char = "┊" },
+      scope = { only_current = true },
+    },
     dim = {},
     styles = {
       lazygit = {

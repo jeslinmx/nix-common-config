@@ -10,6 +10,7 @@ o.splitkeep = "screen" -- when splitting, keep text on the current screenline
 o.termguicolors = true
 
 -- statusline and cmdline
+o.laststatus = 3 -- single global statusline
 o.showmode = false
 o.ruler = false -- hide row:col and position% indicators
 opt.shortmess = "IaTFcs" -- hide Vim intro, abbreviate [readonly], [Modified] etc. messages in cmdline, truncate cmdline at middle, hide fileinfo, completion, and search messages
@@ -41,7 +42,16 @@ o.numberwidth = 2
 o.signcolumn = "yes"
 
 -- Buffers
-opt.fillchars = { eob = " " } -- remove tildes from end of buffer
+opt.fillchars = {
+  eob = " ", -- remove tildes from end of buffer
+  horiz = "─",
+  horizup = "┴",
+  horizdown = "┬",
+  vert = "│",
+  vertleft = "┤",
+  vertright = "├",
+  verthoriz = "┼",
+}
 o.cursorline = true -- Highlight current line
 o.cursorlineopt = "both" -- highlight textline and line number
 o.list = true

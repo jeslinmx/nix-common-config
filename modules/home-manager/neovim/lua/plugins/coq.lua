@@ -50,7 +50,16 @@ return {
           x_max_len = 66,
         },
         preview = {
-          border = "rounded",
+          border = {
+            { "", "NormalFloat" },
+            { "", "NormalFloat" },
+            { "", "NormalFloat" },
+            { " ", "NormalFloat" },
+            { "", "NormalFloat" },
+            { "", "NormalFloat" },
+            { "", "NormalFloat" },
+            { " ", "NormalFloat" },
+          },
           x_max_len = 66,
         },
       },

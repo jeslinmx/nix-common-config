@@ -1,10 +1,11 @@
 _: {
   config,
-  lib,
   pkgs,
   ...
 }: {
   programs.neovim = {
+    viAlias = true;
+    vimAlias = true;
     extraLuaConfig =
       (
         if builtins.hasAttr "stylix" config
@@ -68,5 +69,6 @@ _: {
   xdg.configFile = {
     "nvim/lua".source = ./lua;
     "nvim/after".source = ./after;
+    "nvim-testing".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix-config/nix-common-config/modules/home-manager/neovim";
   };
 }

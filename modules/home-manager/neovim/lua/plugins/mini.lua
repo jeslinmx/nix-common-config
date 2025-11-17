@@ -304,7 +304,10 @@ return {
     -- Editing
     require("mini.ai").setup()
     -- require('mini.align').setup()
-    require("mini.diff").setup()
+    local MiniDiff = require "mini.diff"
+    MiniDiff.setup {
+      source = { MiniDiff.gen_source.git(), MiniDiff.gen_source.save(), MiniDiff.gen_source.none() },
+    }
     require("mini.operators").setup()
     require("mini.trailspace").setup()
     -- require('mini.move').setup()

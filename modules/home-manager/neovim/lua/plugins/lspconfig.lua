@@ -6,8 +6,17 @@ return {
   },
 
   config = function()
-    local servers =
-      { "bashls", "gopls", "lua_ls", "nixd", "pylsp", "ts_ls", "tailwindcss", "emmet_language_server", "superhtml" }
+    local servers = {
+      "bashls",
+      "emmet_language_server",
+      "gopls",
+      "lua_ls",
+      "nixd",
+      "pylsp",
+      "superhtml",
+      "tailwindcss",
+      "ts_ls",
+    }
 
     local on_attach = function(client, bufnr) end
 

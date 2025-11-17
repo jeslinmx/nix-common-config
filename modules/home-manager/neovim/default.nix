@@ -6,6 +6,7 @@ _: {
   programs.neovim = {
     viAlias = true;
     vimAlias = true;
+    withNodeJs = true;
     extraLuaConfig =
       (
         if builtins.hasAttr "stylix" config
@@ -25,6 +26,9 @@ _: {
     extraPackages = builtins.attrValues {
       inherit
         (pkgs)
+        # for treesitter
+        gcc
+        tree-sitter
         bc # for coq_3p
         postgresql # for dadbod
         python311 # also for pylsp obviously

@@ -97,8 +97,13 @@ in {
       };
 
       input.touchpad.natural_scroll = true;
+      gesture = [
+        "3, horizontal, workspace"
+        "3, pinch, special, magic"
+        "4, up, fullscreen"
+        "4, down, float"
+      ];
       gestures = {
-        workspace_swipe = true;
         workspace_swipe_cancel_ratio = 0.2;
         workspace_swipe_direction_lock = false;
       };

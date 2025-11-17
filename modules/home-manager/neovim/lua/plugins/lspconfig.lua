@@ -110,5 +110,5 @@ return {
     end
   end,
 
-  event = { "BufReadPost", "BufNewFile" },
+  event = { "BufEnter" },
 }

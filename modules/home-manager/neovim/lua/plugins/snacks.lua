@@ -144,6 +144,24 @@ return {
       },
     },
   },
+  init = function()
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "VeryLazy",
+      callback = function()
+        local Snacks = require "snacks"
+        -- useful helper for debugging Lua
+        _G.v = function(...)
+          Snacks.debug.inspect(...)
+        end
+        _G.bt = function()
+          Snacks.debug.backtrace()
+        end
+
+        -- Override print to use snacks for `:=` command
+        vim.print = _G.v
+      end,
+    })
+  end,
 
   dependencies = { "folke/noice.nvim" },
   lazy = false,

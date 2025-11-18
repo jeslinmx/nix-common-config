@@ -23,38 +23,25 @@ _: {
         else ""
       )
       + builtins.readFile ./init.lua;
-    extraPackages = builtins.attrValues {
-      inherit
-        (pkgs)
-        # for treesitter
-        gcc
-        tree-sitter
-        bc # for coq_3p
-        postgresql # for dadbod
-        python311 # also for pylsp obviously
-        # bashls
-        bash-language-server
-        # gopls
-        gopls
-        # luals
-        lua-language-server
-        stylua
-        # nixd
-        nixd
-        alejandra
-        # jsonls
-        vscode-langservers-extracted
-        # yamlls
-        yaml-language-server
-        # js(x)/ts(x)
+    extraPackages = with pkgs;
+      [gcc tree-sitter] # treesitter
+      ++ [bc] # coq_3p
+      ++ [postgresql] # dadbod
+      ++ [python312 python313 python312Packages.python-lsp-server] # python
+      ++ [bash-language-server] # bash
+      ++ [gopls] # go
+      ++ [lua-language-server stylua] # lua
+      ++ [nixd alejandra] # nix
+      ++ [vscode-langservers-extracted] # json
+      ++ [yaml-language-server] # yaml
+      ++ [
+        # html/css/js(x)/ts(x)
         typescript-language-server
-        prettierd
         tailwindcss-language-server
+        prettierd
         emmet-language-server
         superhtml
-        ;
-      inherit (pkgs.python312Packages) python-lsp-server;
-    };
+      ];
   };
   home = {
     packages = with pkgs; [

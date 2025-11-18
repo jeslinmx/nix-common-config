@@ -31,5 +31,5 @@ return {
     require("render-markdown.integ.coq").setup()
   end,
 
-  ft = { "markdown", "latex", "html" },
+  ft = { "markdown", "latex", "html", "codecompanion" },
 }

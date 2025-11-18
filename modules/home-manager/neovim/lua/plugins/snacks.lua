@@ -95,6 +95,12 @@ return {
             enabled = package.loaded.lazy ~= nil,
           },
           {
+            icon = " ",
+            key = "c",
+            desc = "CodeCompanion",
+            action = ":CodeCompanionActions",
+          },
+          {
             icon = "󰐻 ",
             key = "M",
             desc = "MCP Hub",

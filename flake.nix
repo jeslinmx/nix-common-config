@@ -53,6 +53,11 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
+    mcp-hub = {
+      url = "github:ravitemer/mcp-hub";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs = {

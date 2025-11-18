@@ -1,4 +1,4 @@
-_: {
+{inputs, ...}: {
   config,
   pkgs,
   ...
@@ -6,7 +6,6 @@ _: {
   programs.neovim = {
     viAlias = true;
     vimAlias = true;
-    withNodeJs = true;
     extraLuaConfig =
       (
         if builtins.hasAttr "stylix" config
@@ -25,6 +24,7 @@ _: {
       + builtins.readFile ./init.lua;
     extraPackages = with pkgs;
       [gcc tree-sitter] # treesitter
+      ++ [uv nodejs inputs.mcp-hub.packages.${pkgs.stdenv.hostPlatform.system}.mcp-hub] # mcphub
       ++ [bc] # coq_3p
       ++ [postgresql] # dadbod
       ++ [python312 python313 python312Packages.python-lsp-server] # python
@@ -60,6 +60,7 @@ _: {
   xdg.configFile = {
     "nvim/lua".source = ./lua;
     "nvim/after".source = ./after;
+    "mcphub/servers.json".text = builtins.toJSON (import ./mcp_servers.nix);
     "nvim-testing".source = config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/nix-config/nix-common-config/modules/home-manager/neovim";
   };
 }

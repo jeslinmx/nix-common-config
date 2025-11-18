@@ -94,6 +94,12 @@ return {
             action = ":Lazy",
             enabled = package.loaded.lazy ~= nil,
           },
+          {
+            icon = "󰐻 ",
+            key = "M",
+            desc = "MCP Hub",
+            action = ":MCPHub",
+          },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
         header = "",

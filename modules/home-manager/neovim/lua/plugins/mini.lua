@@ -140,6 +140,23 @@ return {
 
       return "󰌵 " .. lsps
     end
+    local section_mcphub = function(args)
+      if MiniStatusline.is_truncated(args.trunc_width) then
+        return ""
+      end
+
+      if not vim.g.loaded_mcphub then
+        return ""
+      end
+
+      return "󰐻 "
+        .. (
+          vim.g.mcphub_status == nil and "-"
+          or (vim.g.mcphub_status == "starting" or vim.g.mcphub_status == "restarting") and "…"
+          or vim.g.mcphub_executing and ""
+          or (vim.g.mcphub_servers_count or 0)
+        )
+    end
     local section_fileencoding = function(args)
       local encoding = vim.bo.fileencoding or vim.bo.encoding
       return MiniStatusline.is_truncated(args.trunc_width) and "" or (encoding == "utf-8" and "" or encoding)
@@ -208,14 +225,20 @@ return {
             {
               hl = "MiniStatuslineDevinfo",
               strings = {
+                section_mcphub { trunc_width = medium },
                 section_lsp { trunc_width = medium },
-                section_fileformat { trunc_width = medium },
-                section_filesize { trunc_width = wide },
-                section_fileencoding { trunc_width = small },
               },
             },
             "%#MiniStatuslineModeToDevinfo#",
-            { hl = mode_hl_name, strings = { section_location { trunc_width = wide } } },
+            {
+              hl = mode_hl_name,
+              strings = {
+                section_fileformat { trunc_width = medium },
+                section_filesize { trunc_width = wide },
+                section_fileencoding { trunc_width = small },
+                section_location { trunc_width = wide },
+              },
+            },
           }
         end,
         inactive = function()

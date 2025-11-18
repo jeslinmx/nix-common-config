@@ -96,7 +96,7 @@ map("n", "<leader>1pd", "<cmd>Leet daily<cr>", { desc = "daily" })
 map("n", "<leader>1pr", "<cmd>Leet random<cr>", { desc = "random" })
 -- other pickers
 map("n", "<leader>a", Snacks.picker.autocmds, { desc = "autocmds" })
-map("n", "<leader>c", Snacks.picker.commands, { desc = "commands" })
+map("n", "<leader>c", Snacks.picker.colorschemes, { desc = "colorschemes" })
 map("n", "<leader>f", Snacks.picker.explorer, { desc = "files" })
 map("n", "<leader>F", function()
   Snacks.picker.explorer { hidden = true, ignored = true }
@@ -113,10 +113,11 @@ map("n", "<leader>p", Snacks.picker.projects, { desc = "projects" })
 map("n", "<leader>Pa", Snacks.picker.picker_actions, { desc = "picker actions" })
 map("n", "<leader>Pf", Snacks.picker.picker_format, { desc = "picker format" })
 map("n", "<leader>Pl", Snacks.picker.picker_layouts, { desc = "picker layouts" })
-map("n", "<leader>Pp", Snacks.picker.picker_preview, { desc = "picker preview" })
+map("n", "<leader>Pp", Snacks.picker.pickers, { desc = "pickers" })
 map("n", "<leader>r", Snacks.picker.recent, { desc = "recent" })
 map("n", "<leader>s", Snacks.picker.spelling, { desc = "spelling" })
-map("n", "<leader>t", Snacks.picker.treesitter, { desc = "treesitter" })
+map("n", "<leader>t", Snacks.picker.filetypes, { desc = "filetypes" })
+map("n", "<leader>T", Snacks.picker.treesitter, { desc = "treesitter" })
 map("n", "<leader>u", Snacks.picker.undo, { desc = "undo" })
 map("n", "<leader>v", Snacks.picker.cliphist, { desc = "cliphist" })
 map("n", "<leader>z", Snacks.picker.zoxide, { desc = "zoxide" })
@@ -131,6 +132,3 @@ map("n", "<leader>:", Snacks.picker.command_history, { desc = "command history" 
 -- w
 -- x
 -- y
-
--- map("n", "<leader><leader>t", Snacks.picker.buffers, { desc = "filetypes" })
--- map("n", "<leader><leader>o", Snacks.picker.buffers, { desc = "options" })

@@ -136,6 +136,30 @@ return {
           win = { list = { keys = { ["<cr>"] = "confirm" } } },
           layout = { preview = "main" },
         },
+        filetypes = {
+          name = "filetypes",
+          format = "text",
+          preview = "none",
+          layout = { preset = "vscode" },
+          confirm = function(picker, item)
+            picker:close()
+            if item then
+              vim.schedule(function()
+                vim.cmd("setfiletype " .. item.text)
+              end)
+            end
+          end,
+          finder = function()
+            local items = {}
+            local filetypes = vim.fn.getcompletion("", "filetype")
+            for _, type in ipairs(filetypes) do
+              items[#items + 1] = {
+                text = type,
+              }
+            end
+            return items
+          end,
+        },
       },
     },
     terminal = {},

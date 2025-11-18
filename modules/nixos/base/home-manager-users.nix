@@ -27,7 +27,7 @@
                 isNormalUser = lib.mkDefault true;
                 group = lib.mkIf config.users.users.${username}.isNormalUser (lib.mkOverride 900 username);
               }
-              // (lib.filterAttrs (k: _: !(builtins.elem k ["hmModules"])) userCfg);
+              // (builtins.removeAttrs userCfg ["hmModules"]);
           }
         )
         cfg);
@@ -55,7 +55,8 @@
               ];
               # BUG: due to a weird home-manager quirk, modules defined inline in hmModules (i.e. not given as paths to a Nix file) will not be able to request for pkgs as an argument
               # use pkgs from NixOS scope instead
-            in defaultModules ++ hmModules;
+            in
+              defaultModules ++ hmModules;
           }
         )
         cfg;

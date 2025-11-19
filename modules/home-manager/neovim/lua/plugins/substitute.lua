@@ -6,6 +6,9 @@ return {
     highlight_substituted_text = { timer = 300 },
     preserve_cursor_position = true,
   },
+  init = function(_, opts)
+    vim.keymap.del("n", "grt")
+  end,
 
   keys = {
     {

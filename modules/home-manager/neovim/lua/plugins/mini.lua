@@ -34,8 +34,13 @@ return {
       local xwide = 140
       local C_V = vim.api.nvim_replace_termcodes("<C-V>", true, true, true)
       local C_S = vim.api.nvim_replace_termcodes("<C-S>", true, true, true)
-      local modes = {
+      local modes = setmetatable({
         ["n"] = { "", "NORMAL", "MiniStatuslineModeNormal" },
+        ["no"] = { "", "NOR-OP", "MiniStatuslineModeNormal" },
+        ["niI"] = { "", "I-NOR1", "MiniStatuslineModeInsert" },
+        ["niR"] = { "", "R-NOR1", "MiniStatuslineModeReplace" },
+        ["niV"] = { "", "V-NOR1", "MiniStatuslineModeVisual" },
+        ["ntT"] = { "", "T-NOR1", "MiniStatuslineModeOther" },
         ["v"] = { "󰈈", "VISUAL", "MiniStatuslineModeVisual" },
         ["V"] = { "󱀦", "V-LINE", "MiniStatuslineModeVisual" },
         [C_V] = { "󱈝", "V-BLCK", "MiniStatuslineModeVisual" },
@@ -44,13 +49,19 @@ return {
         [C_S] = { "󰒅", "S-BLCK", "MiniStatuslineModeVisual" },
         ["i"] = { "󰏫", "INSERT", "MiniStatuslineModeInsert" },
         ["R"] = { "󰯍", "REPLCE", "MiniStatuslineModeReplace" },
-        ["c"] = { ":", "EX-CMD", "MiniStatuslineModeCommand" },
+        ["c"] = { ":", "COMMND", "MiniStatuslineModeCommand" },
+        ["cv"] = { ":", "EXMODE", "MiniStatuslineModeOther" },
         ["t"] = { "", "TERMNL", "MiniStatuslineModeOther" },
         ["r"] = { "", "RETURN", "MiniStatuslineModeOther" },
-        ["!"] = { "", "......", "MiniStatuslineModeOther" },
-      }
+        ["!"] = { "", "EX-CMD", "MiniStatuslineModeOther" },
+      }, {
+        __index = function(t, k)
+          return string.len(k) > 1 and t[string.sub(k, 1, string.len(k) - 1)]
+            or { "?", "UNKNWN", "MiniStatuslineModeOther" }
+        end,
+      })
       local section_mode = function(args)
-        local mode_info = vim.fn.get(modes, vim.fn.mode(), { "?", "UNKNWN", "MiniStatuslineModeOther" })
+        local mode_info = modes[vim.fn.mode(true)]
         return MiniStatusline.is_truncated(args.trunc_width) and { mode_info[1], mode_info[3] }
           or { mode_info[1] .. " " .. mode_info[2], mode_info[3] }
       end

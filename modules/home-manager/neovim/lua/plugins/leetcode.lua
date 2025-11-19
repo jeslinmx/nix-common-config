@@ -1,6 +1,7 @@
 local leet_arg = "leetcode"
 return {
   "kawre/leetcode.nvim",
+
   opts = {
     arg = leet_arg,
     lang = "python3",

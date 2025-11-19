@@ -1,6 +1,7 @@
 return {
   {
     "nvzone/showkeys",
+
     opts = {
       position = "top-right",
       timeout = 1,
@@ -24,6 +25,7 @@ return {
         ["<PageDown>"] = "󰞒",
       },
     },
+
     cmd = "ShowkeysToggle",
     event = "UIEnter",
   },

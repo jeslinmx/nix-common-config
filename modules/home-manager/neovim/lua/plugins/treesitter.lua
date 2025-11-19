@@ -64,9 +64,7 @@ return {
     highlight = { enable = true, use_languagetree = true },
     indent = { enable = true },
   },
-  config = function(_, opts)
-    require("nvim-treesitter.configs").setup(opts)
-  end,
+  main = "nvim-treesitter.configs",
   build = ":TSUpdate",
 
   event = { "BufReadPost", "BufNewFile" },

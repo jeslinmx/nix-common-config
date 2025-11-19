@@ -4,74 +4,74 @@ return {
     "nvim-treesitter/nvim-treesitter",
   },
 
-  config = function()
-    require("lspsaga").setup {
-      symbol_in_winbar = {
-        show_file = false,
+  opts = {
+    symbol_in_winbar = {
+      show_file = false,
+    },
+    finder = {
+      default = "ref+imp+def+typ",
+      methods = { typ = "textDocument/typeDefinition" },
+      keys = {
+        shuttle = "<tab>",
+        toggle_or_open = "<cr>",
+        edit = "e",
+        vsplit = "v",
+        split = "s",
+        quit = { "<esc>", "q" },
+        close = "<C-w>q",
       },
-      finder = {
-        default = "ref+imp+def+typ",
-        methods = { typ = "textDocument/typeDefinition" },
-        keys = {
-          shuttle = "<tab>",
-          toggle_or_open = "<cr>",
-          edit = "e",
-          vsplit = "v",
-          split = "s",
-          quit = { "<esc>", "q" },
-          close = "<C-w>q",
-        },
+    },
+    callhierarchy = {
+      keys = {
+        shuttle = "<tab>",
+        toggle_or_req = "<cr>",
+        edit = "e",
+        vsplit = "v",
+        split = "s",
+        quit = { "<esc>", "q" },
+        close = "<C-w>q",
       },
-      callhierarchy = {
-        keys = {
-          shuttle = "<tab>",
-          toggle_or_req = "<cr>",
-          edit = "e",
-          vsplit = "v",
-          split = "s",
-          quit = { "<esc>", "q" },
-          close = "<C-w>q",
-        },
+    },
+    code_action = {
+      keys = {
+        quit = { "<esc>", "q" },
+        exec = "<cr>",
       },
-      code_action = {
-        keys = {
-          quit = { "<esc>", "q" },
-          exec = "<cr>",
-        },
+    },
+    definition = {
+      keys = {
+        edit = "<C-c>e",
+        vsplit = "<C-c>v",
+        split = "<C-c>s",
+        quit = { "<esc>", "q" },
+        close = "<C-w>q",
       },
-      definition = {
-        keys = {
-          edit = "<C-c>e",
-          vsplit = "<C-c>v",
-          split = "<C-c>s",
-          quit = { "<esc>", "q" },
-          close = "<C-w>q",
-        },
+    },
+    diagnostic = {
+      keys = {
+        exec_action = "<cr>",
+        toggle_or_jump = "e",
+        quit = { "<esc>", "q" },
+        close = "<C-w>q",
       },
-      diagnostic = {
-        keys = {
-          exec_action = "<cr>",
-          toggle_or_jump = "e",
-          quit = { "<esc>", "q" },
-          close = "<C-w>q",
-        },
+    },
+    rename = {
+      keys = {
+        exec = "<cr>",
+        select = "<tab>",
+        quit = "<esc>",
+        close = "<C-w>q",
       },
-      rename = {
-        keys = {
-          exec = "<cr>",
-          select = "<tab>",
-          quit = "<esc>",
-          close = "<C-w>q",
-        },
-      },
-      lightbulb = {
-        enable = false,
-      },
-      ui = {
-        border = "none",
-        code_action = "",
-      },
-    }
+    },
+    lightbulb = {
+      enable = false,
+    },
+    ui = {
+      border = "none",
+      code_action = "",
+    },
+  },
+  init = function(_, opts)
     local map = vim.keymap.set
     map("n", "<cr>", "<cmd>Lspsaga finder<cr>", { desc = "󰈞 find (LSP)" })
     map("n", "]c", "<cmd>Lspsaga outgoing_calls<cr>", { desc = "󰏻 outgoing calls (LSP)" })

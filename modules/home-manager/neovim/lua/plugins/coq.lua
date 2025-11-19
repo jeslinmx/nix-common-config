@@ -64,8 +64,6 @@ return {
         },
       },
     }
-  end,
-  config = function()
     require "coq_3p" {
       { src = "repl", sh = "bash" },
       { src = "nvimlua", short_name = "nLUA", conf_only = false },

@@ -25,7 +25,6 @@
     extraPackages = with pkgs;
       [gcc tree-sitter] # treesitter
       ++ [uv nodejs inputs.mcp-hub.packages.${pkgs.stdenv.hostPlatform.system}.mcp-hub] # mcphub
-      ++ [bc] # coq_3p
       ++ [postgresql] # dadbod
       ++ [python312 python313 python312Packages.python-lsp-server] # python
       ++ [bash-language-server] # bash

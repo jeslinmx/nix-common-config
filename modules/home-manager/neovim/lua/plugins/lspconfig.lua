@@ -1,123 +1,88 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    "ms-jpq/coq_nvim",
+    "saghen/blink.cmp",
     "b0o/schemastore.nvim",
   },
 
-  config = function()
-    local servers = {
-      "bashls",
-      "emmet_language_server",
-      "gopls",
-      "lua_ls",
-      "nixd",
-      "pylsp",
-      "superhtml",
-      "tailwindcss",
-      "ts_ls",
-    }
-
-    local on_attach = function(client, bufnr) end
-
-    local on_init = function(client, bufnr)
-      if client.supports_method "textDocument/semanticTokens" then
-        client.server_capabilities.semanticTokensProvider = nil
-      end
-    end
-
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem = {
-      documentationFormat = { "markdown", "plaintext" },
-      snippetSupport = true,
-      preselectSupport = true,
-      insertReplaceSupport = true,
-      labelDetailsSupport = true,
-      deprecatedSupport = true,
-      commitCharactersSupport = true,
-      tagSupport = { valueSet = { 1 } },
-      resolveSupport = {
-        properties = {
-          "documentation",
-          "detail",
-          "additionalTextEdits",
-        },
-      },
-    }
-
-    -- default config
-    vim.lsp.config(
-      "*",
-      require("coq").lsp_ensure_capabilities {
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-      }
-    )
-
-    vim.lsp.config.lua_ls = {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            library = {
-              vim.fn.expand "$VIMRUNTIME/lua",
-              vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
-              vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
-              "${3rd}/luv/library",
+  opts = {
+    servers = {
+      bashls = {},
+      emmet_language_server = {},
+      gopls = {},
+      lua_ls = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim" },
             },
-            maxPreload = 100000,
-            preloadFileSize = 10000,
-          },
-        },
-      },
-    }
-
-    vim.lsp.config.nixd = {
-      settings = {
-        nixd = {
-          options = {
-            nixos = {
-              expr = '(builtins.getFlake "github:jeslinmx/nix-config").nixosConfigurations.jeshua-xps-9510.options',
+            workspace = {
+              library = {
+                vim.fn.expand "$VIMRUNTIME/lua",
+                vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
+                vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+                "${3rd}/luv/library",
+              },
+              maxPreload = 100000,
+              preloadFileSize = 10000,
             },
-            -- home_manager = {
-            --   expr = '',
-            -- },
           },
         },
       },
-    }
-
-    vim.lsp.config.jsonls = {
-      settings = {
-        json = {
-          schemas = require("schemastore").json.schemas {
-            description = "Fastfetch config file schema",
-            fileMatch = "config.jsonc",
-            name = "fastfetch",
-            url = "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/refs/heads/dev/doc/json_schema.json",
+      nixd = {
+        settings = {
+          nixd = {
+            options = {
+              nixos = {
+                expr = '(builtins.getFlake "github:jeslinmx/nix-config").nixosConfigurations.jeshua-xps-9510.options',
+              },
+              -- home_manager = {
+              --   expr = '',
+              -- },
+            },
           },
-          validate = { enable = true }, -- https://github.com/b0o/SchemaStore.nvim/issues/8#issuecomment-1129528787
         },
       },
-    }
-
-    vim.lsp.config.yamlls = {
-      settings = {
-        yaml = {
-          schemaStore = { enable = false, url = "" }, -- disable builtin support
-          schemas = require("schemastore").yaml.schemas(),
-        },
-      },
-    }
-
+      pylsp = {},
+      superhtml = {},
+      tailwindcss = {},
+      ts_ls = {},
+      jsonls = function()
+        return {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas {
+                extra = {
+                  description = "Fastfetch config file schema",
+                  fileMatch = "config.jsonc",
+                  name = "fastfetch",
+                  url = "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/refs/heads/dev/doc/json_schema.json",
+                },
+                validate = { enable = true }, -- https://github.com/b0o/SchemaStore.nvim/issues/8#issuecomment-1129528787
+              },
+            },
+          },
+        }
+      end,
+      yamlls = function()
+        return {
+          settings = {
+            yaml = {
+              schemaStore = { enable = false, url = "" }, -- disable builtin support
+              schemas = require("schemastore").yaml.schemas(),
+            },
+          },
+        }
+      end,
+    },
+  },
+  config = function(_, opts)
     -- enable lsps
-    for _, lsp in ipairs(servers) do
+    for lsp, config in pairs(opts.servers) do
+      vim.lsp.config(lsp, type(config) == "function" and config() or config)
       vim.lsp.enable(lsp)
     end
   end,
 
-  event = { "BufEnter" },
+  lazy = false,
 }

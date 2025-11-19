@@ -114,7 +114,6 @@ in {
       ];
 
       exec-once = [
-        "systemctl --user start hyprpolkitagent"
         "uwsm app -- fcitx5 -d -r &"
         "uwsm finalize"
       ];
@@ -296,5 +295,4 @@ in {
   };
 
   home.file.".config/hypr/shaders".source = ./shaders;
-  home.packages = [pkgs.hyprpolkitagent];
 }

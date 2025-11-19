@@ -15,6 +15,7 @@
 
   services = {
     ssh-agent.enable = true;
+    polkit-gnome.enable = true;
     cliphist.enable = true;
     mpris-proxy.enable = true;
   };

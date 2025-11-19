@@ -1,4 +1,8 @@
-_: {pkgs, ...}: {
+_: {
+  lib,
+  pkgs,
+  ...
+}: {
   services = {
     udev = {
       packages = [pkgs.yubikey-personalization];
@@ -16,8 +20,12 @@ _: {pkgs, ...}: {
     enable = true;
     enableSSHSupport = true;
   };
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+  security.pam.u2f = {
+    enable = true;
+    control = "required";
+    settings = lib.mkDefault {
+      cue = true; # prompt user to tap authenticator
+      # interactive = true; # prompt user to insert authenticator and press enter
+    };
   };
 }

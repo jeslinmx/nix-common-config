@@ -72,4 +72,5 @@ return {
       -- { src = "dap" },
     }
   end,
+  build = ":COQdeps",
 }

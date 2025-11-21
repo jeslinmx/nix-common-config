@@ -1,6 +1,5 @@
 {...}: {...}: {
   system.defaults = {
-    ".GlobalPreferences"."com.apple.mouse.scaling" = -1.0; # disable mouse accel
     controlcenter = {
       AirDrop = false;
       BatteryShowPercentage = true;
@@ -85,9 +84,13 @@
       EnableTilingOptionAccelerator = true; # alt+arrows to tile
       EnableTopTilingByEdgeDrag = true;
     };
-    CustomSystemPreferences = {
+    CustomUserPreferences = {
       NSGlobalDomain = {
         NSToolbarTitleViewRolloverDelay = 0; # instantly show the folder icon on toolbar hover
+      };
+      ".GlobalPreferences" = {
+        "com.apple.mouse.scaling" = 1.0;
+        "com.apple.mouse.linear" = 1; # disable mouse accel
       };
     };
   };

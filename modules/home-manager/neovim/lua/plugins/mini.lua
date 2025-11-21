@@ -276,6 +276,8 @@ return {
           { mode = { "n", "v" }, keys = "<leader>g", desc = "+Git" },
           { mode = { "n", "v" }, keys = "<leader>l", desc = "+LSP" },
           { mode = { "n", "v" }, keys = "<leader>t", desc = "+Trouble" },
+          { mode = { "n", "v" }, keys = "<leader>c", desc = "+Leetcode" },
+          { mode = { "n", "v" }, keys = "<leader>cp", desc = "+Problems" },
           { mode = { "n", "v" }, keys = "<leader><leader>", desc = "+Telescope" },
           { mode = { "n", "v" }, keys = "<leader><leader>g", desc = "+Git" },
         }

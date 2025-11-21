@@ -73,6 +73,10 @@ return {
       end
       return MiniStatusline.is_truncated(args.trunc_width) and "%f" or "%F"
     end
+    local section_breadcrumbs = function(args)
+      return MiniStatusline.is_truncated(args.trunc_width) and ""
+        or ("%#SagaSep# » " .. (require("lspsaga.symbol.winbar").get_bar() or ""))
+    end
     local noice = require "noice"
     local section_lastmessage = function(args)
       return noice.api.status.message.has and noice.api.status.message.get() or section_filename(args)
@@ -156,16 +160,18 @@ return {
             { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
 
             "%<", -- Mark general truncate point
-            "%=", -- End left alignment
 
             {
               hl = "MiniStatuslineFilename",
               strings = {
                 section_filename { trunc_width = xwide },
                 section_filestatus(),
+                section_breadcrumbs { trunc_width = medium },
               },
             },
+            { hl = "MiniStatuslineInactive", strings = {} }, -- reset color
 
+            "%=", -- End left alignment
             "%=", -- End center alignment
 
             {

@@ -2,12 +2,16 @@
   inputs,
   homeModules,
   ...
-}: {pkgs, ...}: {
+}: {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = builtins.attrValues {
     inherit (homeModules) firefox ghostty;
   };
 
-  programs = {
+  programs = lib.mkDefault {
     firefox.enable = true;
     ghostty.enable = true;
     mangohud = {

@@ -4,12 +4,11 @@
   ...
 }: {pkgs, ...}: {
   imports = builtins.attrValues {
-    inherit (homeModules) firefox kitty ghostty;
+    inherit (homeModules) firefox ghostty;
   };
 
   programs = {
     firefox.enable = true;
-    kitty.enable = true;
     ghostty.enable = true;
     mangohud = {
       enable = true;

@@ -8,7 +8,7 @@
       sudo
       sshd
       macos-tweaks
-      aerospace
+      # aerospace
       homebrew
       rosetta-builder
       ;

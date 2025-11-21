@@ -54,8 +54,7 @@
       extraConfig = ''
         IgnoreUnknown UseKeychain
         UseKeychain yes
-        IdentityFile ~/.ssh/id_ed25519
-        IdentityFile ~/.ssh/id_rsa
+        SetEnv TERM=xterm-256color
       '';
       includes = ["~/.ssh/config.d/*.conf"];
     };

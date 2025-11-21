@@ -5,7 +5,7 @@ _: {pkgs, ...}: {
     fcitx5 = {
       waylandFrontend = true;
       addons = with pkgs; [
-        fcitx5-chinese-addons # chinese input
+        qt6Packages.fcitx5-chinese-addons # chinese input
         fcitx5-lua # for sj/rq macros
         fcitx5-pinyin-zhwiki # dictionary from chinese Wikipedia
         catppuccin-fcitx5 # theme

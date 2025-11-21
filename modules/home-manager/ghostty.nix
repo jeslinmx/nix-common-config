@@ -99,8 +99,6 @@
         "cmd+n=new_window"
         "cmd+t=new_tab"
         "cmd+w=close_tab"
-
-        "global:shift+ctrl+alt+cmd+grave_accent=toggle_quick_terminal"
       ];
     };
   };

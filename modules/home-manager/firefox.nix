@@ -93,10 +93,6 @@
               urls = [{template = "https://minecraft.wiki/?search={searchTerms}&title=Special%3ASearch&wprov=acrw1_-1";}];
               definedAliases = ["mc"];
             };
-            "SpeQtral SharePoint" = {
-              urls = [{template = "https://speqtralquantum.sharepoint.com/_layouts/15/search.aspx/?q={searchTerms}";}];
-              definedAliases = ["q"];
-            };
             "GitHub" = {
               urls = [{template = "https://github.com/{searchTerms}";}];
               definedAliases = ["gh"];

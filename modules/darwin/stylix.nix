@@ -5,6 +5,10 @@
 }: let
   inherit (inputs) tt-schemes;
 in {
+  imports = builtins.attrValues {
+    inherit (inputs.stylix.darwinModules) stylix;
+  };
+
   stylix = lib.mkDefault {
     enable = true;
     base16Scheme = "${tt-schemes}/base16/catppuccin-mocha.yaml";

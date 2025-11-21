@@ -36,6 +36,9 @@ vim.diagnostic.config {
   virtual_text = true,
 }
 
+-- load .nvimrc, .nvim.lua in workspace
+o.exrc = true
+
 -- Gutter
 o.number = true
 o.numberwidth = 2

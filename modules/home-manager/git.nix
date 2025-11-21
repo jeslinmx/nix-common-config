@@ -56,6 +56,7 @@ _: {
             lib.pipe [
               # neovim
               "Session.vim"
+              ".nvimrc"
               # macos
               ".DS_Store"
               ".Spotlight-V100"

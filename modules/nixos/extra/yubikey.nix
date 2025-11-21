@@ -20,12 +20,19 @@ _: {
     enable = true;
     enableSSHSupport = true;
   };
-  security.pam.u2f = {
-    enable = true;
-    control = "required";
-    settings = lib.mkDefault {
-      cue = true; # prompt user to tap authenticator
-      # interactive = true; # prompt user to insert authenticator and press enter
+  security.pam = {
+    u2f = {
+      enable = true;
+      control = "required";
+      settings = lib.mkDefault {
+        cue = true; # prompt user to tap authenticator
+        # interactive = true; # prompt user to insert authenticator and press enter
+      };
+    };
+    services = {
+      sudo.nodelay = true;
+      login.nodelay = true;
+      greetd.nodelay = true;
     };
   };
 }

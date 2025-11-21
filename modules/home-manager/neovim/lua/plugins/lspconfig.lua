@@ -7,7 +7,7 @@ return {
 
   config = function()
     local lspconfig = require "lspconfig"
-    local servers = { "bashls", "gopls", "lua_ls", "nixd", "pylsp" }
+    local servers = { "bashls", "gopls", "lua_ls", "nixd", "pylsp", "ts_ls", "tailwindcss" }
 
     local on_attach = function(client, bufnr) end
 
@@ -102,6 +102,9 @@ return {
         },
       },
     }
+
+    lspconfig.ts_ls.setup {}
+    lspconfig.tailwindcss.setup {}
   end,
 
   event = { "BufReadPost", "BufNewFile" },

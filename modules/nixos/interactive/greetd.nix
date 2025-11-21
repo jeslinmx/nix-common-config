@@ -17,5 +17,4 @@ _: {
     packages = [pkgs.cozette];
     font = "${pkgs.cozette}/share/consolefonts/cozette6x13.psfu";
   };
-  security.pam.services.greetd.enableGnomeKeyring = true;
 }

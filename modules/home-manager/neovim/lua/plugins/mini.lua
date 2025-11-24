@@ -362,14 +362,39 @@ return {
         MiniDiff.setup {
           source = { MiniDiff.gen_source.git(), MiniDiff.gen_source.save(), MiniDiff.gen_source.none() },
         }
+        local MiniHipatterns = require "mini.hipatterns"
+        MiniHipatterns.setup {
+          highlighters = {
+            hex_color = MiniHipatterns.gen_highlighter.hex_color(),
+            fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+            hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+            todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+            note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+          },
+        }
         -- require('mini.move').setup()
-        require("mini.operators").setup()
+        require("mini.operators").setup { sort = { prefix = "gS" } }
+        require("mini.surround").setup {
+          mappings = {
+            add = "ys",
+            delete = "ds",
+            find = "",
+            find_left = "",
+            highlight = "",
+            replace = "cs",
+            update_n_lines = "",
+            suffix_last = "",
+            suffix_next = "",
+          },
+          search_method = "cover_or_next",
+        }
         -- require('mini.splitjoin').setup()
         require("mini.trailspace").setup()
       end,
     })
 
     -- Mappings
+    require("mini.bracketed").setup()
     require("mini.clue").setup {
       triggers = {
         { mode = "n", keys = "<Leader>" },

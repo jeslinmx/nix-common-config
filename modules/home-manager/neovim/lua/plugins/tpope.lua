@@ -23,6 +23,5 @@ return {
     },
     keys = { { "<cr>", mode = "i" } },
   },
-  { "tpope/vim-unimpaired", event = "VeryLazy", dependencies = { "tpope/vim-repeat" } },
   { "tpope/vim-speeddating", keys = { "<C-a>", "<C-x>" }, dependencies = { "tpope/vim-repeat" } },
 }

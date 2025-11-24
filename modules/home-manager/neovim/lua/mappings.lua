@@ -32,9 +32,9 @@ map("n", "s", "<Plug>(leap)", { desc = "leap" })
 map("n", "S", "<Plug>(leap-from-window)", { desc = "leap across windows" })
 map({ "x", "o" }, "s", "<Plug>(leap-forward)", { desc = "leap forward" })
 map({ "x", "o" }, "S", "<Plug>(leap-backward)", { desc = "leap backward" })
-map({ "n", "o" }, "gs", function()
-  require("leap.remote").action()
-end, { desc = "leap temporarily" })
+-- map({ "n", "o" }, "gs", function()
+--   require("leap.remote").action()
+-- end, { desc = "leap temporarily" })
 
 -- tabufline
 map("n", "<tab>", "<cmd>bnext<cr>", { desc = "buffer goto next" })

@@ -31,20 +31,6 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "CmdlineEn
   end,
 })
 
--- reminder: use `:noautocmd w` to override this for a single save
-local conform = vim.api.nvim_create_augroup("conform", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-  desc = "Format on save",
-  pattern = "*",
-  group = conform,
-  callback = function(args)
-    if not vim.api.nvim_buf_is_valid(args.buf) or vim.bo[args.buf].buftype ~= "" then
-      return
-    end
-    require("conform").format { buffer = args.buf }
-  end,
-})
-
 local showkeys = vim.api.nvim_create_augroup("showkeys", {})
 vim.api.nvim_create_autocmd({ "UIEnter" }, {
   desc = "Enable showkeys",

@@ -419,6 +419,7 @@ return {
         { mode = "x", keys = "[" },
         { mode = "n", keys = "]" },
         { mode = "x", keys = "]" },
+        { mode = "n", keys = "yo" },
       },
       clues = (function()
         local c = require "mini.clue"

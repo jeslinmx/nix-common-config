@@ -87,6 +87,7 @@
       jq
       gojq
       yq
+      fx
       (writeShellApplication {
         name = "l";
         text = ''

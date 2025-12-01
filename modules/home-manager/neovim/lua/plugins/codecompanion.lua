@@ -9,7 +9,20 @@ return {
 
     opts = {
       strategies = {
-        chat = { adapter = "ollama" },
+        chat = {
+          adapter = "ollama",
+          slash_commands = {
+            opts = {
+              provider = "snacks",
+            },
+          },
+          tools = {
+            opts = {
+              auto_submit_errors = true,
+              auto_submit_success = true,
+            },
+          },
+        },
         inline = { adapter = "ollama" },
         cmd = { adapter = "ollama" },
       },
@@ -20,13 +33,13 @@ return {
             return require("codecompanion.adapters").extend("ollama", {
               schema = {
                 model = { default = "qwen3:4b" },
-                think = { default = false },
+                num_ctx = { default = 32768 },
               },
             })
           end,
           gemini = function()
             return require("codecompanion.adapters").extend("gemini", {
-              env = { api_key = "" },
+              env = { api_key = os.getenv "GEMINI_API_KEY_CMD" },
             })
           end,
         },
@@ -35,9 +48,6 @@ return {
         },
       },
       display = {
-        chat = {
-          show_settings = true,
-        },
         action_palette = {
           provider = "snacks",
         },

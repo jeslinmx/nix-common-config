@@ -63,6 +63,8 @@ map({ "n", "v" }, "<leader>gl", Snacks.picker.git_log_file, { desc = "log" })
 map({ "n", "v" }, "<leader>gL", Snacks.picker.git_log, { desc = "repo log" })
 map({ "n", "v" }, "<leader>gs", Snacks.picker.git_status, { desc = "status" })
 map({ "n", "v" }, "<leader>gS", Snacks.picker.git_stash, { desc = "stash" })
+map({ "n", "v" }, "<leader>gp", Snacks.picker.gh_pr, { desc = " pull requests" })
+map({ "n", "v" }, "<leader>gi", Snacks.picker.gh_issue, { desc = " issues" })
 
 -- buffers
 map({ "n", "v" }, "<leader>bn", "<cmd>enew<cr>", { desc = "new" })

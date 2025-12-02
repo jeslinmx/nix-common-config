@@ -1,8 +1,4 @@
-_: {
-  config,
-  lib,
-  ...
-}: {
+_: { pkgs, ... }: {
   programs.lazygit = {
     settings = {
       gui = {
@@ -10,6 +6,11 @@ _: {
         showBottomLine = false;
         nerdFontsVersion = 3;
         border = "rounded";
+        showNumstatInFilesView = true;
+        showBranchCommitHash = true;
+        showDivergenceFromBaseBranch = "arrowAndNumber";
+        statusPanelView = "allBranchesLog";
+        switchTabsWithPanelJumpKeys = true;
         theme = {
           activeBorderColor = ["blue" "bold"];
           inactiveBorderColor = ["black"];
@@ -28,70 +29,21 @@ _: {
           order = "date-order";
           showGraph = "always";
         };
-        pagers = [
-          {externalDiffCommand = "${lib.getExe' config.programs.difftastic.package "difft"} --color=always";}
-          {pager = "${lib.getExe config.programs.delta.package}  --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format=\"lazygit-edit://{path}:{line}\"";}
-        ];
+        truncateCopiedCommitHashesTo = 40;
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
       customCommands = [
         {
-          # retrieved from: https://github.com/jesseduffield/lazygit/wiki/Custom-Commands-Compendium#conventional-commit
           key = "c";
           context = "files";
+          command = "cd {{.SelectedWorktree.Path}} && meteor";
+          output = "terminal";
           description = "Create new conventional commit";
-          prompts = [
-            {
-              type = "menu";
-              key = "Type";
-              title = "Type of change";
-              options = builtins.attrValues (builtins.mapAttrs (value: description: {inherit value description;}) {
-                build = "Changes that affect the build system or external dependencies";
-                feat = "A new feature";
-                fix = "A bug fix";
-                chore = "Other changes that don't modify src or test files";
-                ci = "Changes to CI configuration files and scripts";
-                docs = "Documentation only changes";
-                perf = "A code change that improves performance";
-                refactor = "A code change that neither fixes a bug nor adds a feature";
-                revert = "Reverts a previous commit";
-                style = "Changes that do not affect the meaning of the code";
-                test = "Adding missing tests or correcting existing tests";
-              });
-            }
-            {
-              type = "input";
-              title = "Scope";
-              key = "Scope";
-              initialValue = "";
-            }
-            {
-              type = "menu";
-              key = "Breaking";
-              title = "Breaking change?";
-              options = [
-                {
-                  name = "no";
-                  value = "";
-                }
-                {
-                  name = "yes";
-                  value = "!";
-                }
-              ];
-            }
-            {
-              type = "input";
-              title = "{{.Form.Type}}{{ if .Form.Scope }}({{ .Form.Scope }}){{ end }}{{.Form.Breaking}}: ...";
-              key = "Message";
-              initialValue = "";
-            }
-          ];
-          command = "git commit --message '{{.Form.Type}}{{ if .Form.Scope }}({{ .Form.Scope }}){{ end }}{{.Form.Breaking}}: {{.Form.Message}}'";
           loadingText = "Creating conventional commit...";
         }
       ];
     };
   };
+  home.packages = [pkgs.meteor-git];
 }

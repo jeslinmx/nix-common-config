@@ -161,6 +161,150 @@ return {
           end,
         },
       },
+      layouts = {
+        default = {
+          layout = {
+            backdrop = false,
+            box = "horizontal",
+            width = 0.8,
+            min_width = 120,
+            height = 0.8,
+            {
+              box = "vertical",
+              {
+                win = "input",
+                title = "{title} {live} {flags}",
+                border = { "╭", "─", "┬", "│", "┤", "─", "├", "│" },
+                height = 1,
+              },
+              { win = "list", border = { "", "", "", "╎", "┴", "─", "╰", "│" } },
+            },
+            {
+              win = "preview",
+              title = "{preview}",
+              border = { "", "─", "╮", "│", "╯", "─", "", "" },
+              width = 0.5,
+            },
+          },
+        },
+        dropdown = {
+          preset = "vertical",
+          layout = {
+            backdrop = false,
+            row = 1,
+            width = 0.4,
+            min_width = 80,
+            height = 0.8,
+            box = "vertical",
+            {
+              win = "input",
+              height = 1,
+              border = { "╭", "─", "╮", "│", "┤", "─", "├", "│" },
+              title = "{title} {live} {flags}",
+            },
+            { win = "list", border = { "", "", "", "│", "", "", "", "│" } },
+            {
+              win = "preview",
+              title = "{preview}",
+              height = 0.4,
+              border = { "├", "╌", "┤", "│", "╯", "─", "╰", "│" },
+            },
+          },
+        },
+        ivy = {
+          layout = {
+            box = "vertical",
+            backdrop = false,
+            row = -1,
+            width = 0,
+            height = 0.4,
+            border = "top",
+            title = " {title} {live} {flags}",
+            title_pos = "left",
+            { win = "input", height = 1 },
+            {
+              box = "horizontal",
+              { win = "list", border = { "", "─", "┬", "╎", "╎", "", "", "" } },
+              { win = "preview", title = "{preview}", width = 0.6, border = { "", "─", "", "", "", "", "", "" } },
+            },
+          },
+        },
+        select = {
+          hidden = { "preview" },
+          layout = {
+            backdrop = false,
+            width = 0.5,
+            min_width = 80,
+            max_width = 100,
+            height = 0.4,
+            min_height = 2,
+            box = "vertical",
+            {
+              win = "input",
+              title = "{title}",
+              height = 1,
+              border = { "╭", "─", "╮", "│", "┤", "─", "├", "│" },
+            },
+            { win = "list", border = { "", "", "", "│", "╯", "─", "╰", "│" } },
+          },
+        },
+        vertical = {
+          layout = {
+            backdrop = false,
+            width = 0.5,
+            min_width = 80,
+            height = 0.8,
+            min_height = 30,
+            box = "vertical",
+            {
+              win = "input",
+              height = 1,
+              border = { "╭", "─", "╮", "│", "┤", "─", "├", "│" },
+              title = "{title} {live} {flags}",
+            },
+            { win = "list", border = { "", "", "", "│", "", "", "", "│" } },
+            {
+              win = "preview",
+              title = "{preview}",
+              height = 0.4,
+              border = { "├", "╌", "┤", "│", "╯", "─", "╰", "│" },
+            },
+          },
+        },
+        telescope = { reverse = false },
+        vscode = {
+          layout = {
+            backdrop = true,
+            row = 1,
+            width = 0.4,
+            min_width = 80,
+            height = 0.4,
+            border = "none",
+            box = "vertical",
+            { win = "input", height = 1, border = "solid", title = "{title} {live} {flags}" },
+            { win = "list", border = "hpad" },
+            { win = "preview", title = "{preview}", border = true },
+          },
+        },
+      },
+    },
+    lazygit = {
+      config = {
+        -- wait for https://github.com/folke/snacks.nvim/issues/2582
+        -- customCommands = {
+        --   {
+        --     key = "c",
+        --     context = "files",
+        --     command = 'nvr -c \'lua Snacks.terminal("meteor", {win = {style = "lazygit"}})\'',
+        --     description = "Create new conventional commit",
+        --     loadingText = "Creating conventional commit...",
+        --   },
+        -- },
+      },
+      theme = {
+        activeBorderColor = { fg = "ColorfulWinSep" },
+        inactiveBorderColor = { fg = "WinSeparator" },
+      },
     },
     terminal = {},
     scroll = {},
@@ -172,12 +316,8 @@ return {
     },
     dim = {},
     styles = {
-      lazygit = {
-        styl = "split",
-        position = "left",
-        width = 0.25,
-        resize = true,
-      },
+      lazygit = { backdrop = false, minimal = true },
+      -- lazygit = { style = "split", minimal = true, stack = true },
     },
   },
   init = function()

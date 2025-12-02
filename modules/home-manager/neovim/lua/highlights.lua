@@ -25,6 +25,10 @@ hl.DiagnosticSignError = { fg = hl.DiagnosticError.fg }
 hl.WinSeparator = { fg = hl.StatusLine.bg }
 hl.SnacksIndent = { fg = hl.StatusLine.bg }
 
+-- make floats more subtle
+hl.NormalFloat = { link = "Normal" }
+hl.FloatBorder = { fg = hl.WinSeparator.fg }
+
 hl.MiniCursorword = { bold = true }
 hl.MiniCursorwordCurrent = { link = "MiniCursorword" }
 

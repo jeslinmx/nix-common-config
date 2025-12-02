@@ -4,6 +4,7 @@ return {
   opts = {
     border = "rounded",
     indicator_for_2wins = {
+      position = "both",
       symbols = {
         start_left = "╭",
         end_left = "╰",

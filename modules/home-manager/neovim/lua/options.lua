@@ -66,7 +66,8 @@ opt.listchars:append {
   precedes = "«",
   extends = "»",
 }
-o.foldmethod = "indent"
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
 o.foldlevelstart = 99 -- start with no lines folded
 o.wrap = true
 o.breakindent = true -- Indent wrapped lines to match line start

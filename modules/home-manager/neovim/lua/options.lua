@@ -54,6 +54,7 @@ opt.fillchars = {
   vertleft = "┤",
   vertright = "├",
   verthoriz = "┼",
+  fold = " ", -- remove dots at the end of folded lines
 }
 o.cursorline = true -- Highlight current line
 o.cursorlineopt = "both" -- highlight textline and line number
@@ -67,7 +68,8 @@ opt.listchars:append {
   extends = "»",
 }
 o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldexpr = "nvim_treesitter#foldexpr()" -- use treesitter as source of folds
+o.foldtext = "v:lua.foldtext()" -- format folds with _G.foldtext defined below
 o.foldlevelstart = 99 -- start with no lines folded
 o.wrap = true
 o.breakindent = true -- Indent wrapped lines to match line start
@@ -117,3 +119,11 @@ g.loaded_node_provider = 0
 g.loaded_python3_provider = 0
 g.loaded_perl_provider = 0
 g.loaded_ruby_provider = 0
+
+_G.foldtext = function()
+  return vim.fn.getline(vim.v.foldstart)
+    .. " ("
+    .. (vim.v.foldend - vim.v.foldstart - 1)
+    .. " lines folded) "
+    .. vim.fn.getline(vim.v.foldend):gsub("^%s*", "")
+end

@@ -29,6 +29,9 @@ hl.SnacksIndent = { fg = hl.StatusLine.bg }
 hl.NormalFloat = { link = "Normal" }
 hl.FloatBorder = { fg = hl.WinSeparator.fg }
 
+-- don't style folded sections
+hl.Folded = { fg = hl.BufferInactive.fg }
+
 hl.MiniCursorword = { bold = true }
 hl.MiniCursorwordCurrent = { link = "MiniCursorword" }
 

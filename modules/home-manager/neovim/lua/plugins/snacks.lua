@@ -129,7 +129,7 @@ return {
         lsp_type_definitions = { layout = "dropdown" },
         commands = { layout = "vscode" },
         keymaps = { layout = { preview = false } },
-        undo = { layout = "dropdown" },
+        undo = { layout = "dropdown", sort = { fields = { "idx" } } },
         explorer = {
           focus = "input",
           auto_close = true,

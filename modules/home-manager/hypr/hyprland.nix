@@ -166,12 +166,12 @@ in {
         # move windows with SHIFT + SUPER + direction
         ++ (produceBinds {
           mod = "SHIFT SUPER";
-          dispatcher = "movewindow";
+          dispatcher = "swapwindow";
         })
         # swap windows with CTRL + SHIFT + SUPER + direction
         ++ (produceBinds {
           mod = "CTRL SHIFT SUPER";
-          dispatcher = "swapwindow";
+          dispatcher = "movewindow";
         })
         # move window into groups with CTRL + SUPER + direction
         ++ (produceBinds {

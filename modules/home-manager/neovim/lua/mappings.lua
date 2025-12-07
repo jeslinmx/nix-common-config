@@ -13,7 +13,6 @@ map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
 map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
 
 map("i", "jj", "<Esc>", { desc = "escape insert mode" })
-map("t", "jj", "<C-\\><C-N>", { desc = "escape terminal mode" })
 
 map("n", "<Esc>", "<cmd>noh<cr>", { desc = "clear highlights" })
 map("n", "-", function()

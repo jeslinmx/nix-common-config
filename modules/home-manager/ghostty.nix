@@ -24,15 +24,6 @@ _: {
         "alt+seven=goto_tab:7"
         "alt+eight=goto_tab:8"
         "alt+nine=last_tab"
-        "cmd+one=goto_tab:1"
-        "cmd+two=goto_tab:2"
-        "cmd+three=goto_tab:3"
-        "cmd+four=goto_tab:4"
-        "cmd+five=goto_tab:5"
-        "cmd+six=goto_tab:6"
-        "cmd+seven=goto_tab:7"
-        "cmd+eight=goto_tab:8"
-        "cmd+nine=last_tab"
 
         # Splits
         "ctrl+shift+\\=new_split:right"
@@ -95,15 +86,18 @@ _: {
         "ctrl+shift+j=write_screen_file:paste"
 
         # General
+        "ctrl+shift+p=toggle_command_palette"
         "ctrl+shift+n=new_window"
         "ctrl+shift+t=new_tab"
         "ctrl+shift+w=close_tab"
         "ctrl+shift+comma=reload_config"
         "ctrl+shift+r=reset"
         "ctrl+shift+i=inspector:toggle"
+        "cmd+p=toggle_command_palette"
         "cmd+n=new_window"
         "cmd+t=new_tab"
         "cmd+w=close_tab"
+        "cmd+q=quit"
       ];
     };
   };

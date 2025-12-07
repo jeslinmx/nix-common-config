@@ -18,6 +18,9 @@ _G.palette = _G.palette
     base0F = "#f2cdcd",
   }
 
+vim.env.EDITOR = "nvr -l --remote-wait"
+vim.env.MANPAGER = "nvr -c Man!"
+
 require "lazy_init"
 require "options"
 vim.schedule(function()

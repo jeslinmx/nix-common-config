@@ -43,17 +43,10 @@
       ];
   };
   home = {
-    packages = with pkgs; [
-      (writeShellApplication {
-        name = "v";
-        runtimeInputs = [neovim-remote config.programs.neovim.finalPackage];
-        text = "if [ -v NVIM ]; then nvr -l \"$@\"; else \${NVR_CMD:-nvim} \"$@\"; fi";
-      })
-    ];
-    sessionVariables = rec {
-      EDITOR = "v --remote-wait";
-      VISUAL = EDITOR;
-      MANPAGER = "v -c 'Man!'";
+    packages = [pkgs.neovim-remote];
+    sessionVariables = {
+      EDITOR = "nvim";
+      MANPAGER = "nvim +Man!";
     };
   };
   xdg.configFile = {

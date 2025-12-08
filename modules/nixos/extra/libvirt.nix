@@ -1,5 +1,9 @@
-_: {
-  virtualisation.libvirtd.enable = true;
+_: {pkgs, ...}: {
+  virtualisation = {
+    libvirtd.enable = true;
+    libvirtd.qemu.vhostUserPackages = [pkgs.virtiofsd];
+    spiceUSBRedirection.enable = true;
+  };
   programs.virt-manager.enable = true;
 
   boot.extraModprobeConfig = ''

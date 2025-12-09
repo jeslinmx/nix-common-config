@@ -1,9 +1,4 @@
-{inputs, ...}: {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: { lib, ... }: {
   programs.firefox = {
     profiles = {
       default = {
@@ -44,7 +39,7 @@
           "sidebar.verticalTabs" = true;
 
           # fonts
-          "font.size.variable.x-western" = 14;
+          "font.size.variable.x-western" = lib.mkForce 14;
 
           # Privacy and security
           "app.shield.optoutstudies.enabled" = false; # Disallow Firefox to install and run studies

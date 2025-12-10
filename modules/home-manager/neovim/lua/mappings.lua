@@ -1,28 +1,28 @@
 local map = vim.keymap.set
 local Snacks = require "snacks"
 
-map("i", "<C-a>", "<Home>", { desc = "move to beginning of line" })
-map("i", "<C-e>", "<End>", { desc = "move to end of line" })
+map({ "c", "i" }, "<C-a>", "<Home>", { desc = "move to beginning of line" })
+map({ "c", "i" }, "<C-e>", "<End>", { desc = "move to end of line" })
 
-map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
-map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
-map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
-map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
+map({ "n", "v" }, "<C-h>", "<C-w>h", { desc = "switch window left" })
+map({ "n", "v" }, "<C-l>", "<C-w>l", { desc = "switch window right" })
+map({ "n", "v" }, "<C-j>", "<C-w>j", { desc = "switch window down" })
+map({ "n", "v" }, "<C-k>", "<C-w>k", { desc = "switch window up" })
 
-map({ "n", "i" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
-map("n", "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
+map({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr>", { desc = "general save file" })
+map({ "n", "i" }, "<C-c>", "<cmd>%y+<cr>", { desc = "copy whole file" })
 
 map("i", "jj", "<Esc>", { desc = "escape insert mode" })
 
 map("n", "<Esc>", "<cmd>noh<cr>", { desc = "clear highlights" })
-map("n", "-", function()
+map({ "n", "v" }, "-", function()
   require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"))
   require("mini.files").reveal_cwd()
 end, { desc = "browse containing folder" })
 
 -- terminals
-map({ "n", "t" }, "<C-\\>", Snacks.terminal.toggle, { desc = "create/toggle terminal" })
-map({ "n", "t" }, "<C-A-\\>", function()
+map({ "n", "i", "v", "t" }, "<C-\\>", Snacks.terminal.toggle, { desc = "create/toggle terminal" })
+map({ "n", "i", "v", "t" }, "<C-A-\\>", function()
   return Snacks.terminal.toggle(nil, { win = { position = "right" } })
 end, { desc = "create/toggle v-terminal" })
 
@@ -36,8 +36,8 @@ map({ "x", "o" }, "S", "<Plug>(leap-backward)", { desc = "leap backward" })
 -- end, { desc = "leap temporarily" })
 
 -- tabufline
-map("n", "<tab>", "<cmd>bnext<cr>", { desc = "buffer goto next" })
-map("n", "<S-tab>", "<cmd>bprev<cr>", { desc = "buffer goto prev" })
+map({ "n", "v" }, "<tab>", "<cmd>bnext<cr>", { desc = "buffer goto next" })
+map({ "n", "v" }, "<S-tab>", "<cmd>bprev<cr>", { desc = "buffer goto prev" })
 
 -- ## LEADER KEYBINDS ## --
 map({ "n", "v" }, "<leader><leader>", Snacks.dashboard.open, { desc = "Open dashboard" })

@@ -88,6 +88,7 @@
       gojq
       yq
       fx
+      magic-wormhole-rs
       (writeShellApplication {
         name = "l";
         text = ''

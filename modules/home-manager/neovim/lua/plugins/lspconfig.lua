@@ -34,11 +34,15 @@ return {
           nixd = {
             options = {
               nixos = {
-                expr = '(builtins.getFlake "github:jeslinmx/nix-config").nixosConfigurations.jeshua-xps-9510.options',
+                expr = "(builtins.getFlake (builtins.toString <nix-config>)).nixosConfigurations."
+                  .. vim.uv.os_gethostname()
+                  .. ".options",
               },
-              -- home_manager = {
-              --   expr = '',
-              -- },
+              home_manager = {
+                expr = "(builtins.getFlake (builtins.toString <nix-config>)).nixosConfigurations."
+                  .. vim.uv.os_gethostname()
+                  .. ".options.home-manager.users.type.getSubOptions []",
+              },
             },
           },
         },

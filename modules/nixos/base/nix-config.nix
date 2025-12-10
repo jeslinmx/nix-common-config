@@ -1,4 +1,8 @@
-{inputs, ...}: {pkgs, ...}: {
+{
+  inputs,
+  outPath,
+  ...
+}: {pkgs, ...}: {
   nix = {
     settings = {
       experimental-features = ["nix-command" "flakes"];
@@ -9,7 +13,7 @@
       automatic = true;
       options = "--delete-older-than 30d";
     };
-    nixPath = builtins.attrValues (builtins.mapAttrs (name: path: "${name}=${path}") inputs);
+    nixPath = builtins.attrValues (builtins.mapAttrs (name: path: "${name}=${path}") (inputs // {nix-common-config = outPath;}));
   };
   environment.systemPackages = [pkgs.git]; # required for flakes
 }

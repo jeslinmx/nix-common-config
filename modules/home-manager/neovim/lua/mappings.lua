@@ -40,11 +40,8 @@ map("n", "<tab>", "<cmd>bnext<cr>", { desc = "buffer goto next" })
 map("n", "<S-tab>", "<cmd>bprev<cr>", { desc = "buffer goto prev" })
 
 -- ## LEADER KEYBINDS ## --
-map("n", "<leader><leader>", Snacks.dashboard.open, { desc = "Open dashboard" })
-
--- editor
-map("n", "<leader>ed", Snacks.dim.enable, { desc = "dim outside of scope" })
-map("n", "<leader>eD", Snacks.dim.disable, { desc = "undim" })
+map({ "n", "v" }, "<leader><leader>", Snacks.dashboard.open, { desc = "Open dashboard" })
+map({ "n", "v" }, "<leader>e", Snacks.explorer.open, { desc = "Toggle explorer sidebar" })
 
 -- toggles
 map("n", "yow", function()
@@ -69,6 +66,8 @@ map({ "n", "v" }, "<leader>gi", Snacks.picker.gh_issue, { desc = " issues" })
 map({ "n", "v" }, "<leader>bn", "<cmd>enew<cr>", { desc = "new" })
 map({ "n", "v" }, "<leader>bq", require("mini.bufremove").delete, { desc = "close" })
 map({ "n", "v" }, "<leader>bb", Snacks.picker.buffers, { desc = "picker" })
+map({ "n", "v" }, "<leader>bd", Snacks.dim.enable, { desc = "dim outside of scope" })
+map({ "n", "v" }, "<leader>bD", Snacks.dim.disable, { desc = "undim" })
 
 -- LSP
 map({ "n", "v" }, "<leader>d", Snacks.picker.diagnostics_buffer, { desc = "diagnostics (buffer)" })
@@ -104,9 +103,24 @@ map({ "n", "v" }, "<leader>1pr", "<cmd>Leet random<cr>", { desc = "random" })
 -- other pickers
 map({ "n", "v" }, "<leader>a", Snacks.picker.autocmds, { desc = "autocmds" })
 map({ "n", "v" }, "<leader>c", Snacks.picker.colorschemes, { desc = "colorschemes" })
-map({ "n", "v" }, "<leader>f", Snacks.picker.explorer, { desc = "files" })
+local function explorer(opts)
+  Snacks.picker.explorer(vim.tbl_deep_extend("force", {
+    focus = "input",
+    auto_close = true,
+    layout = { preview = "main" },
+    win = {
+      input = {
+        keys = {
+          ["<cr>"] = { { "pick_win", "jump" }, mode = { "n", "i" } },
+          ["<s-cr>"] = { "confirm", mode = { "n", "i" } },
+        },
+      },
+    },
+  }, opts or {}))
+end
+map({ "n", "v" }, "<leader>f", explorer, { desc = "files" })
 map({ "n", "v" }, "<leader>F", function()
-  Snacks.picker.explorer { hidden = true, ignored = true }
+  explorer { hidden = true, ignored = true }
 end, { desc = "all files" })
 map({ "n", "v" }, "<leader>h", Snacks.picker.highlights, { desc = "highlights" })
 map({ "n", "v" }, "<leader>i", Snacks.picker.icons, { desc = "icons" })

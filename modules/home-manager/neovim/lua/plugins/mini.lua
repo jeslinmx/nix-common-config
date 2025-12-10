@@ -102,7 +102,7 @@ return {
       local section_filename = function(args)
         -- In terminal always use plain name
         if vim.bo.buftype == "terminal" then
-          return "%t"
+          return "[" .. vim.b.snacks_terminal.id .. "] " .. vim.b.term_title
         end
         return MiniStatusline.is_truncated(args.trunc_width) and "%f" or "%F"
       end

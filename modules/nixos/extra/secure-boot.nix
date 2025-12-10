@@ -6,16 +6,26 @@
   imports = [inputs.lanzaboote.nixosModules.lanzaboote];
 
   # For secure boot to work, you must do the following steps:
-  # 0. reboot into UEFI menu and set Secure Boot to Setup Mode
-  # 1. create signing keys using `nix run nixpkgs#sbctl create-keys`
-  # 1a. alternatively, import them using `nix run nixpkgs#sbctl import-keys -- --directory ...`
-  # 2. enroll keys using `nix run nixpkgs#sbctl -- enroll-keys --append --microsoft --ignore-immutable`
+  # 1. reboot into UEFI menu and set Secure Boot to Setup Mode
+  # 2. boot the system
   # 3. set Secure Boot back to Deployed Mode if not automatically reverted
 
   boot = {
     loader.systemd-boot.enable = lib.mkForce false;
-    lanzaboote.enable = true;
-    lanzaboote.pkiBundle = "/var/lib/sbctl";
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/var/lib/sbctl";
+      autoGenerateKeys.enable = true;
+      autoEnrollKeys = {
+        enable = true;
+        autoReboot = true;
+      };
+      settings = {
+        timeout = 0;
+        editor = false;
+        auto-poweroff = true; # add an entry to shutdown the system
+      };
+    };
     # for TPM auto-unlocking
     # note that when the boot environment changes (e.g. UEFI firmware update, new secure boot keys enrolled),
     # the PCRs will be invalidated, and thus the TPM will stop dispensing the previously enrolled key

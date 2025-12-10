@@ -130,12 +130,7 @@ return {
         commands = { layout = "vscode" },
         keymaps = { layout = { preview = false } },
         undo = { layout = "dropdown", sort = { fields = { "idx" } } },
-        explorer = {
-          focus = "input",
-          auto_close = true,
-          win = { list = { keys = { ["<cr>"] = "confirm" } } },
-          layout = { preview = "main" },
-        },
+        explorer = {},
         filetypes = {
           name = "filetypes",
           format = "text",

@@ -33,6 +33,12 @@ _: { pkgs, ... }: {
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
+      quitOnTopLevelReturn = true;
+      keybinding = {
+        universal = {
+          quit = "<disabled>";
+        };
+      };
       customCommands = [
         {
           key = "c";

@@ -9,6 +9,8 @@ _: {...}: {
       "/" = "grep";
       lg = "lazygit";
       dc = "docker compose";
+      ws = "wormhole-rs send";
+      wr = "wormhole-rs receive";
     };
     functions = {
       y = ''

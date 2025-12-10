@@ -16,10 +16,7 @@ _: {
       '';
     };
   };
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
+  programs.gnupg.agent.enable = true;
   security.pam = {
     u2f = {
       enable = true;

@@ -5,7 +5,7 @@ _: {
   ...
 } @ args: let
   common = (import ./common.nix) args;
-  inherit (common) mute-command volume-command move-monitor-command scrot-base-command terminal-command emoji-picker-command clipboard-command fileman-command;
+  inherit (common) mute-command volume-command move-monitor-command terminal-command emoji-picker-command clipboard-command fileman-command;
 in {
   wayland.windowManager.hyprland = let
     cfg = config.wayland.windowManager.hyprland;
@@ -154,12 +154,18 @@ in {
           "SUPER, S, togglespecialworkspace, magic"
           "SUPER, escape, exec, loginctl lock-session"
           "SUPER, delete, global, caelestia:session"
-          "SUPER, SPACE, global, caelestia:launcher"
           "SUPER, PERIOD, exec, ${emoji-picker-command}"
           "SUPER, V, exec, ${clipboard-command}"
           "SUPER, T, exec, ${terminal-command}"
           "SUPER, E, exec, ${fileman-command}"
+          "SUPER, SPACE, global, caelestia:launcher"
           "SUPER, C, global, caelestia:clearNotifs"
+          "SUPER, D, global, caelestia:dashboard"
+          "SUPER, BACKSPACE, global, caelestia:session"
+          ", print, global, caelestia:screenshotFreezeClip"
+          "CTRL, print, global, caelestia:screenshotClip"
+          "SUPER, print, global, caelestia:screenshotFreeze"
+          "CTRL SUPER, print, global, caelestia:screenshot"
         ]
         # switch focus with SUPER + direction
         ++ (produceBinds {dispatcher = "movefocus";})
@@ -210,15 +216,7 @@ in {
           keys = lib.map builtins.toString (lib.range 1 9) ++ ["0" "S"];
           dispatcher = "movetoworkspacesilent";
           args = lib.map builtins.toString (lib.range 1 10) ++ ["special:magic"];
-        })
-        ++ [
-          ", print, exec, ${scrot-base-command} --clipboard-only --mode output"
-          "ALT, print, exec, ${scrot-base-command} --clipboard-only --mode window"
-          "CTRL, print, exec, ${scrot-base-command} --clipboard-only --mode region"
-          "SUPER, print, exec, ${scrot-base-command} --mode output"
-          "ALT SUPER, print, exec, ${scrot-base-command} --mode window"
-          "CTRL SUPER, print, exec, ${scrot-base-command} --mode region"
-        ];
+        });
 
       bindl =
         [

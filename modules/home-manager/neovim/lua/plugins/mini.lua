@@ -361,6 +361,7 @@ return {
         local MiniDiff = require "mini.diff"
         MiniDiff.setup {
           source = { MiniDiff.gen_source.git(), MiniDiff.gen_source.save(), MiniDiff.gen_source.none() },
+          view = { priority = 49 },
         }
         local MiniHipatterns = require "mini.hipatterns"
         MiniHipatterns.setup {

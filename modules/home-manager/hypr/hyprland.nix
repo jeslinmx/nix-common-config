@@ -5,7 +5,7 @@ _: {
   ...
 } @ args: let
   common = (import ./common.nix) args;
-  inherit (common) mute-command volume-command move-monitor-command terminal-command emoji-picker-command clipboard-command fileman-command;
+  inherit (common) mute-command volume-command move-monitor-command;
 in {
   wayland.windowManager.hyprland = let
     cfg = config.wayland.windowManager.hyprland;
@@ -154,10 +154,10 @@ in {
           "SUPER, S, togglespecialworkspace, magic"
           "SUPER, escape, exec, loginctl lock-session"
           "SUPER, delete, global, caelestia:session"
-          "SUPER, PERIOD, exec, ${emoji-picker-command}"
-          "SUPER, V, exec, ${clipboard-command}"
-          "SUPER, T, exec, ${terminal-command}"
-          "SUPER, E, exec, ${fileman-command}"
+          "SUPER, PERIOD, exec, caelestia emoji -p"
+          "SUPER, V, exec, caelestia clipboard"
+          "SUPER, T, exec, ghostty"
+          "SUPER, E, exec, io.elementary.files"
           "SUPER, SPACE, global, caelestia:launcher"
           "SUPER, C, global, caelestia:clearNotifs"
           "SUPER, D, global, caelestia:dashboard"

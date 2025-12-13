@@ -129,26 +129,6 @@
         "type": "github"
       }
     },
-    "devshell": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1764011051,
-        "narHash": "sha256-M7SZyPZiqZUR/EiiBJnmyUbOi5oE/03tCeFrTiUZchI=",
-        "owner": "numtide",
-        "repo": "devshell",
-        "rev": "17ed8d9744ebe70424659b0ef74ad6d41fc87071",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "devshell",
-        "type": "github"
-      }
-    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -365,6 +345,27 @@
         "type": "github"
       }
     },
+    "nix-darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-darwin"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765065051,
+        "narHash": "sha256-b7W9WsvyMOkUScNxbzS45KEJp0iiqRPyJ1I3JBE+oEE=",
+        "owner": "LnL7",
+        "repo": "nix-darwin",
+        "rev": "7e22bf538aa3e0937effcb1cee73d5f1bcc26f79",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LnL7",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1754777568,
@@ -506,6 +507,29 @@
     "nur": {
       "inputs": {
         "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1765603230,
+        "narHash": "sha256-vn0p2MSiWCJhGq73Iwp35cqgABQXswxPqbyUSc+CRjM=",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "09246e75b81163fd8a49b11355dc162846a96c5c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
+    "nur_2": {
+      "inputs": {
+        "flake-parts": [
           "stylix",
           "flake-parts"
         ],
@@ -575,17 +599,18 @@
     "root": {
       "inputs": {
         "caelestia-shell": "caelestia-shell",
-        "devshell": "devshell",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
         "home-manager-darwin": "home-manager-darwin",
         "lanzaboote": "lanzaboote",
         "mcp-hub": "mcp-hub",
+        "nix-darwin": "nix-darwin",
         "nix-flatpak": "nix-flatpak",
         "nix-index-database": "nix-index-database",
         "nix-rosetta-builder": "nix-rosetta-builder",
         "nixpkgs": "nixpkgs",
         "nixpkgs-darwin": "nixpkgs-darwin",
+        "nur": "nur",
         "stylix": "stylix",
         "tt-schemes": "tt-schemes"
       }
@@ -623,7 +648,7 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "nur": "nur",
+        "nur": "nur_2",
         "systems": "systems",
         "tinted-foot": "tinted-foot",
         "tinted-kitty": "tinted-kitty",

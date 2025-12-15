@@ -53,13 +53,25 @@ in rec {
   mkDarwinConfigurations = outerFlake:
     builtins.mapAttrs (name: v:
       nix-darwin.lib.darwinSystem {
-        modules = [{networking.hostName = name;} ((import v) outerFlake)];
+        modules = [
+          {
+            networking.hostName = name;
+            nix.nixPath = ["nix-config=${outerFlake.outPath}"];
+          }
+          ((import v) outerFlake)
+        ];
       });
 
   mkNixosConfigurations = outerFlake:
     builtins.mapAttrs (name: v:
       lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [{networking.hostName = name;} ((import v) outerFlake)];
+        modules = [
+          {
+            networking.hostName = name;
+            nix.nixPath = ["nix-config=${outerFlake.outPath}"];
+          }
+          ((import v) outerFlake)
+        ];
       });
 }

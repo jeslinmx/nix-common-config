@@ -4,7 +4,35 @@ return {
   opts = {
     bigfile = {},
     dashboard = {
+      pane_gap = 2,
       sections = {
+        {
+          text = {
+            hl = "NonText",
+            [[
+▄                 ▄
+█▀▀▄ ▄▀▀█ █▀▀▄ █▀▀█
+█  █ █░░█ █  █ █░░█
+▀  ▀ ▀▀▀▀ ▀  ▀ ▀▀▀▀
+        ]],
+          },
+          align = "right",
+          padding = 2,
+        },
+        {
+          text = {
+            hl = "Folded",
+            [[
+             ▄
+█▀▀▀ █▀▀█ █▀▀█ █▀▀█
+█░░░ █░░█ █░░█ █▀▀▀
+▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀
+        ]],
+          },
+          align = "left",
+          pane = 2,
+          padding = 2,
+        },
         { section = "keys", gap = 1, padding = 1 },
         {
           icon = " ",
@@ -41,7 +69,7 @@ return {
             {
               icon = " ",
               title = "Open PRs",
-              cmd = "gh pr list -L 3",
+              cmd = "PAGER= gh pr list -L 3",
               key = "p",
               action = function()
                 vim.fn.jobstart("gh pr list --web", { detach = true })
@@ -50,7 +78,7 @@ return {
             },
             {
               title = "Open Issues",
-              cmd = "gh issue list -L 3",
+              cmd = "PAGER= gh issue list -L 3",
               key = "i",
               action = function()
                 vim.fn.jobstart("gh issue list --web", { detach = true })
@@ -106,9 +134,7 @@ return {
             desc = "MCP Hub",
             action = ":MCPHub",
           },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
-        header = "",
       },
     },
     explorer = { replace_netrw = true },

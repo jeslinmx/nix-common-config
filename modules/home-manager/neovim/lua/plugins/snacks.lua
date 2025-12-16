@@ -321,6 +321,18 @@ return {
         --     loadingText = "Creating conventional commit...",
         --   },
         -- },
+        os = (function()
+          local nvrBaseCommand = "nvr -c ':lua Snacks.lazygit.open()' "
+          local reopenOnDelete =
+            "-c ':autocmd snacks_lazygit_suspend BufDelete <buffer> ++once lua Snacks.lazygit.open()' "
+          return {
+            edit = nvrBaseCommand .. "--remote {{filename}}",
+            editAtLine = nvrBaseCommand .. "--remote {{filename}} -c ':{{line}}'",
+            -- editAtLineAndWait = nvrBaseCommand .. reopenOnDelete .. "--remote-wait {{filename}} -c ':{{line}}'",
+            openDirInEditor = "nvr -c ':lua Snacks.lazygit.open()' -c ':lua MiniFiles.open({{dir}}, false)'",
+            editInTerminal = false,
+          }
+        end)(),
       },
       theme = {
         activeBorderColor = { fg = "ColorfulWinSep" },

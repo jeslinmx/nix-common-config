@@ -6,8 +6,8 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # nixpkgs
-    nixpkgs.url = "nixpkgs/master";
-    nixpkgs-darwin.url = "nixpkgs/master";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-darwin.url = "nixpkgs/nixpkgs-unstable";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +30,7 @@
 
     # Darwin modules
     nix-darwin = {
-      url = "github:LnL7/nix-darwin/master";
+      url = "github:nix-darwin/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
     home-manager-darwin = {

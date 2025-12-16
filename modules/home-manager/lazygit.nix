@@ -37,6 +37,7 @@ _: { pkgs, ... }: {
       keybinding = {
         universal = {
           quit = "<disabled>";
+          return = "q";
         };
       };
       customCommands = [

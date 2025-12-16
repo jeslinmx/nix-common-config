@@ -337,7 +337,7 @@ return {
     },
     dim = {},
     styles = {
-      lazygit = { keys = { hide = { "q", "hide", mode = "t" } }, backdrop = false, minimal = true },
+      lazygit = { keys = { hide = { "<esc>", "hide", mode = "t" } }, backdrop = false, minimal = true },
       -- lazygit = { style = "split", minimal = true, stack = true },
       terminal = {
         wo = { winbar = "" },

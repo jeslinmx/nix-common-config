@@ -63,9 +63,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = {flake-parts, ...} @ inputs:
+  outputs = {
+    flake-parts,
+    nvf,
+    ...
+  } @ inputs:
     flake-parts.lib.mkFlake {inherit inputs;} ({self, ...}: {
       flake = let
         inherit (self.lib) gatherModules;
@@ -75,11 +83,28 @@
         darwinModules = gatherModules self ./modules/darwin;
         nixosModules = gatherModules self ./modules/nixos;
         homeModules = gatherModules self ./modules/home-manager;
+        nvfModules = gatherModules self ./modules/nvf;
       };
 
       systems = ["x86_64-linux" "aarch64-darwin"];
-      perSystem = {pkgs, ...}: {
+      perSystem = {
+        system,
+        pkgs,
+        ...
+      }: {
         formatter = pkgs.alejandra;
+        packages = let
+          nvfConf = nvf.lib.neovimConfiguration {
+            inherit pkgs;
+            modules = [self.nvfModules.default];
+          };
+        in {inherit (nvfConf) neovim;};
+        apps = {
+          nvim = {
+            type = "app";
+            program = self.packages.${system}.neovim;
+          };
+        };
       };
     });
 }

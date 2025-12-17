@@ -43,6 +43,9 @@ return {
                   .. vim.uv.os_gethostname()
                   .. ".options.home-manager.users.type.getSubOptions []",
               },
+              nvf = {
+                expr = "let f = builtins.getFlake (builtins.toString <nix-common-config>); in (f.inputs.nvf.lib.neovimConfiguration { pkgs = import <nixpkgs> {}; modules = [f.nvfModules.default]; }).options",
+              },
             },
           },
         },

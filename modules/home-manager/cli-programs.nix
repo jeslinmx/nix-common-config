@@ -10,6 +10,7 @@
       git
       lazygit
       neovim
+      nvf
       ssh
       starship
       # termshark

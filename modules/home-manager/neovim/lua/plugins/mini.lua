@@ -17,12 +17,6 @@ return {
 
   config = function()
     -- UI
-    require("mini.base16").setup { palette = _G.palette }
-
-    local MiniIcons = require "mini.icons"
-    MiniIcons.setup()
-    MiniIcons.mock_nvim_web_devicons()
-    MiniIcons.tweak_lsp_kind()
 
     local MiniStatusline = require "mini.statusline"
     do
@@ -310,59 +304,10 @@ return {
       end,
     }
 
-    vim.api.nvim_create_autocmd("VimEnter", {
-      once = true,
-      callback = function()
-        local MiniFiles = require "mini.files"
-        local show_dotfiles = false
-        local filter_show = function(_)
-          return true
-        end
-        local filter_hide = function(fs_entry)
-          return not vim.startswith(fs_entry.name, ".")
-        end
-        local toggle_dotfiles = function()
-          show_dotfiles = not show_dotfiles
-          local new_filter = show_dotfiles and filter_show or filter_hide
-          MiniFiles.refresh { content = { filter = new_filter } }
-        end
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "MiniFilesBufferCreate",
-          callback = function(args)
-            local buf_id = args.data.buf_id
-            -- Tweak left-hand side of mapping to your liking
-            vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = buf_id })
-          end,
-        })
-        MiniFiles.setup {
-          windows = { preview = true, width_focus = 25, width_nofocus = 15, width_preview = 50 },
-          mappings = { close = "<Esc>", go_in = "<S-CR>", go_in_plus = "<CR>", go_out = "_", go_out_plus = "-" },
-          content = { filter = filter_hide },
-        }
-      end,
-    })
-
     -- Editing
     vim.api.nvim_create_autocmd("BufReadPost", {
       once = true,
       callback = function()
-        local gen_ai_spec = require("mini.extra").gen_ai_spec
-        require("mini.ai").setup {
-          custom_textobjects = {
-            B = gen_ai_spec.buffer(),
-            D = gen_ai_spec.diagnostic(),
-            I = gen_ai_spec.indent(),
-            L = gen_ai_spec.line(),
-            N = gen_ai_spec.number(),
-          },
-        }
-        -- require('mini.align').setup()
-        require("mini.cursorword").setup()
-        local MiniDiff = require "mini.diff"
-        MiniDiff.setup {
-          source = { MiniDiff.gen_source.git(), MiniDiff.gen_source.save(), MiniDiff.gen_source.none() },
-          view = { priority = 49 },
-        }
         local MiniHipatterns = require "mini.hipatterns"
         MiniHipatterns.setup {
           highlighters = {
@@ -374,23 +319,7 @@ return {
           },
         }
         -- require('mini.move').setup()
-        require("mini.operators").setup { sort = { prefix = "gS" } }
-        require("mini.surround").setup {
-          mappings = {
-            add = "ys",
-            delete = "ds",
-            find = "",
-            find_left = "",
-            highlight = "",
-            replace = "cs",
-            update_n_lines = "",
-            suffix_last = "",
-            suffix_next = "",
-          },
-          search_method = "cover_or_next",
-        }
         -- require('mini.splitjoin').setup()
-        require("mini.trailspace").setup()
       end,
     })
 

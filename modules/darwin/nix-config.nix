@@ -7,6 +7,12 @@
     settings = {
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["root" "@wheel" "@admin"];
+      trusted-substituters = [
+        "https://nvf.cachix.org/"
+      ];
+      trusted-public-keys = [
+        "nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="
+      ];
     };
     optimise.automatic = true;
     gc = {

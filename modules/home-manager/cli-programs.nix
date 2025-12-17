@@ -9,7 +9,7 @@
       fzf
       git
       lazygit
-      neovim
+      nvf
       ssh
       starship
       # termshark
@@ -62,7 +62,7 @@
     git.enable = true;
     helix.enable = true;
     lazygit.enable = true;
-    neovim.enable = true;
+    nvf.enable = true;
     ssh.enable = true;
     starship.enable = true;
     tmux.enable = true;

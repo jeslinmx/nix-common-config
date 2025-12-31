@@ -56,9 +56,10 @@ in {
         dim_strength = 0.2;
         shadow.enabled = false;
         blur = {
-          enabled = false;
-          size = 1;
-          passes = 4;
+          enabled = true;
+          size = 8;
+          passes = 2;
+          ignore_opacity = true;
         };
       };
 

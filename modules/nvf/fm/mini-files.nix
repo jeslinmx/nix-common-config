@@ -28,17 +28,7 @@ _: {lib, ...}: {
         group = augroup;
         callback = lib.generators.mkLuaInline ''
           function(args)
-            local MiniFiles = require "mini.files"
-            local show_dotfiles = false
-            local filter_show = function(_) return true end
-            local filter_hide = function(fs_entry) return not vim.startswith(fs_entry.name, ".") end
-            local toggle_dotfiles = function()
-              show_dotfiles = not show_dotfiles
-              local new_filter = show_dotfiles and filter_show or filter_hide
-              MiniFiles.refresh { content = { filter = new_filter } }
-            end
-            vim.keymap.set("n", "g.", toggle_dotfiles, { buffer = args.data.buf_id })
-            MiniFiles.refresh { content = { filter = filter_hide } }
+            vim.keymap.set("n", "g.", "<cmd>MiniFilesToggleHidden<cr>", { buffer = args.data.buf_id })
           end
         '';
       }
@@ -46,7 +36,9 @@ _: {lib, ...}: {
     keymaps = [
       (lib.nvim.binds.mkKeymap ["n" "v"] "-" ''
           function()
-            require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"))
+            require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"), false, {
+              content = { filter = vim.g.mini_files_filter }
+            })
             require("mini.files").reveal_cwd()
           end
         '' {
@@ -54,5 +46,17 @@ _: {lib, ...}: {
           lua = true;
         })
     ];
+    luaConfigRC.miniFiles-createToggleHiddenCommand = lib.nvim.dag.entryAfter ["pluginConfigs"] ''
+      ;(function()
+        local MiniFiles = require "mini.files"
+        local filter_show = function(_) return true end
+        local filter_hide = function(fs_entry) return not vim.startswith(fs_entry.name, ".") end
+        vim.g.mini_files_filter = filter_hide
+        vim.api.nvim_create_user_command("MiniFilesToggleHidden", function()
+          vim.g.mini_files_filter = (vim.g.mini_files_filter == filter_hide) and filter_show or filter_hide
+          MiniFiles.refresh { content = { filter = vim.g.mini_files_filter } }
+        end, {desc = "Toggle hidden files visibility in MiniFiles"})
+      end)()
+    '';
   };
 }

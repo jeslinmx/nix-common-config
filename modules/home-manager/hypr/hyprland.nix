@@ -132,6 +132,8 @@ in {
           "float, class:(org.telegram.desktop) title:(Media viewer)"
           "workspace special:magic, class:(org.telegram.desktop)"
           "workspace special:magic, class:(teams-for-linux)"
+          "workspace special:magic, class:(1password)"
+          "workspace special:magic, class:(com.slack.Slack)"
           "opacity 1.0 0.2, floating:1"
         ]
         ++ (

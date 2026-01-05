@@ -47,7 +47,7 @@
         lazygit = {
           keys = {
             hide = {
-              "@1" = "<esc>";
+              "@1" = "<esc><esc>";
               "@2" = "hide";
               mode = ["n" "t"];
             };

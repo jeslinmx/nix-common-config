@@ -9,6 +9,7 @@ _: {lib, ...}: {
     (mkKeymap ["n" "i"] "<C-c>" "<cmd>%y+<cr>" {desc = "copy whole file";})
 
     (mkKeymap ["i"] "jj" "<Esc>" {desc = "escape insert mode";})
+    (mkKeymap ["t"] "jj" "<C-\\><C-n>" {desc = "escape insert mode";})
     (mkKeymap ["n"] "<Esc>" "<cmd>noh<cr>" {desc = "clear highlights";})
 
     (mkKeymap ["n" "v"] "<tab>" "<cmd>bnext<cr>" {desc = "buffer goto next";})

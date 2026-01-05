@@ -49,5 +49,7 @@ _: {lib, ...}: {
     # inspired by unimpaired
     (mkKeymap ["n"] "=P" ''<Cmd>exe "put! " . v:register<cr>==^'' {desc = "paste above and re-indent";})
     (mkKeymap ["n"] "=p" ''<Cmd>exe "put "  . v:register<cr>==^'' {desc = "paste below and re-indent";})
+    (mkKeymap ["n"] "=gP" ''<Cmd>exe "put! +"<cr>==^'' {desc = "paste above from system clipboard and re-indent";})
+    (mkKeymap ["n"] "=gp" ''<Cmd>exe "put  +"<cr>==^'' {desc = "paste below from system clipboard and re-indent";})
   ];
 }

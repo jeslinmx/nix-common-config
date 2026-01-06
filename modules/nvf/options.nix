@@ -7,6 +7,8 @@ _: {lib, ...}: {
     cursorline = true;
     cursorlineopt = "both"; # highlight line and line number
 
+    mousemodel = "extend"; # rmb extends selection
+
     linebreak = true; # Wrap long lines at 'breakat' (if 'wrap' is set)
     breakindent = true; # wrapped lines are indented below their parent
     sidescroll = 5;

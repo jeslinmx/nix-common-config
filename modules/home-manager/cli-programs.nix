@@ -10,6 +10,7 @@
       git
       lazygit
       nvf
+      opencode
       ssh
       starship
       # termshark
@@ -62,6 +63,7 @@
     git.enable = true;
     helix.enable = true;
     lazygit.enable = true;
+    opencode.enable = true;
     nvf.enable = true;
     ssh.enable = true;
     starship.enable = true;

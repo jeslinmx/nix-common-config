@@ -25,7 +25,7 @@ _: {
           ERROR = {
             text = "󰅚 ";
             numhl = "DiagnosticError";
-            linehl = "DiagnosticERRORReverse";
+            # linehl = "DiagnosticERRORReverse";
           };
           WARN = {
             text = "󰀪 ";

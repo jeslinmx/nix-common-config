@@ -8,7 +8,6 @@
   # };
 
   nix-rosetta-builder = {
-    memory = "12GiB";
     onDemand = true;
     onDemandLingerMinutes = 60;
   };

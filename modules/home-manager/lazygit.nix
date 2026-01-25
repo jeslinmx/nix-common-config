@@ -1,4 +1,4 @@
-_: { pkgs, ... }: {
+_: {pkgs, ...}: {
   programs.lazygit = {
     settings = {
       gui = {
@@ -34,12 +34,6 @@ _: { pkgs, ... }: {
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
       quitOnTopLevelReturn = true;
-      keybinding = {
-        universal = {
-          quit = "<disabled>";
-          return = "q";
-        };
-      };
       customCommands = [
         {
           key = "c";

@@ -30,6 +30,7 @@ _: {pkgs, ...}: {
           showGraph = "always";
         };
         truncateCopiedCommitHashesTo = 40;
+        autoFetch = false;
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;

@@ -12,7 +12,7 @@
     if x < 0
     then "-"
     else "+";
-  fmt-adj = x: "${builtins.toString (abs x)}%${sign x}";
+  fmt-adj = x: "${toString (abs x)}%${sign x}";
   rgb = color: let
     c = config.lib.stylix.colors;
   in "rgb(${c."${color}-rgb-r"}, ${c."${color}-rgb-g"}, ${c."${color}-rgb-b"})";

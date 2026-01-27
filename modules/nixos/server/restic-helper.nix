@@ -39,7 +39,7 @@ _: {
     }
     [
       lib.cartesianProduct
-      (builtins.map (
+      (map (
         {
           r,
           s,

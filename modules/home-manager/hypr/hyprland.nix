@@ -138,7 +138,7 @@ in {
         ]
         ++ (
           rule
-          ["float" "pin" "keepaspectratio" "opacity 1.0 1.0" "noinitialfocus" "size 25% 25%" "move 100%-w-${builtins.toString (general.gaps_out + general.border_size)} 100%-w-${builtins.toString (general.gaps_out + general.border_size)}"]
+          ["float" "pin" "keepaspectratio" "opacity 1.0 1.0" "noinitialfocus" "size 25% 25%" "move 100%-w-${toString (general.gaps_out + general.border_size)} 100%-w-${toString (general.gaps_out + general.border_size)}"]
           "class:(firefox), title:(Picture-in-Picture)"
         );
 
@@ -191,34 +191,34 @@ in {
         ++ (produceBinds {
           mod = "CTRL SHIFT ALT SUPER";
           dispatcher = "exec";
-          args = builtins.map (x: move-monitor-command (builtins.elemAt x 0)) directionKeys;
+          args = map (x: move-monitor-command (builtins.elemAt x 0)) directionKeys;
         })
         # switch workspaces with SUPER + number
         ++ (produceBinds {
-          keys = lib.map builtins.toString (lib.range 1 9) ++ ["0"];
+          keys = lib.map toString (lib.range 1 9) ++ ["0"];
           dispatcher = "workspace";
-          args = lib.map builtins.toString (lib.range 1 10);
+          args = lib.map toString (lib.range 1 10);
         })
         # switch workspaces to current display with CTRL + SUPER + number
         ++ (produceBinds {
           mod = "CTRL SUPER";
-          keys = lib.map builtins.toString (lib.range 1 9) ++ ["0"];
+          keys = lib.map toString (lib.range 1 9) ++ ["0"];
           dispatcher = "focusworkspaceoncurrentmonitor";
-          args = lib.map builtins.toString (lib.range 1 10);
+          args = lib.map toString (lib.range 1 10);
         })
         # move window to workspaces with SHIFT + SUPER + number/S
         ++ (produceBinds {
           mod = "SHIFT SUPER";
-          keys = lib.map builtins.toString (lib.range 1 9) ++ ["0" "S"];
+          keys = lib.map toString (lib.range 1 9) ++ ["0" "S"];
           dispatcher = "movetoworkspace";
-          args = lib.map builtins.toString (lib.range 1 10) ++ ["special:magic"];
+          args = lib.map toString (lib.range 1 10) ++ ["special:magic"];
         })
         # silently move window to workspaces with CTRL + SHIFT + SUPER + number/S
         ++ (produceBinds {
           mod = "CTRL SHIFT SUPER";
-          keys = lib.map builtins.toString (lib.range 1 9) ++ ["0" "S"];
+          keys = lib.map toString (lib.range 1 9) ++ ["0" "S"];
           dispatcher = "movetoworkspacesilent";
-          args = lib.map builtins.toString (lib.range 1 10) ++ ["special:magic"];
+          args = lib.map toString (lib.range 1 10) ++ ["special:magic"];
         });
 
       bindl =

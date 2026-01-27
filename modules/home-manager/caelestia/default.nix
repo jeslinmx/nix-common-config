@@ -5,8 +5,8 @@
   programs.caelestia = {
     enable = true;
     settings = let
-      set = value: x: builtins.listToAttrs (builtins.map (name: {inherit name value;}) x);
-      barEnable = builtins.map (x: {
+      set = value: x: builtins.listToAttrs (map (name: {inherit name value;}) x);
+      barEnable = map (x: {
         id = x;
         enabled = true;
       });

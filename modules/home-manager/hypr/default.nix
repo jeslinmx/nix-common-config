@@ -1,8 +1,4 @@
-{
-  homeModules,
-  inputs,
-  ...
-}: {...}: {
+{homeModules, ...}: {...}: {
   imports = builtins.attrValues {
     inherit
       (homeModules)

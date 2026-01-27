@@ -1,8 +1,4 @@
-{
-  inputs,
-  homeModules,
-  ...
-}: {
+{homeModules, ...}: {
   lib,
   pkgs,
   ...

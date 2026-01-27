@@ -51,7 +51,7 @@ in {
       type = lib.types.attrsOf lib.types.str;
       description = "Mapping of ZeroTier network IDs to interface names";
       readOnly = true;
-      default = builtins.listToAttrs (builtins.map (nwid: lib.nameValuePair nwid (ifrname nwid)) config.services.zerotierone.joinNetworks);
+      default = builtins.listToAttrs (map (nwid: lib.nameValuePair nwid (ifrname nwid)) config.services.zerotierone.joinNetworks);
     };
   };
   config = {

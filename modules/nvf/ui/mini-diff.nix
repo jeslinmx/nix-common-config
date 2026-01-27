@@ -31,10 +31,10 @@ in {
       if x < epsilon
       then 0
       else helper (1.0 * x);
-    toRGB = hex: builtins.map (pos: lib.fromHexString (builtins.substring pos 2 hex)) [1 3 5];
-    toHex = rgb: "#${builtins.concatStringsSep "" (builtins.map lib.toHexString rgb)}";
+    toRGB = hex: map (pos: lib.fromHexString (builtins.substring pos 2 hex)) [1 3 5];
+    toHex = rgb: "#${builtins.concatStringsSep "" (map lib.toHexString rgb)}";
     blend = c1: c2: r:
-      toHex (builtins.map
+      toHex (map
         ({
           fst,
           snd,

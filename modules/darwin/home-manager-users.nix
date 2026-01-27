@@ -22,7 +22,7 @@
           username: userCfg: {
             ${username} =
               {home = lib.mkDefault "/Users/${username}";}
-              // (builtins.removeAttrs userCfg ["hmModules"]);
+              // (removeAttrs userCfg ["hmModules"]);
           }
         )
         cfg);
@@ -37,7 +37,7 @@
           username: {hmModules ? [], ...}: {
             imports = let
               defaultModules = [
-                ({osConfig, ...}: {
+                (_: {
                   # home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
                   home.homeDirectory = lib.mkDefault "/Users/${username}";
                 })

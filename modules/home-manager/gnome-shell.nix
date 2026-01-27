@@ -1,4 +1,4 @@
-{inputs, ...}: {
+_: {
   lib,
   osConfig ? {},
   pkgs,
@@ -116,7 +116,7 @@ in
 
       "org/gnome/shell" = {
         disable-user-extensions = false;
-        enabled-extensions = builtins.map (x: x.extensionUuid) extensions;
+        enabled-extensions = map (x: x.extensionUuid) extensions;
       };
 
       "org/gnome/shell/app-switcher" = {

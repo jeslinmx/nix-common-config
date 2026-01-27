@@ -1,4 +1,4 @@
-{inputs, ...}: {
+_: {
   lib,
   pkgs,
   ...
@@ -68,7 +68,7 @@
             "*" = ''piper -- ${lib.getExe pkgs.bat} --force-colorization --style=changes,numbers "$1"'';
           } [
             lib.attrsToList
-            (builtins.map ({
+            (map ({
               name,
               value,
             }: {

@@ -1,5 +1,5 @@
 {nvfModules, ...}: {pkgs, ...}: {
-  imports = builtins.attrValues (builtins.removeAttrs nvfModules ["default"]);
+  imports = builtins.attrValues (removeAttrs nvfModules ["default"]);
   vim = {
     viAlias = true;
     vimAlias = true;

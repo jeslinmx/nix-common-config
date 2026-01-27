@@ -27,7 +27,7 @@
                 isNormalUser = lib.mkDefault true;
                 group = lib.mkIf config.users.users.${username}.isNormalUser (lib.mkOverride 900 username);
               }
-              // (builtins.removeAttrs userCfg ["hmModules"]);
+              // (removeAttrs userCfg ["hmModules"]);
           }
         )
         cfg);

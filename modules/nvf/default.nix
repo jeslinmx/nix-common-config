@@ -10,7 +10,7 @@
       };
       lua.enable = true;
       html.enable = true;
-      markdown.enable = true;
+      # markdown.enable = true;
       css.enable = true;
       ts.enable = true;
       json.enable = true;

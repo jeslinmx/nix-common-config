@@ -4,20 +4,15 @@ _: {
   pkgs,
   ...
 }: {
-  options.services.caddy.proxiedServices = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.separatedString " ");
-    default = [];
-  };
   config = {
     services.caddy = {
       enable = true;
       package = pkgs.caddy.withPlugins {
-        plugins = ["github.com/caddy-dns/cloudflare@v0.2.1"];
-        hash = "sha256-AcWko5513hO8I0lvbCLqVbM1eWegAhoM0J0qXoWL/vI=";
+        plugins = ["github.com/caddy-dns/cloudflare@v0.2.2"];
+        hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
       };
       # for testing
       # acmeCA = "https://acme-staging-v02.api.letsencrypt.org/directory";
-      email = "jeslinmx@gmail.com";
       enableReload = false; # since admin API is disabled
       globalConfig = ''
         admin off
@@ -27,15 +22,6 @@ _: {
           metrics
         }
       '';
-      virtualHosts =
-        lib.mapAttrs (name: address: {
-          extraConfig = ''
-            reverse_proxy ${address} {
-            }
-            encode zstd gzip
-          '';
-        })
-        config.services.caddy.proxiedServices;
     };
     # trigger caddy restart on re-config
     systemd.services.caddy.restartTriggers = [config.services.caddy.configFile];
@@ -47,11 +33,6 @@ _: {
     boot.kernel.sysctl = {
       "net.core.rmem_max" = 7500000;
       "net.core.wmem_max" = 7500000;
-    };
-
-    sops = {
-      secrets."caddy/cloudflare-api-token" = {};
-      templates.caddy-envFile.content = "CF_API_TOKEN=${config.sops.placeholder."caddy/cloudflare-api-token"}";
     };
   };
 }

@@ -711,6 +711,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nur": "nur",
         "nvf": "nvf",
+        "sops-nix": "sops-nix",
         "stylix": "stylix",
         "tt-schemes": "tt-schemes"
       }
@@ -733,6 +734,26 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "sops-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1769469829,
+        "narHash": "sha256-wFcr32ZqspCxk4+FvIxIL0AZktRs6DuF8oOsLt59YBU=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "c5eebd4eb2e3372fe12a8d70a248a6ee9dd02eff",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
         "type": "github"
       }
     },

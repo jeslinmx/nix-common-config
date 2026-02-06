@@ -16,6 +16,7 @@
       json.enable = true;
       yaml.enable = true;
       typst.enable = true;
+      python.enable = true;
     };
     treesitter.grammars = [pkgs.vimPlugins.nvim-treesitter.builtGrammars.latex];
   };

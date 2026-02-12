@@ -33,4 +33,5 @@
   vim.luaConfigRC.leetcode-group = lib.nvim.dag.entryAfter ["pluginConfigs"] ''
     require("which-key").add({"<leader>1", group = "leetcode"})
   '';
+  vim.telescope.enable = lib.mkForce false;
 }

@@ -8,7 +8,11 @@
   lib,
   ...
 }: {
-  imports = [nixosModules.server-restic-helper inputs.sops-nix.nixosModules.sops];
+  imports = [
+    nixosModules.server-common-proxy
+    nixosModules.server-common-restic-helper
+    inputs.sops-nix.nixosModules.sops
+  ];
 
   options.server = with lib.types; let
     inherit (lib) mkOption;

@@ -1,4 +1,8 @@
-{nvfModules, ...}: {pkgs, ...}: {
+{nvfModules, ...}: {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = builtins.attrValues (removeAttrs nvfModules ["default"]);
   vim = {
     viAlias = true;
@@ -10,7 +14,10 @@
       };
       lua.enable = true;
       html.enable = true;
-      markdown.enable = true;
+      markdown = {
+        enable = true;
+        lsp.servers = lib.mkForce ["markdown-oxide"];
+      };
       css.enable = true;
       ts.enable = true;
       json.enable = true;

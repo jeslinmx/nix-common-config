@@ -82,7 +82,7 @@
     # backup config
     backups.restic.services = lib.mapAttrs (_: {backup, ...}:
       with backup;
-        lib.mkIf enable {
+        {
           inherit paths;
           backupPrepareCommand =
             if prepareCommand != null
@@ -93,8 +93,8 @@
             then cleanupCommand
             else "systemctl start ${systemdServiceName}.service";
         }
-        |> lib.mkIf backup.enable
-        |> lib.mkDefault)
+        |> lib.mkDefault
+        |> lib.mkIf backup.enable)
     config.server;
 
     # secrets config

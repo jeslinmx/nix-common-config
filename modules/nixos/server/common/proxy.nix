@@ -6,7 +6,10 @@ _: {
 }: {
   config = {
     services.caddy = {
-      enable = true;
+      enable =
+        config.server
+        |> builtins.attrValues
+        |> builtins.any (service: service.proxy.enable);
       package = pkgs.caddy.withPlugins {
         plugins = ["github.com/caddy-dns/cloudflare@v0.2.2"];
         hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
@@ -28,7 +31,7 @@ _: {
     # get cloudflare api token from sops
     systemd.services.caddy.serviceConfig.EnvironmentFile = config.sops.templates.caddy-envFile.path;
     # open firewall
-    networking.firewall.allowedTCPPorts = [80 443];
+    networking.firewall.allowedTCPPorts = lib.mkIf config.services.caddy.enable [80 443];
     # increase socket buffer size for quic-go
     boot.kernel.sysctl = {
       "net.core.rmem_max" = 7500000;

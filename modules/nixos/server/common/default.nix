@@ -60,8 +60,9 @@
   config = let
     cfg = config.server;
   in {
+    # proxy config
     services =
-      (lib.mapAttrs (_: _: {enable = true;}) cfg)
+      (lib.mapAttrs (_: _: {enable = lib.mkDefault true;}) cfg)
       // {
         caddy.virtualHosts =
           lib.mapAttrs (_: {proxy, ...}: {
@@ -75,6 +76,8 @@
           })
           cfg;
       };
+
+    # backup config
     backups.restic.services = lib.mapAttrs (_: {backup, ...}:
       with backup; {
         inherit paths;
@@ -88,6 +91,8 @@
           else "systemctl start ${systemdServiceName}.service";
       })
     config.server;
+
+    # secrets config
     sops.secrets = (cfg |> lib.mapAttrsToList (_: {sopsKeys, ...}: builtins.attrValues sopsKeys) |> lib.flatten |> lib.genAttrs) (_: {});
   };
 }

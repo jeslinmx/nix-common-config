@@ -3,9 +3,8 @@ _: {
   lib,
   ...
 }: {
-  options.backups.restic = let
+  options.backups.restic = with lib.types; let
     inherit (lib) mkOption;
-    inherit (lib.types) attrsOf anything boolByOr;
   in {
     repositories = mkOption {
       description = "Configs of repositories to backup each service to";
@@ -30,33 +29,32 @@ _: {
   };
 
   config.services.restic.backups = let
+    inherit (lib) attrsToList cartesianProduct mkMerge mkOverride;
     cfg = config.backups.restic;
   in
-    lib.pipe
     {
-      r = lib.attrsToList cfg.repositories;
-      s = lib.attrsToList cfg.services;
+      r = attrsToList cfg.repositories;
+      s = attrsToList cfg.services;
     }
-    [
-      lib.cartesianProduct
-      (map (
-        {
-          r,
-          s,
-        }:
-          lib.nameValuePair
-          "${r.name}-${s.name}"
-          (cfg.common
-            // r.value
-            // s.value
-            // {
-              repository = "${r.value.repository}/${
-                if cfg.obfuscateServiceNames
-                then builtins.hashString "sha256" s.name
-                else s.name
-              }";
-            })
-      ))
-      builtins.listToAttrs
-    ];
+    |> cartesianProduct
+    |> map (
+      {
+        r,
+        s,
+      }: {
+        name = "${r.name}-${s.name}";
+        value =
+          cfg.common
+          // r.value
+          // s.value
+          // {
+            repository = "${r.value.repository}/${
+              if cfg.obfuscateServiceNames
+              then s.name |> builtins.hashString "sha256"
+              else s.name
+            }";
+          };
+      }
+    )
+    |> builtins.listToAttrs;
 }

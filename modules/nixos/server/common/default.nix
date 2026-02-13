@@ -15,12 +15,13 @@
   ];
 
   options.server = with lib.types; let
-    inherit (lib) mkOption;
+    inherit (lib) mkOption mkEnableOption;
   in
     mkOption {
       type = attrsOf (submodule ({name, ...}: {
         options = {
           proxy = {
+            enable = mkEnableOption "proxying through caddy" // {default = true;};
             address = mkOption {type = str;};
             upstream = mkOption {type = str;};
             extraConfig = mkOption {
@@ -29,6 +30,7 @@
             };
           };
           backup = {
+            enable = mkEnableOption "backups through restic" // {default = true;};
             paths = mkOption {
               type = listOf externalPath;
               default = [];
@@ -64,8 +66,8 @@
     services =
       (lib.mapAttrs (_: _: {enable = lib.mkDefault true;}) cfg)
       // {
-        caddy.virtualHosts =
-          lib.mapAttrs (_: {proxy, ...}: {
+        caddy.virtualHosts = lib.mapAttrs (_: {proxy, ...}:
+          lib.mkIf proxy.enable {
             hostName = proxy.address;
             extraConfig = ''
               reverse_proxy ${proxy.upstream} {
@@ -74,22 +76,25 @@
               encode zstd gzip
             '';
           })
-          cfg;
+        cfg;
       };
 
     # backup config
     backups.restic.services = lib.mapAttrs (_: {backup, ...}:
-      with backup; {
-        inherit paths;
-        backupPrepareCommand =
-          if prepareCommand != null
-          then prepareCommand
-          else "systemctl stop ${systemdServiceName}.service";
-        backupCleanupCommand =
-          if cleanupCommand != null
-          then cleanupCommand
-          else "systemctl start ${systemdServiceName}.service";
-      })
+      with backup;
+        lib.mkIf enable {
+          inherit paths;
+          backupPrepareCommand =
+            if prepareCommand != null
+            then prepareCommand
+            else "systemctl stop ${systemdServiceName}.service";
+          backupCleanupCommand =
+            if cleanupCommand != null
+            then cleanupCommand
+            else "systemctl start ${systemdServiceName}.service";
+        }
+        |> lib.mkIf backup.enable
+        |> lib.mkDefault)
     config.server;
 
     # secrets config

@@ -54,6 +54,11 @@
             readOnly = true;
             default = builtins.mapAttrs (_: key: config.sops.secrets.${key}) config.server.${name}.sopsKeys;
           };
+          sopsPlaceholders = mkOption {
+            inherit (options.sops.placeholder) type;
+            readOnly = true;
+            default = builtins.mapAttrs (_: key: config.sops.placeholder.${key}) config.server.${name}.sopsKeys;
+          };
         };
       }));
       default = {};

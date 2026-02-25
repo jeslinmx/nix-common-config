@@ -3,4 +3,5 @@ _: {
     enable = true;
     onActivation.cleanup = "uninstall";
   };
+  environment.systemPath = ["/opt/homebrew/bin"];
 }

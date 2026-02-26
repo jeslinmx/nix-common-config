@@ -4,7 +4,7 @@ _: _: {
     controlcenter = {
       AirDrop = false;
       BatteryShowPercentage = true;
-      Bluetooth = true;
+      Bluetooth = false;
       Display = false;
       FocusModes = true;
       NowPlaying = false;

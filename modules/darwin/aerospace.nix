@@ -1,4 +1,6 @@
-_: {lib, ...}: {
+_: {...}: {
+  homebrew.casks = ["mediosz/tap/swipeaerospace"];
+
   system.defaults = {
     dock.expose-group-apps = true;
     spaces.spans-displays = true;
@@ -7,9 +9,8 @@ _: {lib, ...}: {
   services.aerospace = {
     enable = true;
     settings = {
-      on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
       on-focus-changed = ["move-mouse window-lazy-center"];
-      automatically-unhide-macos-hidden-apps = true;
+      automatically-unhide-macos-hidden-apps = false;
       gaps = {
         inner = {
           horizontal = 8;
@@ -26,6 +27,8 @@ _: {lib, ...}: {
         main.binding = {
           alt-t = "layout tiles horizontal vertical";
           alt-a = "layout accordion horizontal vertical";
+          alt-f = "layout tiling floating";
+          alt-f11 = "fullscreen";
           alt-h = "focus left";
           alt-j = "focus down";
           alt-k = "focus up";
@@ -54,7 +57,24 @@ _: {lib, ...}: {
           alt-shift-7 = "move-node-to-workspace 7";
           alt-shift-8 = "move-node-to-workspace 8";
           alt-shift-9 = "move-node-to-workspace 9";
+          ctrl-alt-shift-1 = "summon-workspace 1";
+          ctrl-alt-shift-2 = "summon-workspace 2";
+          ctrl-alt-shift-3 = "summon-workspace 3";
+          ctrl-alt-shift-4 = "summon-workspace 4";
+          ctrl-alt-shift-5 = "summon-workspace 5";
+          ctrl-alt-shift-6 = "summon-workspace 6";
+          ctrl-alt-shift-7 = "summon-workspace 7";
+          ctrl-alt-shift-8 = "summon-workspace 8";
+          ctrl-alt-shift-9 = "summon-workspace 9";
           alt-tab = "workspace-back-and-forth";
+          ctrl-alt-h = "focus-monitor left";
+          ctrl-alt-j = "focus-monitor down";
+          ctrl-alt-k = "focus-monitor up";
+          ctrl-alt-l = "focus-monitor right";
+          ctrl-alt-shift-h = "move-node-to-monitor left";
+          ctrl-alt-shift-j = "move-node-to-monitor down";
+          ctrl-alt-shift-k = "move-node-to-monitor up";
+          ctrl-alt-shift-l = "move-node-to-monitor right";
         };
       };
     };

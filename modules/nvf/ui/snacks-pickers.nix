@@ -271,7 +271,6 @@ _: {lib, ...}: {
     (picker "lt" "Snacks.picker.lsp_type_definitions" "type definitions")
     (picker "m" "Snacks.picker.man" "man")
     (picker "n" ''function() require("noice").cmd("snacks") end'' "notifications")
-    (picker "o" "Snacks.picker.resume" "open last picker")
     (picker "p" "Snacks.picker.projects" "projects")
     (picker "Pa" "Snacks.picker.picker_actions" "picker actions")
     (picker "Pf" "Snacks.picker.picker_format" "picker format")

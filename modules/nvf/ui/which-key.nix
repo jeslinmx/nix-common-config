@@ -30,6 +30,7 @@ _: {...}: {
           group = "pickers";
         }
       ];
+      win.border = "rounded";
     };
   };
 }

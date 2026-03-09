@@ -13,14 +13,6 @@ _: {...}: {
       wr = "wormhole-rs receive";
     };
     functions = {
-      y = ''
-        set tmp (mktemp -t "yazi-cwd.XXXXX")
-        yazi --cwd-file="$tmp" $argv
-        if set cwd (cat -- "$tmp") && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]
-            cd -- "$cwd"
-        end
-        rm -f -- "$tmp"
-      '';
       multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
       last_history = "echo $history[1]";
     };

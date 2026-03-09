@@ -94,7 +94,6 @@ in {
       misc = {
         disable_hyprland_logo = true; # disable default wallpapers
         middle_click_paste = false;
-        new_window_takes_over_fullscreen = 2; # kick out of fullscreen if opening new window
       };
 
       input.touchpad.natural_scroll = true;

@@ -90,14 +90,14 @@
     };
   };
   wayland.windowManager.hyprland.settings.layerrule = [
-    "noanim, caelestia-(launcher|osd|notifications|border-exclusion|area-picker)"
-    "animation fade, caelestia-(drawers|background)"
-    "order 1, caelestia-border-exclusion"
-    "order 2, caelestia-bar"
-    "xray 1, caelestia-(border|launcher|bar|sidebar|navbar|mediadisplay|screencorners)"
-    "blur, caelestia-.*"
-    "blur, qs-.*"
-    "blurpopups, caelestia-.*"
-    "ignorealpha 0.01, caelestia-.*"
+    "no_anim on, match:namespace caelestia-(launcher|osd|notifications|border-exclusion|area-picker)"
+    "animation fade, match:namespace caelestia-(drawers|background)"
+    "order 1, match:namespace caelestia-border-exclusion"
+    "order 2, match:namespace caelestia-bar"
+    "xray 1, match:namespace caelestia-(border|launcher|bar|sidebar|navbar|mediadisplay|screencorners)"
+    "blur on, match:namespace caelestia-.*"
+    "blur on, match:namespace qs-.*"
+    "blur_popups on, match:namespace caelestia-.*"
+    "ignore_alpha 0.01, match:namespace caelestia-.*"
   ];
 }

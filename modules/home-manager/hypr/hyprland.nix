@@ -123,23 +123,16 @@ in {
         "HYPRCURSOR_SIZE,24"
       ];
 
-      windowrulev2 = let
-        rule = dispatchers: conditions: lib.map (d: "${d}, ${conditions}") dispatchers;
-      in
-        [
-          "suppressevent maximize, class:.*"
-          "float, class:(org.telegram.desktop) title:(Media viewer)"
-          "workspace special:magic, class:(org.telegram.desktop)"
-          "workspace special:magic, class:(teams-for-linux)"
-          "workspace special:magic, class:(1password)"
-          "workspace special:magic, class:(com.slack.Slack)"
-          "opacity 1.0 0.2, floating:1"
-        ]
-        ++ (
-          rule
-          ["float" "pin" "keepaspectratio" "opacity 1.0 1.0" "noinitialfocus" "size 25% 25%" "move 100%-w-${toString (general.gaps_out + general.border_size)} 100%-w-${toString (general.gaps_out + general.border_size)}"]
-          "class:(firefox), title:(Picture-in-Picture)"
-        );
+      windowrule = [
+        "suppress_event maximize, match:class .*"
+        "float on, match:class org.telegram.desktop, match:title Media viewer"
+        "workspace special:magic, match:class org.telegram.desktop"
+        "workspace special:magic, match:class teams-for-linux"
+        "workspace special:magic, match:class 1password"
+        "workspace special:magic, match:class com.slack.Slack"
+        "opacity 1.0 0.2, match:float true"
+        "float on, pin on, keep_aspect_ratio on, no_initial_focus on, opacity 1.0 1.0, size 25% 25%, move 100%-w-${toString (general.gaps_out + general.border_size)} 100%-w-${toString (general.gaps_out + general.border_size)}, match:class firefox, match:title Picture-in-Picture"
+      ];
 
       ### BINDS ###
 

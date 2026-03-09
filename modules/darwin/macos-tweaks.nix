@@ -51,8 +51,8 @@ _: _: {
     menuExtraClock = {
       FlashDateSeparators = true;
       Show24Hour = true;
-      ShowDayOfMonth = true;
-      ShowDayOfWeek = true;
+      ShowDayOfMonth = false;
+      ShowDayOfWeek = false;
       ShowSeconds = true;
     };
     NSGlobalDomain = {

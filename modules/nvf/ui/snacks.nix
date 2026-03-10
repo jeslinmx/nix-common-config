@@ -36,6 +36,7 @@
         };
       };
       bigfile = {};
+      input = {};
       quickfile = {};
       terminal = {};
       scroll = {};

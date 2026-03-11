@@ -28,6 +28,8 @@ _: {
       MAXMIND_LICENSE_KEY = config.server.pocket-id.secrets.maxmindLicenseKey.path;
     };
   };
+  # gracefully stop pocket-id to ensure lock is released
+  systemd.services.pocket-id.serviceConfig.KillSignal = "SIGINT";
   # allow caddy to connect to socket
   users.users.${config.services.caddy.user}.extraGroups = [config.services.pocket-id.group];
   systemd.services.caddy.serviceConfig.ReadWritePaths = [config.services.pocket-id.settings.UNIX_SOCKET];

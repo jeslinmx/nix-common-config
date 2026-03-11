@@ -48,7 +48,10 @@
               default = null;
             };
           };
-          sopsKeys = mkOption {type = attrsOf str;};
+          sopsKeys = mkOption {
+            type = attrsOf str;
+            default = {};
+          };
           secrets = mkOption {
             inherit (options.sops.secrets) type;
             readOnly = true;

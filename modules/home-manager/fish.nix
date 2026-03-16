@@ -11,10 +11,20 @@ _: {...}: {
       dc = "docker compose";
       ws = "wormhole-rs send";
       wr = "wormhole-rs receive";
+      last_history = {
+        regex = ''^!!+$'';
+        position = "anywhere";
+        function = "last_history";
+      };
+      dots = {
+        position = "anywhere";
+        regex = ''^\.\.+$'';
+        function = "multicd";
+      };
     };
     functions = {
       multicd = "echo (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
-      last_history = "echo $history[1]";
+      last_history = "echo $history[(math (string length -- $argv[1]) - 1)]";
     };
     interactiveShellInit = ''
       if [ $SHLVL -eq 1 ]
@@ -29,9 +39,6 @@ _: {...}: {
       set fish_cursor_visual block
       set fish_cursor_insert line
       set fish_cursor_replace_one underscore
-
-      abbr -a .. --position anywhere -r '^\.\.+$' -f multicd
-      abbr -a !! --position anywhere -f last_history
     '';
   };
 }

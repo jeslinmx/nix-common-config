@@ -1,8 +1,9 @@
-_: {
+{nixosModules, ...}: {
   lib,
   pkgs,
   ...
 }: {
+  imports = [nixosModules.hotfix-486044-pam_u2f];
   services = {
     udev = {
       packages = [pkgs.yubikey-personalization];

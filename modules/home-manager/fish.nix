@@ -4,13 +4,20 @@ _: {...}: {
       g = "git";
       vc = "nvim leetcode";
       S = "sudo -v; sudo -E";
-      sshe = "ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null";
       t = "tmux new-session -A -s 0";
       "/" = "grep";
       lg = "lazygit";
       dc = "docker compose";
       ws = "wormhole-rs send";
       wr = "wormhole-rs receive";
+      ephem = {
+        command = "ssh";
+        expansion = "-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null";
+      };
+      cf = {
+        command = "ssh";
+        expansion = ''-o ProxyCommand=", cloudflared access ssh --hostname %h"'';
+      };
       last_history = {
         regex = ''^!!+$'';
         position = "anywhere";

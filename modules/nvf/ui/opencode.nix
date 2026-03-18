@@ -26,6 +26,7 @@ _: {
         };
       };
     };
+    statusline.lualine.activeSection.y = lib.mkBefore [''{ require("opencode").statusline }''];
     keymaps = let
       inherit (lib.nvim.binds) mkKeymap;
     in [

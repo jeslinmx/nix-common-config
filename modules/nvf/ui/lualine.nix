@@ -26,7 +26,6 @@ _: {
       ];
       x = [];
       y = [
-        # mcp
         ''{"lsp_status"}''
         ''{"diagnostics"}''
       ];

@@ -4,11 +4,7 @@
   };
   server.gitea = {
     proxy.upstream = "${config.services.gitea.settings.server.HTTP_ADDR}:${toString config.services.gitea.settings.server.HTTP_PORT}";
-    backup = {
-      paths = [config.services.gitea.dump.backupDir];
-      prepareCommand = "systemctl start gitea-dump.service";
-      cleanupCommand = "rm ${config.services.gitea.dump.backupDir}/*";
-    };
+    backup.paths = [config.services.gitea.stateDir];
   };
 
   services.gitea = {
@@ -37,10 +33,5 @@
       type = "sqlite3";
       createDatabase = true;
     };
-    dump = {
-      enable = true;
-      type = "tar.lz4";
-    };
   };
-  systemd.timers.gitea-dump.enable = false;
 }

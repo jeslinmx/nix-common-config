@@ -35,17 +35,6 @@ _: {pkgs, ...}: {
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
       quitOnTopLevelReturn = true;
-      customCommands = [
-        {
-          key = "c";
-          context = "files";
-          command = "cd {{.SelectedWorktree.Path}} && meteor";
-          output = "terminal";
-          description = "Create new conventional commit";
-          loadingText = "Creating conventional commit...";
-        }
-      ];
     };
   };
-  home.packages = [pkgs.meteor-git];
 }

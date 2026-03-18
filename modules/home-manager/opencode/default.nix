@@ -7,7 +7,7 @@ _: {
     enableMcpIntegration = true;
     rules = ./AGENTS.md;
     agents = ./agents;
-    # commands = ./commands;
+    commands = ./commands;
     # skills = ./skills;
     tools = ./tools;
     settings = let

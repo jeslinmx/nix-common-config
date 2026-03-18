@@ -39,6 +39,7 @@ Deterministic code (including MCP calls and custom tools, which are the followin
 filters:
   and:
     - file.inFolder("tools")
+    - '!file.inFolder("tools/node_modules")'
     - file.ext == "ts"
 views:
   - type: table
@@ -55,6 +56,24 @@ Reusable prompts which may be loaded on-demand by agents. Skill information is o
 ## Commands
 
 Reusable prompts which are explicitly invoked by the user using `/command`. Always available from any agent.
+
+```base
+filters:
+  and:
+    - file.inFolder("commands")
+views:
+  - type: table
+    name: Table
+    order:
+      - file.name
+      - description
+      - agent
+      - model
+      - subtask
+    columnSize:
+      note.description: 800
+
+```
 
 ## Workflow ideas
 

@@ -4,7 +4,7 @@
     "cssclasses": "multitext",
     "tags": "tags",
     "hidden": "checkbox",
-    "disable": "checkbox"
+    "disable": "checkbox",
+    "subtask": "checkbox"
   }
 }
-

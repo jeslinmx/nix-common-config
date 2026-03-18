@@ -128,5 +128,5 @@ _: {
       exa.url = "https://mcp.exa.ai/mcp?tools=web_search_exa";
     };
   };
-  home.packages = with pkgs; [uv bun libqalculate];
+  home.packages = with pkgs; [uv bun];
 }

@@ -10,9 +10,6 @@
   programs = lib.mkDefault {
     firefox.enable = true;
     ghostty.enable = true;
-    mangohud = {
-      enable = true;
-    };
   };
 
   services.flatpak = {

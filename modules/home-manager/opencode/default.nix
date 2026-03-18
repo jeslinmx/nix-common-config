@@ -120,6 +120,12 @@ _: {
       };
     };
   };
+  # https://github.com/spoons-and-mirrors/subtask2?tab=readme-ov-file#configuration
+  xdg.configFile."opencode/subtask2.jsonc".source = pkgs.writers.writeJSON "subtask2.jsonc" {
+    replace_generic = true;
+    logging = false;
+  };
+
   programs.mcp = {
     enable = true;
     servers = {

@@ -1,13 +1,56 @@
-_: {pkgs, ...}: {
+_: {
+  lib,
+  pkgs,
+  ...
+}: {
   programs.opencode = {
-    settings = {
+    enableMcpIntegration = true;
+    rules = ./AGENTS.md;
+    agents = ./agents;
+    # commands = ./commands;
+    # skills = ./skills;
+    tools = ./tools;
+    settings = let
+      toolsets = {
+        weblookup = ["webfetch" "websearch" "exa_*" "grep_app_*" "context7_*"];
+        filelookup = ["list" "glob" "grep" "lsp"];
+        delegate = ["todowrite" "task"];
+      };
+      sensitiveFiles = ["*.env" "*.env.*" "*.aes" "*.age" "*.argon2" "*.bcrypt" "*.gpg" "*.pgp" "*.scrypt" "*.cert" "*.crt" "*.key" "*.pem" "secret/**" "secrets/**" "credential/**" "credentials/**"];
+      applyPerms = perms:
+        perms
+        |> lib.mapAttrsToList (tool: perm:
+          toolsets |> lib.attrByPath [tool] [tool] |> map (tool: lib.nameValuePair tool perm))
+        |> lib.flatten
+        |> builtins.listToAttrs;
+      applyPolicy = policy: files: files |> map (file: lib.nameValuePair file policy) |> builtins.listToAttrs;
+    in {
+      permission = applyPerms {
+        weblookup = "allow";
+        filelookup = "allow";
+        read = (applyPolicy "allow" ["*"]) // (applyPolicy "deny" sensitiveFiles);
+        write = (applyPolicy "allow" ["*"]) // (applyPolicy "deny" sensitiveFiles);
+        delegate = "allow";
+        bash = "ask";
+
+        skill = "allow";
+        todoread = "allow";
+        external_directory = "ask";
+        doom_loop = "deny";
+      };
       agent = {
+        plan.permission = applyPerms {write = "deny";};
+        chat.permission = applyPerms {
+          read = "deny";
+          write = "deny";
+          delegate = "deny";
+          bash = "deny";
+        };
       };
       plugin = [
         "opencode-antigravity-auth@1.6.0"
-        "@ramtinj95/opencode-tokenscope"
-        "@simonwjackson/opencode-direnv"
-        "@openspoon/subtask2@latest"
+        # "@ramtinj95/opencode-tokenscope"
+        "@spoons-and-mirrors/subtask2@latest"
       ];
       provider = {
         google = let
@@ -75,21 +118,15 @@ _: {pkgs, ...}: {
           };
         };
       };
-      mcp = {
-        context7 = {
-          type = "remote";
-          url = "https://mcp.context7.com/mcp";
-        };
-        grep_app = {
-          type = "remote";
-          url = "https://mcp.grep.app";
-        };
-        websearch = {
-          type = "remote";
-          url = "https://mcp.exa.ai/mcp?tools=web_search_exa";
-        };
-      };
     };
   };
-  home.packages = with pkgs; [uv bun];
+  programs.mcp = {
+    enable = true;
+    servers = {
+      context7.url = "https://mcp.context7.com/mcp";
+      grep_app.url = "https://mcp.grep.app";
+      exa.url = "https://mcp.exa.ai/mcp?tools=web_search_exa";
+    };
+  };
+  home.packages = with pkgs; [uv bun libqalculate];
 }

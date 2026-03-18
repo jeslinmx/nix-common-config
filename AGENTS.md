@@ -1,33 +1,27 @@
 # AGENTS.md
 
-This document provides AI agents with the essential context for working with the
-nix-common-config repository.
+This document provides the essential context for working with the nix-common-config repository.
 
 ## Repository Purpose
 
-This repository contains common NixOS, nix-darwin, and home-manager modules that
-are:
+NixOS, nix-darwin, and home-manager modules that are:
 
 - Reusable across multiple machines
-- Generally non-sensitive (no secrets)
-- Designed to be imported as a git submodule in private machine configs
-- Licensed under LGPL v3
+- Non-sensitive (no secrets)
+
+The project targets `x86_64-linux` and `aarch64-darwin`
 
 ## Core Pattern: Function-Returning-Function Modules
 
 ALL modules in this repository MUST follow this pattern:
 
 ```nix
-flake @ {inputs, ...}: {config, lib, pkgs, ...}: {
+{inputs, ...}: {config, lib, pkgs, ...}: {
   # Module content here
 }
 ```
 
-The first function layer receives the flake object, giving modules access to all
-flake inputs. The second layer is the standard Nix module interface. Even if
-this layer is not needed (e.g. the module does not rely on any module arguments
-such as `pkgs` or `config`), maintain it as a function definition, not as an
-attrset:
+The first function layer receives the flake object, providing access to all flake inputs and outputs. The second layer is the standard Nix module interface. Even if this layer is not needed (e.g. the module does not rely on any module arguments such as `pkgs` or `config`), maintain it as a function definition for consistency.
 
 ```nix
 # ✅ Do this
@@ -43,68 +37,17 @@ _: {
 
 ## Module Auto-Discovery
 
-The `gatherModules` function in `lib.nix` automatically:
+Nix files under the subdirectories of `./modules/` are automatically registered as modules in the flake outputs. The names are processed as such:
 
-1. Scans module directories recursively
-2. Converts file paths to module names using kebab-case
-3. Applies the flake object to each module
-4. Exposes them as flake outputs
+- The first subdirectory level determines the type of module - `nixosModules` is populated by `./modules/nixos/`, `homeModules` by `./modules/home-manager/` etc.
+- Remaining subdirectory levels are for logical organization and their names are concatenated in kebab-case
+- `default.nix` files collapse into their parent directory's name
+- Examples:
+  - `modules/nixos/base/common.nix` → `nixosModules.base-common`
+  - `modules/home-manager/hypr/default.nix` → `homeModules.hypr`
+  - `modules/nvf/assist/lsp.nix` → `nvfModules.assist-lsp`
 
-### Naming Convention
-
-- `modules/nixos/base/common.nix` → `nixosModules.base-common`
-- `modules/home-manager/hypr/default.nix` → `homeModules.hypr`
-- `modules/nvf/assist/lsp.nix` → `nvfModules.assist-lsp`
-
-Note: `default.nix` files collapse their directory name (the `/default` suffix
-is removed). This aligns with Nix's built-in behavior where importing a
-directory imports the `default.nix` within it. Use this pattern for
-highly-complex modules broken into submodules for organization, where submodules
-are interdependent and the entire sub-tree should be imported as a set. For
-example:
-
-- `nixos/base/` - Independent, reusable modules
-- `home-manager/hypr/` - Interdependent modules forming a cohesive Hyprland
-  environment
-
-## Module Structure
-
-### NixOS Modules (`modules/nixos/`)
-
-- `base/` - Core system modules, always imported via `base-common`
-- `interactive/` - GUI/interactive system configurations (laptops/desktops)
-- `extra/` - Optional/specialized services
-- `server/` - Server-specific configurations
-- `quirks/` - Hardware-specific fixes and workarounds
-
-### Home Manager Modules (`modules/home-manager/`)
-
-- Individual program configurations
-- Complex environments (e.g., `hypr/`, `caelestia/`)
-- Use kebab-case for module filenames
-
-### Darwin Modules (`modules/darwin/`)
-
-- macOS-specific configurations using nix-darwin
-- Often reference cryptic macOS defaults keys that need comments
-
-### NVF Modules (`modules/nvf/`)
-
-- Modular Neovim configuration using the NVF framework
-- Organized by function: `assist/`, `editing/`, `ui/`, `mappings/`, etc.
-
-## Writing Modules
-
-### Module Template
-
-```nix
-flake @ {inputs, ...}: {config, lib, pkgs, ...}: {
-  # Standard module content
-  config = lib.mkOverride 900 {
-    # Strong but overridable defaults
-  };
-}
-```
+If necessary, consult the `gatherModules` calls in `flake.nix` and definition in `lib.nix` for implementation details.
 
 ### Conventions
 
@@ -129,25 +72,8 @@ imports = builtins.attrValues {
 
 ## Checking for Existing Options
 
-**MANDATORY**: Before creating configuration files with `environment.etc`,
-`home.file` or `xdg.configFile`, ALWAYS check if a native option exists for
-specifying equivalent configuration.
-
-### Why This Matters
-
-- Home Manager, NixOS, and frameworks like NVF provide dedicated module options
-  for most popular programs
-- Native options provide better type safety, automatic schema handling, and
-  integration
-- Using `home.file`/`xdg.configFile` when a native option exists bypasses these
-  benefits; only use this as an escape hatch when no module exists.
-- Most modules also include a `settings`, `config`, `extraConfig`, etc. option
-  for specifying additional configuration as an arbitrary attrset or string; use
-  this as an escape hatch for configuration which the options do not natively
-  cover.
-- If specifying program config using one of the above escape hatches, also
-  prepend a comment with the URL of the program's configuration documentation
-  for future reference by users and agents.
+**MANDATORY**: Before creating configuration files with `environment.etc`, `home.file` or `xdg.configFile`, ALWAYS check if a native option exists for specifying equivalent configuration. Most modules also include a `settings`, `config`, `extraConfig`, etc. option for specifying additional configuration as an arbitrary attrset or string; use this as an escape hatch for configuration which the options do not natively cover.
+If specifying program config using one of the above escape hatches, also prepend a comment with the URL of the program's configuration documentation for future reference by users and agents.
 
 ### How to Check
 
@@ -217,24 +143,6 @@ home.file.".config/program/config.toml".source = pkgs.writers.writeTOML "config.
 };
 ```
 
-### When to Use Each
-
-| Use Case                             | Recommended Option        | Reason                                                     |
-| ------------------------------------ | ------------------------- | ---------------------------------------------------------- |
-| XDG-compliant configs in `~/.config` | `xdg.configFile`          | Semantic clarity, uses `xdg.configHome`                    |
-| Files outside `~/.config`            | `home.file`               | General-purpose file placement                             |
-| Directory symlinking                 | `home.file."path".source` | Bring in an entire directory's files from a Nix store path |
-
-### Examples from This Repository
-
-```nix
-# ✅ xdg.configFile: XDG-compliant program
-xdg.configFile."termshark/termshark.toml".source = pkgs.writers.writeTOML "" { ... };
-
-# ✅ home.file: Directory symlinking
-home.file.".config/hypr/shaders".source = ./shaders;
-```
-
 ## Key Abstractions
 
 ### The `hmUsers` Option
@@ -242,8 +150,3 @@ home.file.".config/hypr/shaders".source = ./shaders;
 Defined in `modules/nixos/base/home-manager-users.nix`, this provides a unified
 interface for managing Linux users and their Home Manager configurations within
 NixOS configurations.
-
-## Testing & Formatting
-
-- Use `alejandra` for Nix formatting
-- The project supports `x86_64-linux` and `aarch64-darwin`

@@ -1,4 +1,4 @@
-_: {...}: {
+_: {lib, ...}: {
   vim.languages.markdown.extensions.render-markdown-nvim = {
     enable = true;
     setupOpts = {
@@ -22,6 +22,12 @@ _: {...}: {
         right_pad = 2;
         inline_pad = 1;
         border = "thick";
+      };
+      bullet = {
+        # disable normalizing of ordered list numbering
+        ordered_icons = lib.generators.mkLuaInline ''
+          function(ctx) return ctx.value end
+        '';
       };
       pipe_table = {
         preset = "round";

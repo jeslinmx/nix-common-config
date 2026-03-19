@@ -40,12 +40,6 @@ _: {
       };
       agent = {
         plan.permission = applyPerms {write = "deny";};
-        chat.permission = applyPerms {
-          read = "deny";
-          write = "deny";
-          delegate = "deny";
-          bash = "deny";
-        };
       };
       plugin = [
         "opencode-antigravity-auth@1.6.0"

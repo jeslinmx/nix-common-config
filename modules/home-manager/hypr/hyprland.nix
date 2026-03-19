@@ -129,7 +129,7 @@ in {
         "workspace special:magic, match:class org.telegram.desktop"
         "workspace special:magic, match:class teams-for-linux"
         "workspace special:magic, match:class 1password"
-        "workspace special:magic, match:class com.slack.Slack"
+        "workspace special:magic, match:class (com\.slack\.)?Slack"
         "opacity 1.0 0.2, match:float true"
         "float on, pin on, keep_aspect_ratio on, no_initial_focus on, opacity 1.0 1.0, size 25% 25%, move 100%-w-${toString (general.gaps_out + general.border_size)} 100%-w-${toString (general.gaps_out + general.border_size)}, match:class firefox, match:title Picture-in-Picture"
       ];

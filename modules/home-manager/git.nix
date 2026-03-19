@@ -53,10 +53,17 @@ _: {
         core = {
           autocrlf = "input";
           excludesFile =
-            lib.pipe [
+            [
+              ".direnv"
               # neovim
               "Session.vim"
               ".nvimrc"
+              "[._]*.s[a-v][a-z]"
+              "!*.svg"
+              "[._]*.sw[a-p]"
+              "[._]s[a-rt-v][a-z]"
+              "[._]ss[a-gi-z]"
+              "[._]sw[a-p]"
               # macos
               ".DS_Store"
               ".Spotlight-V100"
@@ -66,14 +73,10 @@ _: {
               "Desktop.ini"
               # linux
               ".Trash-*"
-              ".direnv"
-              "**.swp"
-              "**.swo"
-            ] [
-              (builtins.concatStringsSep "\n")
-              (pkgs.writeText ".gitignore")
-              (builtins.getAttr "outPath")
-            ];
+            ]
+            |> builtins.concatStringsSep "\n"
+            |> pkgs.writeText ".gitignore"
+            |> builtins.getAttr "outPath";
         };
       };
     };

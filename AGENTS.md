@@ -150,3 +150,7 @@ home.file.".config/program/config.toml".source = pkgs.writers.writeTOML "config.
 Defined in `modules/nixos/base/home-manager-users.nix`, this provides a unified
 interface for managing Linux users and their Home Manager configurations within
 NixOS configurations.
+
+## Tips
+
+- When troubleshooting nvf configuration issues, you can run `nvf-print-config` to dump the entirety of the generated neovim config for inspection.

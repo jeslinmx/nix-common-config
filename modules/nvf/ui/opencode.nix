@@ -6,9 +6,10 @@ _: {
   vim = {
     extraPlugins.opencode-nvim.package = pkgs.vimPlugins.opencode-nvim;
     globals.opencode_opts = {
+      opencode_cmd = "opencode --port";
       server = {
         start = lib.generators.mkLuaInline ''
-          function() require('snacks.terminal').open(vim.g.opencode_opts.opencode_cmd, vim.g.opencode_opts.snacks_terminal_opts) end
+          function() require('snacks.terminal').get(vim.g.opencode_opts.opencode_cmd, vim.g.opencode_opts.snacks_terminal_opts) end
         '';
         stop = lib.generators.mkLuaInline ''
           function() require('snacks.terminal').get(vim.g.opencode_opts.opencode_cmd, vim.g.opencode_opts.snacks_terminal_opts):close() end
@@ -17,14 +18,18 @@ _: {
           function() require('snacks.terminal').toggle(vim.g.opencode_opts.opencode_cmd, vim.g.opencode_opts.snacks_terminal_opts) end
         '';
       };
-      opencode_cmd = "opencode --port";
       snacks_terminal_opts = {
         win = {
           position = "right";
-          enter = false;
           on_win = lib.generators.mkLuaInline ''function(win) require('opencode.terminal').setup(win.win) end'';
         };
       };
+      ask.snacks.win = {
+        title_pos = "center";
+        footer_keys = false;
+        max_width = 80;
+      };
+      events.permissions.enabled = false;
     };
     statusline.lualine.activeSection.y = lib.mkBefore [''{ require("opencode").statusline }''];
     keymaps = let

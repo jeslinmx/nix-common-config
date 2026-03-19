@@ -60,6 +60,11 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
+    statix = {
+      url = "github:molybdenumsoftware/statix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";

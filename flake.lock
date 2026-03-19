@@ -649,6 +649,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nur": "nur",
         "nvf": "nvf",
+        "statix": "statix",
         "stylix": "stylix",
         "tt-schemes": "tt-schemes"
       }
@@ -671,6 +672,29 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "statix": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773891719,
+        "narHash": "sha256-GgihI3Zo7C2BTQp9CTT7cicHMXQMxu2Pp7EMIZRWDXg=",
+        "owner": "molybdenumsoftware",
+        "repo": "statix",
+        "rev": "ad3c9f8c1f99dd9f690b671746713bb28ba230cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "molybdenumsoftware",
+        "repo": "statix",
         "type": "github"
       }
     },

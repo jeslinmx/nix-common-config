@@ -1,4 +1,4 @@
-_: {
+{inputs, ...}: {
   lib,
   pkgs,
   ...
@@ -26,5 +26,8 @@ _: {
       python.enable = true;
     };
     treesitter.grammars = [pkgs.vimPlugins.nvim-treesitter.builtGrammars.latex];
+    diagnostics.nvim-lint.linters = {
+      statix.cmd = lib.getExe inputs.statix.packages.${pkgs.stdenv.hostPlatform.system}.default |> lib.mkForce;
+    };
   };
 }

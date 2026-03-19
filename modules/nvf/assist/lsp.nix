@@ -28,6 +28,11 @@
     treesitter.grammars = [pkgs.vimPlugins.nvim-treesitter.builtGrammars.latex];
     diagnostics.nvim-lint.linters = {
       statix.cmd = lib.getExe inputs.statix.packages.${pkgs.stdenv.hostPlatform.system}.default |> lib.mkForce;
+      markdownlint-cli2.args = [
+        "--config"
+        (pkgs.writers.writeYAML "markdownlint-cli2.yaml" {MD013 = false;}).outPath
+        "--"
+      ];
     };
   };
 }

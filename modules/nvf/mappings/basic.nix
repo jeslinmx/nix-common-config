@@ -50,5 +50,18 @@ _: {lib, ...}: {
     # inspired by unimpaired
     (mkKeymap ["n"] "=P" ''<Cmd>exe "put! " . v:register<cr>==^'' {desc = "paste above and re-indent";})
     (mkKeymap ["n"] "=p" ''<Cmd>exe "put "  . v:register<cr>==^'' {desc = "paste below and re-indent";})
+
+    (mkKeymap ["n"] "<leader>lr" ''
+        function()
+          require("snacks").input.input({
+            relative = "cursor",
+            row = -3,
+            col = 0,
+          }, vim.lsp.buf.rename)
+        end
+      '' {
+        desc = "rename symbol";
+        lua = true;
+      })
   ];
 }

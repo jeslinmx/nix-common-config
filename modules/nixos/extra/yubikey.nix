@@ -34,6 +34,7 @@
         };
       };
       services = {
+        sudo.rules.auth.u2f.control = lib.mkForce "sufficient";
         sudo.nodelay = true;
         login.nodelay = true;
         greetd.nodelay = true;

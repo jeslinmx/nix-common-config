@@ -14,6 +14,7 @@ flake @ {nixosModules, ...}: {
       base-sshd
       base-sudo
       base-systemd-boot
+      base-zswap
       ;
   };
   config = lib.mkMerge [

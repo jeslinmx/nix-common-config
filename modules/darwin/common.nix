@@ -14,7 +14,6 @@
   };
 
   config = lib.mkOverride 900 {
-    nixpkgs.hostPlatform = "aarch64-darwin";
     programs.fish.enable = true;
   };
 }

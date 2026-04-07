@@ -632,6 +632,22 @@
         "type": "github"
       }
     },
+    "paperwmspoon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1774891586,
+        "narHash": "sha256-k3CtPkUWTGW4ul8IW6l02Y8zn3ziVcDSAPNZy5WJF/o=",
+        "owner": "mogenson",
+        "repo": "PaperWM.spoon",
+        "rev": "e5f81eaa3f9e514de022d85d135b839e7163982e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mogenson",
+        "repo": "PaperWM.spoon",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -715,6 +731,7 @@
         "nixpkgs-darwin": "nixpkgs-darwin",
         "nur": "nur",
         "nvf": "nvf",
+        "paperwmspoon": "paperwmspoon",
         "statix": "statix",
         "stylix": "stylix",
         "tt-schemes": "tt-schemes"

@@ -68,6 +68,10 @@
       url = "github:tinted-theming/schemes";
       flake = false;
     };
+    paperwmspoon = {
+      url = "github:mogenson/PaperWM.spoon";
+      flake = false;
+    };
     statix = {
       url = "github:molybdenumsoftware/statix";
       inputs.nixpkgs.follows = "nixpkgs";

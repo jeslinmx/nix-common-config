@@ -148,19 +148,8 @@ in {
           "CTRL SUPER, G, lockactivegroup, toggle"
           "SUPER, S, togglespecialworkspace, magic"
           "SUPER, escape, exec, loginctl lock-session"
-          "SUPER, delete, global, caelestia:session"
-          "SUPER, PERIOD, exec, caelestia emoji -p"
-          "SUPER, V, exec, caelestia clipboard"
           "SUPER, T, exec, ghostty"
           "SUPER, E, exec, io.elementary.files"
-          "SUPER, SPACE, global, caelestia:launcher"
-          "SUPER, C, global, caelestia:clearNotifs"
-          "SUPER, D, global, caelestia:dashboard"
-          "SUPER, BACKSPACE, global, caelestia:session"
-          ", print, global, caelestia:screenshotFreezeClip"
-          "CTRL, print, global, caelestia:screenshotClip"
-          "SUPER, print, global, caelestia:screenshotFreeze"
-          "CTRL SUPER, print, global, caelestia:screenshot"
         ]
         # switch focus with SUPER + direction
         ++ (produceBinds {dispatcher = "movefocus";})
@@ -213,20 +202,19 @@ in {
           args = lib.map toString (lib.range 1 10) ++ ["special:magic"];
         });
 
-      bindl =
-        [
-          ", XF86AudioPlay, exec, playerctl play-pause"
-          ", XF86AudioPrev, exec, playerctl previous"
-          ", XF86AudioNext, exec, playerctl next"
-          ", XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SINK@"}"
-          "ALT, XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
-          ", XF86AudioMicMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
-        ]
-        # brightness keys
-        ++ [
-          ",XF86MonBrightnessUp,   global, caelestia:brightnessUp"
-          ",XF86MonBrightnessDown, global, caelestia:brightnessDown"
-        ];
+      bindl = let
+        playerctl = lib.getExe pkgs.playerctl;
+        brightnessctl = lib.getExe pkgs.brightnessctl;
+      in [
+        ", XF86AudioPlay, exec, ${playerctl} play-pause"
+        ", XF86AudioPrev, exec, ${playerctl} previous"
+        ", XF86AudioNext, exec, ${playerctl} next"
+        ", XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SINK@"}"
+        "ALT, XF86AudioMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
+        ", XF86AudioMicMute, exec, ${mute-command "@DEFAULT_AUDIO_SOURCE@"}"
+        ",XF86MonBrightnessUp, exec, ${brightnessctl} set 5%+"
+        ",XF86MonBrightnessDown, exec, ${brightnessctl} set 5%-"
+      ];
 
       binde =
         [

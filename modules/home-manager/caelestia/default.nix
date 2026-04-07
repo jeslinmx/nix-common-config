@@ -1,6 +1,11 @@
-{inputs, ...}: {config, ...}: {
+{
+  homeModules,
+  inputs,
+  ...
+}: {config, ...}: {
   imports = builtins.attrValues {
     inherit (inputs.caelestia-shell.homeManagerModules) default;
+    inherit (homeModules) caelestia-hypridle caelestia-wallpaper-cycle;
   };
   programs.caelestia = {
     enable = true;
@@ -89,15 +94,51 @@
       };
     };
   };
-  wayland.windowManager.hyprland.settings.layerrule = [
-    "no_anim on, match:namespace caelestia-(launcher|osd|notifications|border-exclusion|area-picker)"
-    "animation fade, match:namespace caelestia-(drawers|background)"
-    "order 1, match:namespace caelestia-border-exclusion"
-    "order 2, match:namespace caelestia-bar"
-    "xray 1, match:namespace caelestia-(border|launcher|bar|sidebar|navbar|mediadisplay|screencorners)"
-    "blur on, match:namespace caelestia-.*"
-    "blur on, match:namespace qs-.*"
-    "blur_popups on, match:namespace caelestia-.*"
-    "ignore_alpha 0.01, match:namespace caelestia-.*"
-  ];
+
+  # additional setup
+  systemd.user.services.caelestia.Service.Environment = ["QT_QPA_PLATFORMTHEME=gtk3"];
+  services = {
+    ssh-agent.enable = true;
+    polkit-gnome.enable = true;
+    cliphist.enable = true;
+    mpris-proxy.enable = true;
+  };
+
+  systemd.user.services = {
+    ssh-agent = {
+      Unit.Before = ["graphical-session-pre.target"];
+      Service = {
+        ExecStartPost = "systemctl --user set-environment \"SSH_AUTH_SOCK=%t/ssh-agent\"";
+        ExecStopPost = "systemctl --user unset-environment SSH_AUTH_SOCK";
+      };
+    };
+  };
+
+  # Hyprland tweaks
+  wayland.windowManager.hyprland.settings = {
+    bind = [
+      "SUPER, delete, global, caelestia:session"
+      "SUPER, PERIOD, exec, caelestia emoji -p"
+      "SUPER, V, exec, caelestia clipboard"
+      "SUPER, SPACE, global, caelestia:launcher"
+      "SUPER, C, global, caelestia:clearNotifs"
+      "SUPER, D, global, caelestia:dashboard"
+      "SUPER, BACKSPACE, global, caelestia:session"
+      ", print, global, caelestia:screenshotFreezeClip"
+      "CTRL, print, global, caelestia:screenshotClip"
+      "SUPER, print, global, caelestia:screenshotFreeze"
+      "CTRL SUPER, print, global, caelestia:screenshot"
+    ];
+    layerrule = [
+      "no_anim on, match:namespace caelestia-(launcher|osd|notifications|border-exclusion|area-picker)"
+      "animation fade, match:namespace caelestia-(drawers|background)"
+      "order 1, match:namespace caelestia-border-exclusion"
+      "order 2, match:namespace caelestia-bar"
+      "xray 1, match:namespace caelestia-(border|launcher|bar|sidebar|navbar|mediadisplay|screencorners)"
+      "blur on, match:namespace caelestia-.*"
+      "blur on, match:namespace qs-.*"
+      "blur_popups on, match:namespace caelestia-.*"
+      "ignore_alpha 0.01, match:namespace caelestia-.*"
+    ];
+  };
 }

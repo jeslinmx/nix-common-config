@@ -29,6 +29,7 @@
     if amt > 0
     then "&& wpctl set-mute ${dev} 0"
     else ""
-  } && pw-cat -p ${yaru.outPath}/sounds/src/stereo/audio-volume-change.oga";
+    # } && pw-cat -p ${yaru.outPath}/sounds/src/stereo/audio-volume-change.oga";
+  }";
   move-monitor-command = dir: ''hyprctl keyword monitor "$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | "\(.name), \(.width)x\(.height), auto-${dir}, \(.scale)"')"'';
 }

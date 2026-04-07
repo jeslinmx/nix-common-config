@@ -6,8 +6,9 @@ _: {...}: {
     context = {
       enable = true;
       setupOpts = {
-        max_lines = 3;
-        min_window_height = 30;
+        multiwindow = true;
+        max_lines = 7;
+        min_window_height = 15;
         mode = "topline";
         separator = null;
       };

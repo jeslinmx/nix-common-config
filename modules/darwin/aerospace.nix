@@ -1,4 +1,5 @@
 _: {...}: {
+  homebrew.taps = ["mediosz/tap"];
   homebrew.casks = ["mediosz/tap/swipeaerospace"];
 
   system.defaults = {

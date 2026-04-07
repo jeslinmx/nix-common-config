@@ -1,4 +1,8 @@
-{inputs, ...}: {pkgs, ...}: {
+{inputs, ...}: {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = builtins.attrValues {
     inherit (inputs.dank-material-shell.homeModules) dank-material-shell;
     inherit (inputs.dms-plugin-registry.homeModules) default;
@@ -6,6 +10,11 @@
   programs.dank-material-shell = {
     enable = true;
     systemd.enable = true;
+    settings =
+      ./settings.json
+      |> builtins.readFile
+      |> builtins.fromJSON
+      |> builtins.mapAttrs (_: lib.mkOverride 1100); # prioritize below stylix
     managePluginSettings = true;
     plugins = {
       homeAssistantMonitor = {enable = true;};
@@ -28,7 +37,7 @@
     };
   };
 
-  home.packages = with pkgs; [libqalculate];
+  home.packages = with pkgs; [libqalculate]; # for calculator plugin
 
   wayland.windowManager.hyprland.settings = {
     source = [

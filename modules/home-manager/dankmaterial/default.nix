@@ -68,7 +68,7 @@
     ];
     bind = [
       "SUPER, SPACE, exec, dms ipc launcher toggle"
-      # "SUPER, PERIOD, exec, dms ipc launcher toggleWith "
+      "SUPER, PERIOD, exec, dms ipc launcher toggleQuery \":e \""
       "SUPER, BACKSPACE, exec, dms ipc powermenu toggle"
       "SUPER, V, exec, dms ipc clipboard toggle"
       "SUPER, D, exec, dms ipc dash toggle \"\""
@@ -78,7 +78,7 @@
       "SUPER, P, exec, dms ipc color-picker toggle"
       "SUPER, R, exec, dms ipc workspace-rename toggle"
       "SUPER, A, exec, dms ipc hypr toggleOverview"
-      "SUPER SHIFT, /, exec, dms ipc keybinds toggle hyprland"
+      "SHIFT SUPER, slash, exec, dms ipc keybinds toggle hyprland"
       "SUPER, C, exec, dms ipc control-center toggle"
       "SUPER, I, exec, dms ipc settings toggle"
       ", print, global, dms screenshot full --no-file"

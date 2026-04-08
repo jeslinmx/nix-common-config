@@ -1,4 +1,5 @@
 {inputs, ...}: {
+  config,
   lib,
   pkgs,
   ...
@@ -7,34 +8,42 @@
     inherit (inputs.dank-material-shell.homeModules) dank-material-shell;
     inherit (inputs.dms-plugin-registry.homeModules) default;
   };
-  programs.dank-material-shell = {
-    enable = true;
-    systemd.enable = true;
-    settings =
-      ./settings.json
-      |> builtins.readFile
-      |> builtins.fromJSON
-      |> builtins.mapAttrs (_: lib.mkOverride 1100); # prioritize below stylix
-    managePluginSettings = true;
-    plugins = {
-      homeAssistantMonitor = {enable = true;};
-      dankKDEConnect = {enable = true;};
-      dankGifSearch = {enable = true;};
-      calculator = {enable = true;};
-      desktopCommand = {enable = true;};
-      dockerManager = {enable = true;};
-      screenRecorder = {enable = true;};
-      discordVoice = {enable = true;};
-      githubNotifier = {enable = true;};
-      simpleAudioControl = {enable = true;};
-      emojiLauncher = {enable = true;};
-      ephemera = {enable = true;};
-      dankObsidian = {enable = true;};
-      musicLyrics = {enable = true;};
-      catWidget = {enable = true;};
-      dankActions = {enable = true;};
-      usbManager = {enable = true;};
+  programs = let
+    dms = lib.getExe' config.programs.dank-material-shell.package "dms";
+  in {
+    dank-material-shell = {
+      enable = true;
+      systemd.enable = true;
+      settings =
+        ./settings.json
+        |> builtins.readFile
+        |> builtins.fromJSON
+        |> builtins.mapAttrs (_: lib.mkOverride 1100); # prioritize below stylix
+      managePluginSettings = true;
+      plugins = {
+        homeAssistantMonitor = {enable = true;};
+        dankKDEConnect = {enable = true;};
+        dankGifSearch = {enable = true;};
+        calculator = {enable = true;};
+        desktopCommand = {enable = true;};
+        dockerManager = {enable = true;};
+        screenRecorder = {enable = true;};
+        discordVoice = {enable = true;};
+        githubNotifier = {enable = true;};
+        simpleAudioControl = {enable = true;};
+        emojiLauncher = {enable = true;};
+        ephemera = {enable = true;};
+        dankObsidian = {enable = true;};
+        musicLyrics = {enable = true;};
+        catWidget = {enable = true;};
+        dankActions = {enable = true;};
+        usbManager = {enable = true;};
+      };
     };
+
+    bash.initExtra = "source <(${dms} completion bash)";
+    fish.interactiveShellInit = lib.mkAfter "${dms} completion fish | source";
+    zsh.initContent = "source <(${dms} completion zsh)";
   };
 
   home.packages = with pkgs; [libqalculate]; # for calculator plugin

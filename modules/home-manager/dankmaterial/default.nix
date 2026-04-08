@@ -18,6 +18,18 @@
         ./settings.json
         |> builtins.readFile
         |> builtins.fromJSON
+        |> ({barConfigs, ...} @ settings:
+          settings
+          // {
+            cornerRadius = config.wayland.windowManager.hyprland.settings.decoration.rounding;
+            barConfigs =
+              barConfigs
+              |> map (bar:
+                bar
+                // {
+                  spacing = config.wayland.windowManager.hyprland.settings.general.gaps_out;
+                });
+          })
         |> builtins.mapAttrs (_: lib.mkOverride 1100); # prioritize below stylix
       managePluginSettings = true;
       plugins = {
@@ -51,7 +63,6 @@
   wayland.windowManager.hyprland.settings = {
     source = [
       "~/.config/hypr/dms/binds.conf"
-      "~/.config/hypr/dms/layout.conf"
       "~/.config/hypr/dms/outputs.conf"
       "~/.config/hypr/dms/windowrules.conf"
     ];

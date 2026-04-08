@@ -138,7 +138,7 @@ in {
 
       bind =
         [
-          "SUPER, RETURN, togglesplit"
+          "SUPER, RETURN, layoutmsg, togglesplit"
           "SUPER, F11, fullscreen, 1"
           "SUPER, Q, killactive"
           "SUPER, F, togglefloating"

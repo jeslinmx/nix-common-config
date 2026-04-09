@@ -48,7 +48,6 @@
             settings = {calcEngine = "qalc";};
           };
           catWidget.enable = true;
-          dankActions.enable = true;
           dankGifSearch.enable = true;
           dankKDEConnect.enable = true;
           dankObsidian.enable = true;

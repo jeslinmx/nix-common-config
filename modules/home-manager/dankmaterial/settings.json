@@ -357,7 +357,7 @@
   "notificationTimeoutNormal": 8000,
   "notificationTimeoutCritical": 0,
   "notificationCompactMode": true,
-  "notificationPopupPosition": 1,
+  "notificationPopupPosition": 0,
   "notificationAnimationSpeed": 1,
   "notificationCustomAnimationDuration": 400,
   "notificationHistoryEnabled": true,
@@ -415,15 +415,16 @@
       "id": "default",
       "name": "Main Bar",
       "enabled": true,
-      "position": 1,
+      "position": 0,
       "screenPreferences": [
         "all"
       ],
       "showOnLastDisplay": true,
       "leftWidgets": [
         {
-          "id": "notificationButton",
-          "enabled": true
+          "id": "clock",
+          "enabled": true,
+          "clockCompactMode": true
         },
         {
           "id": "controlCenterButton",
@@ -474,10 +475,6 @@
           "enabled": true
         },
         {
-          "id": "dankActions",
-          "enabled": true
-        },
-        {
           "id": "githubNotifier",
           "enabled": true
         },
@@ -521,9 +518,8 @@
           "enabled": true
         },
         {
-          "id": "clock",
-          "enabled": true,
-          "clockCompactMode": true
+          "id": "notificationButton",
+          "enabled": true
         }
       ],
       "spacing": 8,

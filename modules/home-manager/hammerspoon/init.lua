@@ -74,6 +74,8 @@ PaperWM:bindHotkeys({
 	-- move focused window to a new space and tile
 	move_window_l = { modifiers({ "ctrl", "shift" }), "h" },
 	move_window_r = { modifiers({ "ctrl", "shift" }), "l" },
+	move_window_d = { modifiers({ "ctrl", "shift" }), "j" },
+	move_window_u = { modifiers({ "ctrl", "shift" }), "k" },
 	move_window_1 = { modifiers({ "ctrl", "shift" }), "1" },
 	move_window_2 = { modifiers({ "ctrl", "shift" }), "2" },
 	move_window_3 = { modifiers({ "ctrl", "shift" }), "3" },

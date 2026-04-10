@@ -2,7 +2,7 @@ _: {lib, ...}: {
   vim.utility.snacks-nvim = {
     enable = true;
     setupOpts = {
-      explorer = {replace_netrw = true;};
+      explorer = {};
       picker = {
         sources = {
           git_log = {layout = "bottom";};
@@ -230,14 +230,7 @@ _: {lib, ...}: {
       focus = "input",
       auto_close = true,
       layout = { preview = "main" },
-      win = {
-        input = {
-          keys = {
-            ["<cr>"] = { { "pick_win", "jump" }, mode = { "n", "i" } },
-            ["<s-cr>"] = { "confirm", mode = { "n", "i" } },
-          },
-        },
-      }
+      matcher = { fuzzy = true }
     '';
   in [
     (picker "a" "Snacks.picker.autocmds" "autocmds")

@@ -85,7 +85,6 @@
 
     wayland.windowManager.hyprland.settings = {
       source = [
-        "~/.config/hypr/dms/binds.conf"
         "~/.config/hypr/dms/outputs.conf"
         "~/.config/hypr/dms/windowrules.conf"
       ];

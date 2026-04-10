@@ -88,7 +88,7 @@ in {
 
       dwindle = {
         pseudotile = true; # master switch
-        smart_split = true;
+        # smart_split = true; # split by cursor position rather than aspect ratio and allow manual changing
       };
 
       misc = {

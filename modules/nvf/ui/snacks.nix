@@ -3,7 +3,7 @@
   lib,
   ...
 }: {
-  imports = with nvfModules; [ui-snacks-dashboard ui-snacks-pickers];
+  imports = with nvfModules; [ui-snacks-pickers];
   vim.utility.snacks-nvim = {
     enable = true;
     setupOpts = {

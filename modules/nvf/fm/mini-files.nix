@@ -36,10 +36,9 @@ _: {lib, ...}: {
     keymaps = [
       (lib.nvim.binds.mkKeymap ["n" "v"] "-" ''
           function()
-            require("mini.files").open(vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":h"), false, {
+            require("mini.files").open(vim.api.nvim_buf_get_name(0), false, {
               content = { filter = vim.g.mini_files_filter }
             })
-            require("mini.files").reveal_cwd()
           end
         '' {
           desc = "browse containing folder";

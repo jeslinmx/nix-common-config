@@ -96,7 +96,12 @@ in {
         middle_click_paste = false;
       };
 
-      input.touchpad.natural_scroll = true;
+      input.touchpad = {
+        natural_scroll = true;
+        tap-to-click = true;
+        tap-and-drag = true;
+        drag_lock = 2;
+      };
       gesture = [
         "3, horizontal, workspace"
         "3, pinch, special, magic"

@@ -103,12 +103,12 @@
         "SHIFT SUPER, slash, exec, dms ipc keybinds toggle hyprland"
         "SUPER, C, exec, dms ipc control-center toggle"
         "SUPER, I, exec, dms ipc settings toggle"
-        ", print, global, dms screenshot full --no-file"
-        "ALT, print, global, dms screenshot window --no-file"
-        "CTRL, print, global, dms screenshot region --no-file"
-        "SUPER, print, global, dms screenshot full"
-        "ALT SUPER, print, global, dms screenshot window"
-        "CTRL SUPER, print, global, dms screenshot region"
+        ", print, exec, dms screenshot full --no-file"
+        "ALT, print, exec, dms screenshot window --no-file"
+        "CTRL, print, exec, dms screenshot region --no-file"
+        "SUPER, print, exec, dms screenshot full"
+        "ALT SUPER, print, exec, dms screenshot window"
+        "CTRL SUPER, print, exec, dms screenshot region"
       ];
     };
   };

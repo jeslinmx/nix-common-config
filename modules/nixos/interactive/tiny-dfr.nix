@@ -1,0 +1,114 @@
+{...}: _: {
+  hardware.apple.touchBar = {
+    enable = true;
+    settings = {
+      # https://github.com/AsahiLinux/tiny-dfr/blob/master/share/tiny-dfr/config.toml
+      MediaLayerDefault = true;
+      ShowButtonOutlines = true;
+      EnablePixelShift = false;
+      FontTemplate = "";
+      AdaptiveBrightness = true;
+      ActiveBrightness = 255;
+      PrimaryLayerKeys = [
+        {
+          Text = "F1";
+          Action = "F1";
+        }
+        {
+          Text = "F2";
+          Action = "F2";
+        }
+        {
+          Text = "F3";
+          Action = "F3";
+        }
+        {
+          Text = "F4";
+          Action = "F4";
+        }
+        {
+          Text = "F5";
+          Action = "F5";
+        }
+        {
+          Text = "F6";
+          Action = "F6";
+        }
+        {
+          Text = "F7";
+          Action = "F7";
+        }
+        {
+          Text = "F8";
+          Action = "F8";
+        }
+        {
+          Text = "F9";
+          Action = "F9";
+        }
+        {
+          Text = "F10";
+          Action = "F10";
+        }
+        {
+          Text = "F11";
+          Action = "F11";
+        }
+        {
+          Text = "F12";
+          Action = "F12";
+        }
+        {
+          Text = "PrtSc";
+          Action = "Sysrq";
+        }
+      ];
+      MediaLayerKeys = [
+        {
+          Icon = "brightness_low";
+          Action = "BrightnessDown";
+        }
+        {
+          Icon = "brightness_high";
+          Action = "BrightnessUp";
+        }
+        {
+          Icon = "backlight_low";
+          Action = "IllumDown";
+        }
+        {
+          Icon = "backlight_high";
+          Action = "IllumUp";
+        }
+        {
+          Icon = "fast_rewind";
+          Action = "PreviousSong";
+        }
+        {
+          Icon = "play_pause";
+          Action = "PlayPause";
+        }
+        {
+          Icon = "fast_forward";
+          Action = "NextSong";
+        }
+        {
+          Icon = "mic_off";
+          Action = "MicMute";
+        }
+        {
+          Icon = "volume_off";
+          Action = "Mute";
+        }
+        {
+          Icon = "volume_down";
+          Action = "VolumeDown";
+        }
+        {
+          Icon = "volume_up";
+          Action = "VolumeUp";
+        }
+      ];
+    };
+  };
+}

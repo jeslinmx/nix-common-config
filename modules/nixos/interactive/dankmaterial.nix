@@ -9,4 +9,5 @@
       compositor.name = "hyprland";
     };
   };
+  programs.kdeconnect.enable = true;
 }

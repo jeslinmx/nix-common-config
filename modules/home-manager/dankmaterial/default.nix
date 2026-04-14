@@ -20,7 +20,9 @@
 
   config = {
     programs = let
-      dms = lib.getExe' config.programs.dank-material-shell.package "dms";
+      # hotfix until https://github.com/AvengeMedia/DankMaterialShell/pull/1864 lands (v1.4.5)
+      dms = lib.getExe' inputs.dank-material-shell.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell "dms";
+      # dms = lib.getExe' config.programs.dank-material-shell.package "dms";
     in {
       dank-material-shell = {
         enable = true;

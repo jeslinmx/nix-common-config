@@ -81,26 +81,25 @@
       ];
       MediaLayerKeys = [
         {
-          Time = "%e/%m %H:%M";
-          Action = "Time";
-          Stretch = 4;
+          Icon = "mic_off";
+          Action = "MicMute";
+          Stretch = 2;
         }
         {
-          Battery = "both";
-          Action = "Battery";
+          Icon = "volume_off";
+          Action = "Mute";
           Stretch = 3;
         }
         {
-          Icon = "brightness_low";
-          Action = "BrightnessDown";
-          Stretch = 2;
+          Icon = "volume_down";
+          Action = "VolumeDown";
+          Stretch = 3;
         }
         {
-          Icon = "brightness_high";
-          Action = "BrightnessUp";
-          Stretch = 2;
+          Icon = "volume_up";
+          Action = "VolumeUp";
+          Stretch = 3;
         }
-
         {Stretch = 1;}
         {
           Icon = "fast_rewind";
@@ -119,23 +118,23 @@
         }
         {Stretch = 1;}
         {
-          Icon = "mic_off";
-          Action = "MicMute";
+          Icon = "brightness_low";
+          Action = "BrightnessDown";
           Stretch = 2;
         }
         {
-          Icon = "volume_off";
-          Action = "Mute";
-          Stretch = 3;
+          Icon = "brightness_high";
+          Action = "BrightnessUp";
+          Stretch = 2;
         }
         {
-          Icon = "volume_down";
-          Action = "VolumeDown";
-          Stretch = 3;
+          Time = "%e/%m %H:%M";
+          Action = "Time";
+          Stretch = 4;
         }
         {
-          Icon = "volume_up";
-          Action = "VolumeUp";
+          Battery = "both";
+          Action = "Battery";
           Stretch = 3;
         }
       ];

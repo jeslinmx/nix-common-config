@@ -1,7 +1,10 @@
 {
   description = "NixOS, nix-darwin and home-manager common configuration modules";
 
-  nixConfig.extra-substituters = ["https://nvf.cachix.org/"];
+  nixConfig.extra-substituters = [
+    "https://colmena.cachix.org"
+    "https://nvf.cachix.org/"
+  ];
 
   inputs = {
     # flake helpers
@@ -35,6 +38,10 @@
     };
     dms-plugin-registry = {
       url = "github:AvengeMedia/dms-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

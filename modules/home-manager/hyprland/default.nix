@@ -97,7 +97,9 @@ in {
       };
 
       input.touchpad = {
+        disable_while_typing = true;
         natural_scroll = true;
+        clickfinger_behavior = true; # middle/right mouse clicks based on number of fingers, not click region
         tap-to-click = true;
         tap-and-drag = true;
         drag_lock = 2;

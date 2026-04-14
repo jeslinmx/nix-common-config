@@ -16,7 +16,7 @@ _: {config, ...}: {
         format = base07;
       };
       # Set opacity for cursorline and number background
-      line_opacity = 0.3;
+      line_opacity = 0.1;
 
       # Enable cursor highlights
       set_cursor = true;

@@ -8,6 +8,7 @@ flake @ {nixosModules, ...}: {
     inherit
       (nixosModules)
       base-home-manager-users
+      base-issue-ip
       base-locale-sg
       base-nix-config
       base-power-management

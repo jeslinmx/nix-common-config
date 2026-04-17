@@ -19,6 +19,7 @@ _: {lib, ...}: {
       desc = "close";
       lua = true;
     })
+    (mkKeymap ["n"] "<leader><leader>" "<cmd>intro<cr>" {desc = "show neovim intro";})
 
     (mkKeymap ["n" "v"] ''\w'' "<Cmd>set wrap!<CR>" {desc = "toggle wrap";})
     (mkKeymap ["n" "v"] ''\d'' ''<Cmd>exe &diff ? "diffoff" : "diffthis"<CR>'' {desc = "toggle diff";})

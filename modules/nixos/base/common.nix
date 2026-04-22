@@ -27,11 +27,8 @@ flake @ {nixosModules, ...}: {
         cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
         cpu.amd.updateMicrocode = config.hardware.enableRedistributableFirmware;
       };
+      programs.fish.enable = true;
       users.defaultUserShell = pkgs.fish;
-      programs = {
-        fish.enable = true;
-        wireshark.enable = true;
-      };
     })
     {environment.shellAliases.l = lib.mkForce null;} # get rid of this alias
   ];

@@ -37,11 +37,24 @@
               cornerRadius = config.wayland.windowManager.hyprland.settings.decoration.rounding;
               barConfigs =
                 barConfigs
-                |> map (bar:
+                |> lib.imap (i: bar:
                   bar
                   // {
                     spacing = config.wayland.windowManager.hyprland.settings.general.gaps_out;
-                  });
+                  }
+                  // (
+                    if i == 1
+                    then {
+                      leftWidgets =
+                        bar.leftWidgets
+                        ++ (map ({id, ...}: {
+                            id = "dankActions:${id}";
+                            enabled = true;
+                          })
+                          config.programs.dank-material-shell.plugins.dankActions.settings.variants);
+                    }
+                    else {}
+                  ));
             })
           |> builtins.mapAttrs (_: lib.mkOverride 1100); # prioritize below stylix
         plugins = {
@@ -50,6 +63,7 @@
             settings = {calcEngine = "qalc";};
           };
           catWidget.enable = true;
+          dankActions.enable = true;
           dankGifSearch.enable = true;
           dankKDEConnect.enable = true;
           dankObsidian.enable = true;

@@ -2,7 +2,6 @@
   description = "NixOS, nix-darwin and home-manager common configuration modules";
 
   nixConfig.extra-substituters = [
-    "https://colmena.cachix.org"
     "https://nvf.cachix.org/"
   ];
 

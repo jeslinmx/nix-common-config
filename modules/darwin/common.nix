@@ -15,5 +15,6 @@
 
   config = lib.mkOverride 900 {
     programs.fish.enable = true;
+    nixpkgs.config.allowUnfree = true;
   };
 }

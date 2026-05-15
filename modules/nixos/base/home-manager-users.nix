@@ -1,6 +1,7 @@
 {inputs, ...}: {
   config,
   lib,
+  options,
   ...
 }: {
   imports = [inputs.home-manager.nixosModules.home-manager];
@@ -9,7 +10,24 @@
     inherit (lib) types mkOption;
   in {
     hmUsers = mkOption {
-      type = types.attrsOf types.anything;
+      type = types.attrsOf (types.submodule ({name, ...}: {
+        imports = options.users.users.type.getSubModules;
+        options = {
+          hmConfig = mkOption {
+            type = types.deferredModule;
+            default = {};
+          };
+          hmModules = mkOption {
+            type = types.listOf types.deferredModule;
+            default = [];
+          };
+        };
+        config = {
+          initialHashedPassword = lib.mkDefault "";
+          isNormalUser = lib.mkDefault true;
+          group = lib.mkIf config.users.users.${name}.isNormalUser (lib.mkOverride 900 name);
+        };
+      }));
       default = {};
     };
   };
@@ -19,44 +37,24 @@
   in {
     users = {
       mutableUsers = true;
-      users = lib.mkMerge (lib.mapAttrsToList (
-          username: userCfg: {
-            ${username} =
-              {
-                initialHashedPassword = lib.mkDefault "";
-                isNormalUser = lib.mkDefault true;
-                group = lib.mkIf config.users.users.${username}.isNormalUser (lib.mkOverride 900 username);
-              }
-              // (removeAttrs userCfg ["hmModules"]);
-          }
-        )
-        cfg);
-      groups = lib.mkMerge (lib.mapAttrsToList (
-          username: _: {
-            ${username} = lib.mkIf config.users.users.${username}.isNormalUser {};
-          }
-        )
-        cfg);
+      users = builtins.mapAttrs (_: userCfg: removeAttrs userCfg ["hmConfig" "hmModules"]) cfg;
+      groups = builtins.mapAttrs (name: _:
+        lib.mkIf config.users.users.${name}.isNormalUser {})
+      cfg;
     };
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
       backupFileExtension = "hmbak";
       users =
-        lib.mapAttrs (
-          username: {hmModules ? [], ...}: {
-            imports = let
-              defaultModules = [
-                ({osConfig, ...}: {
-                  home.stateVersion = lib.mkDefault (osConfig.system.stateVersion or "24.05");
-                })
-                # due to https://github.com/gmodena/nix-flatpak/issues/25
-                inputs.nix-flatpak.homeManagerModules.nix-flatpak
-              ];
-              # BUG: due to a weird home-manager quirk, modules defined inline in hmModules (i.e. not given as paths to a Nix file) will not be able to request for pkgs as an argument
-              # use pkgs from NixOS scope instead
-            in
-              defaultModules ++ hmModules;
+        builtins.mapAttrs (
+          _: {
+            hmConfig,
+            hmModules,
+            ...
+          }: {
+            imports = hmModules ++ [hmConfig];
+            home.stateVersion = lib.mkDefault (config.system.stateVersion or "24.05");
           }
         )
         cfg;

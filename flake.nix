@@ -99,11 +99,7 @@
       };
 
       systems = ["x86_64-linux" "aarch64-darwin"];
-      perSystem = {
-        system,
-        pkgs,
-        ...
-      }: {
+      perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
         packages = let
           nvfConf = nvf.lib.neovimConfiguration {
@@ -111,12 +107,6 @@
             modules = [self.nvfModules.default];
           };
         in {inherit (nvfConf) neovim;};
-        apps = {
-          nvim = {
-            type = "app";
-            program = self.packages.${system}.neovim;
-          };
-        };
       };
     });
 }

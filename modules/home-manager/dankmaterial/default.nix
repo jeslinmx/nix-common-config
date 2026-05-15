@@ -45,13 +45,13 @@
                   // (
                     if i == 1
                     then {
-                      leftWidgets =
-                        bar.leftWidgets
-                        ++ (map ({id, ...}: {
+                      rightWidgets =
+                        (map ({id, ...}: {
                             id = "dankActions:${id}";
                             enabled = true;
                           })
-                          config.programs.dank-material-shell.plugins.dankActions.settings.variants);
+                          config.programs.dank-material-shell.plugins.dankActions.settings.variants)
+                        ++ bar.rightWidgets;
                     }
                     else {}
                   ));

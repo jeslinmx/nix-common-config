@@ -90,6 +90,22 @@
         "type": "github"
       }
     },
+    "dms-plugin-musiclyrics": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778838638,
+        "narHash": "sha256-jsUqICqwHKHAhJZlpb7soMCCr2jQinJRz4UfVLBFjuw=",
+        "owner": "jeslinmx",
+        "repo": "dms-plugin-musiclyrics",
+        "rev": "dd53847a163a0128324dab4d71727b4b03f20789",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jeslinmx",
+        "repo": "dms-plugin-musiclyrics",
+        "type": "github"
+      }
+    },
     "dms-plugin-registry": {
       "inputs": {
         "nixpkgs": [
@@ -549,6 +565,7 @@
     "root": {
       "inputs": {
         "dank-material-shell": "dank-material-shell",
+        "dms-plugin-musiclyrics": "dms-plugin-musiclyrics",
         "dms-plugin-registry": "dms-plugin-registry",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",

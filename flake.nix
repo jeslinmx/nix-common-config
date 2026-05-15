@@ -75,6 +75,10 @@
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dms-plugin-musiclyrics = {
+      url = "github:jeslinmx/dms-plugin-musiclyrics";
+      flake = false;
+    };
   };
 
   outputs = {

@@ -75,7 +75,15 @@
             enable = !isNull config.dms.hassTokenPath;
             settings = {hassTokenPath = config.dms.hassTokenPath;};
           };
-          musicLyrics.enable = true;
+          musicLyrics = {
+            enable = true;
+            src = lib.mkForce inputs.dms-plugin-musiclyrics;
+            settings = {
+              widgetMaxWidth = 180;
+              showTitleWhenPaused = true;
+              pillDisplayMode = "1";
+            };
+          };
           screenRecorder.enable = true;
           simpleAudioControl = {
             enable = true;

@@ -1,4 +1,4 @@
-{inputs, ...}: {
+_: {
   lib,
   pkgs,
   ...
@@ -13,7 +13,7 @@
     languages = {
       enableExtraDiagnostics = true;
       nix.enable = true;
-      nix.lsp.servers = ["nixd"];
+      nix.lsp.servers = ["nixd" "nil"];
       lua.enable = true;
       html.enable = true;
       markdown.enable = true;
@@ -27,7 +27,7 @@
     };
     treesitter.grammars = [pkgs.vimPlugins.nvim-treesitter.builtGrammars.latex];
     diagnostics.nvim-lint.linters = {
-      statix.cmd = lib.getExe inputs.statix.packages.${pkgs.stdenv.hostPlatform.system}.default |> lib.mkForce;
+      statix.cmd = pkgs.statix |> lib.getExe |> lib.mkForce;
       markdownlint-cli2.args = [
         "--config"
         (pkgs.writers.writeYAML "markdownlint-cli2.yaml" {MD013 = false;}).outPath

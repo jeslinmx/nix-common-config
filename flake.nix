@@ -56,6 +56,10 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Supporting repos
     tt-schemes = {
@@ -65,15 +69,6 @@
     paperwmspoon = {
       url = "github:mogenson/PaperWM.spoon";
       flake = false;
-    };
-    statix = {
-      url = "github:molybdenumsoftware/statix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
-    nvf = {
-      url = "github:notashelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     dms-plugin-musiclyrics = {
       url = "github:jeslinmx/dms-plugin-musiclyrics";

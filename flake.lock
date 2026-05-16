@@ -579,32 +579,8 @@
         "nur": "nur",
         "nvf": "nvf",
         "paperwmspoon": "paperwmspoon",
-        "statix": "statix",
         "stylix": "stylix",
         "tt-schemes": "tt-schemes"
-      }
-    },
-    "statix": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1778799789,
-        "narHash": "sha256-dylteN19qQ/MclInQ+x4vf+rBGNIsaKWJ+WgiS0ZBjI=",
-        "owner": "molybdenumsoftware",
-        "repo": "statix",
-        "rev": "f0d256d60d9b9736b274a0edc0492be472318166",
-        "type": "github"
-      },
-      "original": {
-        "owner": "molybdenumsoftware",
-        "repo": "statix",
-        "type": "github"
       }
     },
     "stylix": {

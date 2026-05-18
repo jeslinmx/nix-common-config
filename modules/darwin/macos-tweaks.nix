@@ -20,6 +20,7 @@ _: _: {
       orientation = "right";
       scroll-to-open = true;
       showhidden = true; # hidden applications have translucent icons
+      slow-motion-allowed = false; # disable shift to slow animations (hammerspoon req)
       tilesize = 48; # icon size
       largesize = 64;
     };
@@ -35,6 +36,7 @@ _: _: {
       ShowPathbar = true;
       ShowStatusBar = true;
     };
+    spaces.spans-displays = false; # hammerspoon req
     hitoolbox.AppleFnUsageType = "Change Input Source"; # Fn key switches languages
     iCal = {
       "first day of week" = "Sunday";

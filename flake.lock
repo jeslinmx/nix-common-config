@@ -93,11 +93,11 @@
     "dms-plugin-musiclyrics": {
       "flake": false,
       "locked": {
-        "lastModified": 1778838638,
-        "narHash": "sha256-jsUqICqwHKHAhJZlpb7soMCCr2jQinJRz4UfVLBFjuw=",
+        "lastModified": 1779081117,
+        "narHash": "sha256-k3v0QmrNQXR4NCCON7QT/5YYBPmj0sWZvJCBCs8DLmo=",
         "owner": "jeslinmx",
         "repo": "dms-plugin-musiclyrics",
-        "rev": "dd53847a163a0128324dab4d71727b4b03f20789",
+        "rev": "ac9be2fd1ebc3b8f087b63759fea3639788c4eda",
         "type": "github"
       },
       "original": {

@@ -1,9 +1,10 @@
 {
   description = "NixOS, nix-darwin and home-manager common configuration modules";
 
-  nixConfig.extra-substituters = [
-    "https://nvf.cachix.org/"
-  ];
+  nixConfig = {
+    extra-substituters = ["https://nvf.cachix.org/"];
+    extra-trusted-public-keys = ["nvf.cachix.org-1:GMQWiUhZ6ux9D5CvFFMwnc2nFrUHTeGaXRlVBXo+naI="];
+  };
 
   inputs = {
     # flake helpers

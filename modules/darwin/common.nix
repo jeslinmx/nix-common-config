@@ -13,8 +13,8 @@
       ;
   };
 
-  config = lib.mkOverride 900 {
-    programs.fish.enable = true;
-    nixpkgs.config.allowUnfree = true;
+  config = {
+    programs.fish.enable = lib.mkDefault true;
+    nixpkgs.config.allowUnfree = lib.mkDefault true;
   };
 }

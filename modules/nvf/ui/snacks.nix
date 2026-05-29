@@ -73,6 +73,14 @@
       desc = "create/toggle v-terminal";
       lua = true;
     })
+    (mkKeymap ["n" "i" "v" "t"] "<C-`>" "<C-\\>" {
+      desc = "create/toggle terminal";
+      noremap = false;
+    })
+    (mkKeymap ["n" "i" "v" "t"] "<C-A-`>" "<C-A-\\>" {
+      desc = "create/toggle v-terminal";
+      noremap = false;
+    })
     (mkKeymap ["n" "v"] "<leader>gg" "Snacks.lazygit.open" {
       desc = "lazygit";
       lua = true;

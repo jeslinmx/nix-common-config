@@ -57,6 +57,14 @@
                   ));
             })
           |> builtins.mapAttrs (_: lib.mkOverride 1100); # prioritize below stylix
+        clipboardSettings = {
+          disabled = false;
+          disableHistory = false;
+          disablePersist = true;
+          maxHistory = 100;
+          autoClearDays = 30;
+          clearAtStartup = false;
+        };
         plugins = {
           calculator = {
             enable = true;

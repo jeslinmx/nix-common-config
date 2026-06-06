@@ -1,9 +1,12 @@
 local PaperWM = hs.loadSpoon("PaperWM")
 
+hs.window.animationDuration = 0.03
+
 PaperWM.window_gap = 8
 PaperWM.window_ratios = { 0.25, 1 / 3, 0.5, 2 / 3, 0.75 }
 PaperWM.default_width = 2 / 3
 PaperWM.swipe_fingers = 3
+PaperWM.swipe_gain = 4.0
 
 local modifiers = function(additional)
 	return hs.fnutils.concat({ "alt" }, additional)

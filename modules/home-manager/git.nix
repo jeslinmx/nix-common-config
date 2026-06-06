@@ -5,6 +5,7 @@ _: {
 }: {
   programs = {
     git = {
+      lfs.enable = true;
       settings = {
         alias = {
           a = "add";
@@ -77,6 +78,13 @@ _: {
             |> builtins.concatStringsSep "\n"
             |> pkgs.writeText ".gitignore"
             |> builtins.getAttr "outPath";
+        };
+        lfs = {
+          "customtransfer.xet" = {
+            path = lib.getExe pkgs.git-xet;
+            args = "transfer";
+            concurrent = true;
+          };
         };
       };
     };

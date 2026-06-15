@@ -79,6 +79,7 @@ _: {
             |> pkgs.writeText ".gitignore"
             |> builtins.getAttr "outPath";
         };
+        credential.helper = "cache";
         lfs = {
           "customtransfer.xet" = {
             path = lib.getExe pkgs.git-xet;

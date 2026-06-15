@@ -4,6 +4,7 @@ _: {
     userDirs = {
       enable = true; # manage XDG user directories
       createDirectories = true;
+      setSessionVariables = true;
     };
     mimeApps = {
       enable = true;

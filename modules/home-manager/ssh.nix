@@ -2,7 +2,7 @@ _: {
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks."*" = {
+    settings."*" = {
       addKeysToAgent = "yes";
       controlMaster = "auto";
       controlPersist = "3s";

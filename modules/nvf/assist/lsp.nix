@@ -19,7 +19,7 @@ _: {
       markdown.enable = true;
       markdown.lsp.servers = lib.mkForce ["markdown-oxide"];
       css.enable = true;
-      ts.enable = true;
+      typescript.enable = true;
       json.enable = true;
       yaml.enable = true;
       typst.enable = true;

@@ -9,9 +9,12 @@ _: {
     package = pkgs.colloid-icon-theme;
   };
   stylix.targets.neovim.enable = false;
-  gtk.iconTheme = {
-    name = config.stylix.icons.${config.stylix.polarity};
-    inherit (config.stylix.icons) package;
+  gtk = {
+    gtk4.theme = config.gtk.theme;
+    iconTheme = {
+      name = config.stylix.icons.${config.stylix.polarity};
+      inherit (config.stylix.icons) package;
+    };
   };
   fonts.fontconfig = {
     enable = true;

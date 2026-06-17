@@ -70,6 +70,10 @@
       url = "github:mogenson/PaperWM.spoon";
       flake = false;
     };
+    hammerspoons = {
+      url = "github:Hammerspoon/Spoons";
+      flake = false;
+    };
     dms-plugin-musiclyrics = {
       url = "github:jeslinmx/dms-plugin-musiclyrics";
       flake = false;

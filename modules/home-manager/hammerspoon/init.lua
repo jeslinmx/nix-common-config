@@ -1,17 +1,16 @@
-local PaperWM = hs.loadSpoon("PaperWM")
-
 hs.window.animationDuration = 0.03
 
+hs.loadSpoon("ReloadConfiguration"):start()
+
+local PaperWM = hs.loadSpoon("PaperWM")
 PaperWM.window_gap = 8
 PaperWM.window_ratios = { 1 / 3, 0.5, 2 / 3, 1 }
 PaperWM.default_width = 1
 PaperWM.swipe_fingers = 3
 PaperWM.swipe_gain = 4.0
-
 local modifiers = function(additional)
 	return hs.fnutils.concat({ "alt" }, additional)
 end
-
 PaperWM:bindHotkeys({
 	-- switch to a new focused window in tiled grid
 	focus_left = { modifiers({}), "h" },
@@ -88,5 +87,4 @@ PaperWM:bindHotkeys({
 	move_window_8 = { modifiers({ "ctrl", "shift" }), "8" },
 	move_window_9 = { modifiers({ "ctrl", "shift" }), "9" },
 })
-
 PaperWM:start()

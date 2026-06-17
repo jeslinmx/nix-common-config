@@ -3,8 +3,8 @@ local PaperWM = hs.loadSpoon("PaperWM")
 hs.window.animationDuration = 0.03
 
 PaperWM.window_gap = 8
-PaperWM.window_ratios = { 0.25, 1 / 3, 0.5, 2 / 3, 0.75 }
-PaperWM.default_width = 2 / 3
+PaperWM.window_ratios = { 1 / 3, 0.5, 2 / 3, 1 }
+PaperWM.default_width = 1
 PaperWM.swipe_fingers = 3
 PaperWM.swipe_gain = 4.0
 
@@ -27,11 +27,10 @@ PaperWM:bindHotkeys({
 
 	-- position and resize focused window
 	center_window = { modifiers({}), "c" },
-	full_width = { modifiers({}), "w" },
-	cycle_width = { modifiers({}), "r" },
-	reverse_cycle_width = { modifiers({ "shift" }), "r" },
-	cycle_height = { modifiers({ "ctrl" }), "r" },
-	reverse_cycle_height = { modifiers({ "ctrl", "shift" }), "r" },
+	cycle_width = { modifiers({}), "w" },
+	reverse_cycle_width = { modifiers({ "shift" }), "w" },
+	cycle_height = { modifiers({}), "r" },
+	reverse_cycle_height = { modifiers({ "shift" }), "r" },
 
 	-- increase/decrease width
 	increase_width = { modifiers({}), "]" },

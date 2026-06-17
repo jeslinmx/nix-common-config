@@ -11,30 +11,32 @@ _: _: {
       Sound = true;
     };
     dock = {
-      appswitcher-all-displays = true;
+      orientation = "right";
+      tilesize = 48; # icon size
+      autohide = true;
       autohide-time-modifier = 0.2;
+      autohide-delay = 0.1;
+      scroll-to-open = true;
+      appswitcher-all-displays = true;
       expose-animation-duration = 0.2;
       magnification = true; # on hover
+      largesize = 64;
       minimize-to-application = true;
       mru-spaces = false; # do not rearrange spaces by recent usage
-      orientation = "right";
-      scroll-to-open = true;
       showhidden = true; # hidden applications have translucent icons
       slow-motion-allowed = false; # disable shift to slow animations (hammerspoon req)
-      tilesize = 48; # icon size
-      largesize = 64;
     };
     finder = {
-      _FXEnableColumnAutoSizing = true;
-      _FXShowPosixPathInTitle = true;
-      _FXSortFoldersFirst = true;
-      _FXSortFoldersFirstOnDesktop = true;
       AppleShowAllExtensions = true; # file extensions in Finder
-      FXDefaultSearchScope = "SCcf"; # scope search to current folder by default
-      FXPreferredViewStyle = "clmv"; # column view by default
-      ShowMountedServersOnDesktop = true;
       ShowPathbar = true;
+      FXPreferredViewStyle = "clmv"; # column view by default
+      _FXSortFoldersFirst = true;
+      FXDefaultSearchScope = "SCcf"; # scope search to current folder by default
+      _FXEnableColumnAutoSizing = true;
       ShowStatusBar = true;
+      _FXSortFoldersFirstOnDesktop = true;
+      ShowMountedServersOnDesktop = true;
+      _FXShowPosixPathInTitle = true;
     };
     spaces.spans-displays = false; # hammerspoon req
     hitoolbox.AppleFnUsageType = "Change Input Source"; # Fn key switches languages

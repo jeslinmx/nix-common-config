@@ -10,7 +10,6 @@ _: {
   };
   stylix.targets.neovim.enable = false;
   gtk = {
-    gtk4.theme = config.gtk.theme;
     iconTheme = {
       name = config.stylix.icons.${config.stylix.polarity};
       inherit (config.stylix.icons) package;

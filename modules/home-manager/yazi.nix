@@ -39,19 +39,25 @@ _: {
       plugin = {
         prepend_fetchers = [
           {
-            id = "git";
-            name = "*";
+            group = "git";
+            url = "*";
             run = "git";
           }
           {
-            id = "git";
-            name = "*/";
+            group = "git";
+            url = "*/";
             run = "git";
           }
           {
-            id = "mime";
-            name = "*";
-            run = "mime-ext";
+            group = "mime";
+            url = "local://*";
+            run = "mime-ext.local";
+            prio = "high";
+          }
+          {
+            group = "mime";
+            url = "remote://*";
+            run = "mime-ext.remote";
             prio = "high";
           }
         ];
@@ -73,7 +79,8 @@ _: {
               name,
               value,
             }: {
-              inherit name;
+              group = "";
+              url = name;
               run = value;
             }))
           ];

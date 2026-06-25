@@ -13,7 +13,7 @@ _: {
     languages = {
       enableExtraDiagnostics = true;
       nix.enable = true;
-      nix.lsp.servers = ["nixd" "nil"];
+      nix.lsp.servers = ["nixd"];
       lua.enable = true;
       html.enable = true;
       markdown.enable = true;

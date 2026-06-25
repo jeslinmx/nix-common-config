@@ -8,7 +8,7 @@
   # };
 
   nix-rosetta-builder = {
-    enable = pkgs.stdenv.hostPlatform.system == "aarch64-darwin";
+    enable = pkgs.stdenv.hostPlatform.isAarch;
     onDemand = true;
     onDemandLingerMinutes = 60;
   };

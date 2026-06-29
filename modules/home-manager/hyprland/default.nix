@@ -139,7 +139,7 @@ _: {
               F = ''window.float()'';
               G = ''group.toggle()'';
               S = ''workspace.toggle_special("magic")'';
-              T = ''exec_raw("ghostty")'';
+              T = ''exec_raw("xdg-terminal-exec")'';
               Escape = ''exec_raw("loginctl lock-session")'';
               # toggle_swallow
               # pin

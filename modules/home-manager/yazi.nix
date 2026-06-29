@@ -207,4 +207,8 @@ _: {
       th.git.updated = ui.Style():fg("blue")
     '';
   };
+  dbus.packages = [pkgs.org-freedesktop-filemanager1-common];
+  xdg.configFile."org.freedesktop.FileManager1.common/config".text = ''
+    cmd=${pkgs.org-freedesktop-filemanager1-common}/share/org.freedesktop.FileManager1.common/yazi-wrapper.sh
+  '';
 }

@@ -91,5 +91,9 @@ _: {
     };
   };
 
-  home.sessionVariables.TERMCMD = config.programs.ghostty.package |> lib.getExe |> lib.mkDefault;
+  xdg.terminal-exec = {
+    enable = true;
+    settings = {default = ["com.mitchellh.ghostty.desktop"];};
+  };
+  systemd.user.sessionVariables.TERMCMD = config.xdg.terminal-exec.package |> lib.getExe |> lib.mkDefault;
 }

@@ -1,4 +1,5 @@
 _: {
+  config,
   lib,
   pkgs,
   ...
@@ -89,4 +90,6 @@ _: {
         );
     };
   };
+
+  home.sessionVariables.TERMCMD = config.programs.ghostty.package |> lib.getExe |> lib.mkDefault;
 }

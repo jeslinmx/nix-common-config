@@ -66,11 +66,24 @@
           clearAtStartup = false;
         };
         plugins = {
+          bongoCat = {
+            enable = true;
+            settings = {
+              catSizePercent = 100;
+              catYOffset = 3;
+              pawHoldTime = 45;
+              showMetrics = true;
+              catColorMode = "classic";
+              classicIdle = true;
+              enableBlinking = true;
+              mouseEnabled = true;
+              metricsInBar = true;
+            };
+          };
           calculator = {
             enable = true;
             settings = {calcEngine = "qalc";};
           };
-          catWidget.enable = true;
           dankActions.enable = true;
           dankGifSearch.enable = true;
           dankKDEConnect.enable = true;
@@ -83,6 +96,7 @@
             enable = !isNull config.dms.hassTokenPath;
             settings = {hassTokenPath = config.dms.hassTokenPath;};
           };
+          kaomojiPicker.enable = true;
           musicLyrics = {
             enable = true;
             src = lib.mkForce inputs.dms-plugin-musiclyrics;
@@ -112,7 +126,10 @@
       zsh.initContent = "source <(${dms} completion zsh)";
     };
 
-    home.packages = with pkgs; [libqalculate]; # for calculator plugin
+    home.packages = with pkgs; [
+      libqalculate # for calculator plugin
+      libinput # for bongoCat plugin
+    ];
     services.kdeconnect.enable = true;
 
     wayland.windowManager.hyprland = {

@@ -248,6 +248,16 @@ _: {
             };
             flags.repeating = true;
           }
+          {
+            mod = ["SUPER"];
+            binds.Y = ''exec_raw("voxtype record start")'';
+            flags.long_press = true;
+          }
+          {
+            mod = ["SUPER"];
+            binds.Y = ''exec_raw("voxtype record toggle")'';
+            flags.release = true;
+          }
         ]
         |> builtins.concatMap (
           {

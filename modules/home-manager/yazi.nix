@@ -191,6 +191,16 @@ _: {
             run = "plugin ouch tar.lz4";
             desc = "Compress into .lz4";
           }
+          {
+            on = ["W" "s"];
+            run = ''shell --block -- ${lib.getExe' pkgs.magic-wormhole-rs "wormhole-rs"} send "$@"'';
+            desc = "Send via wormhole";
+          }
+          {
+            on = ["W" "r"];
+            run = "shell --block --interactive -- ${lib.getExe' pkgs.magic-wormhole-rs "wormhole-rs"} receive ";
+            desc = "Receive via wormhole";
+          }
         ];
       };
     };

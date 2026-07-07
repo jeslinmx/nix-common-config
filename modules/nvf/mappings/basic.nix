@@ -14,7 +14,7 @@ _: {lib, ...}: {
 
     (mkKeymap ["n" "v"] "<tab>" "<cmd>bnext<cr>" {desc = "buffer goto next";})
     (mkKeymap ["n" "v"] "<S-tab>" "<cmd>bprev<cr>" {desc = "buffer goto prev";})
-    (mkKeymap ["n" "v"] "<leader>bn" "<cmd>enew<cr>" {desc = "new buffer";})
+    (mkKeymap ["n" "v"] "<leader>bn" "<cmd>enew | b! #<cr>" {desc = "new buffer";})
     (mkKeymap ["n" "v"] "<leader>bq" ''require("mini.bufremove").delete'' {
       desc = "close";
       lua = true;

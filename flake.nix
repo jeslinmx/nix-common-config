@@ -85,16 +85,21 @@
     nvf,
     ...
   } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} ({self, ...}: {
-      flake = let
-        inherit (self.lib) gatherModules;
-      in {
-        lib = import ./lib.nix inputs;
+    flake-parts.lib.mkFlake {inherit inputs;} ({
+      self,
+      lib,
+      ...
+    }: {
+      imports = [./flake-module.nix];
 
-        darwinModules = gatherModules self ./modules/darwin;
-        nixosModules = gatherModules self ./modules/nixos;
-        homeModules = gatherModules self ./modules/home-manager;
-        nvfModules = gatherModules self ./modules/nvf;
+      detect = {
+        extraArgs = {inherit (self) inputs darwinModules homeModules nixosModules nvfModules;};
+        configurations.enable = false;
+      };
+
+      flake = {
+        flakeModule = import ./flake-module.nix;
+        lib = import ./lib.nix lib;
       };
 
       systems = ["x86_64-linux" "aarch64-darwin"];

@@ -1,77 +1,67 @@
-{
-  nixpkgs,
-  nix-darwin,
-  ...
-}: let
-  lib = nixpkgs.lib;
-in rec {
-  dirToAttrs = path:
-    lib.pipe path [
-      builtins.readDir
-      (builtins.mapAttrs (
+lib: rec {
+  dirToAttrs = let
+    recurse = path:
+      path
+      |> lib.readDir
+      |> lib.mapAttrs (
         name: type: let
-          fullPath = /${path}/${name};
+          fullPath = "${path}/${name}";
         in
           if type == "directory"
-          then dirToAttrs fullPath
+          then recurse fullPath
           else fullPath
-      ))
-    ];
+      );
+  in
+    recurse;
 
-  filterNonNix = lib.filterAttrsRecursive (_: v: !(builtins.isPath v) || lib.hasSuffix ".nix" "${v}");
+  filterNonNix = lib.filterAttrsRecursive (_: v: lib.isAttrs v || lib.hasSuffix ".nix" "${v}");
 
-  filterEmptySubdirs = lib.filterAttrsRecursive (_: v: builtins.isPath v || builtins.length (builtins.attrNames v) != 0);
+  filterEmptySubdirs = lib.filterAttrsRecursive (_: v: !(lib.isAttrs v) || lib.length (lib.attrNames v) != 0);
 
   flattenAttrs = let
     recurse = sep: prefix:
       lib.foldlAttrs (
         acc: n: v: let
-          fullPath = builtins.concatStringsSep sep (prefix ++ [n]);
+          fullPath = lib.concatStringsSep sep (prefix ++ [n]);
         in
           acc
           // (
-            if builtins.isPath v
-            then {${fullPath} = v;}
-            else recurse sep [fullPath] v
+            if lib.isAttrs v
+            then recurse sep [fullPath] v
+            else {${fullPath} = v;}
           )
       ) {};
   in
     sep: recurse sep [];
-  truncateSuffix = lib.mapAttrs' (n: v: lib.nameValuePair (lib.pipe n [(lib.removeSuffix ".nix") (lib.removeSuffix "-default")]) v);
 
-  gatherModules = flake:
-    lib.flip lib.pipe [
-      dirToAttrs
-      filterNonNix
-      filterEmptySubdirs
-      (flattenAttrs "-")
-      truncateSuffix
-      (builtins.mapAttrs (_: import))
-      (builtins.mapAttrs (_: v: v flake))
-    ];
+  truncateSuffix = lib.mapAttrs' (rawName: value: {
+    name =
+      rawName
+      |> lib.removeSuffix ".nix"
+      |> lib.removeSuffix "-default";
+    inherit value;
+  });
 
-  mkDarwinConfigurations = outerFlake:
-    builtins.mapAttrs (name: v:
-      nix-darwin.lib.darwinSystem {
-        modules = [
-          {
-            networking.hostName = name;
-            nix.nixPath = ["nix-config=${outerFlake.outPath}"];
-          }
-          ((import v) outerFlake)
-        ];
-      });
+  injectExtraArgs = extraArgs:
+    lib.mapAttrs (_: path: let
+      mod = import path;
+    in
+      if lib.isFunction mod
+      then let
+        modArgs = lib.functionArgs mod;
+        subArgs = lib.filterAttrs (name: _: lib.hasAttr name modArgs) extraArgs;
+        left = lib.removeAttrs modArgs (lib.attrNames subArgs);
+        func = args: mod (args // subArgs);
+      in
+        lib.setDefaultModuleLocation path (lib.setFunctionArgs func left)
+      else path);
 
-  mkNixosConfigurations = outerFlake:
-    builtins.mapAttrs (name: v:
-      lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          {
-            networking.hostName = name;
-            nix.nixPath = ["nix-config=${outerFlake.outPath}"];
-          }
-          ((import v) outerFlake)
-        ];
-      });
+  gatherModules = extraArgs: path:
+    path
+    |> dirToAttrs
+    |> filterNonNix
+    |> filterEmptySubdirs
+    |> flattenAttrs "-"
+    |> truncateSuffix
+    |> injectExtraArgs extraArgs;
 }

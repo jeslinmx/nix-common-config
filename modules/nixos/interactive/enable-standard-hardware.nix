@@ -1,4 +1,4 @@
-_: {pkgs, ...}: {
+{pkgs, ...}: {
   # BRIGHTNESS CONTROL
   environment.systemPackages = [pkgs.ddcutil];
   hardware.i2c.enable = true; # for ddcutil

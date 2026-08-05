@@ -1,4 +1,4 @@
-_: {lib, ...}: let
+{lib, ...}: let
   inherit (lib.generators) mkLuaInline;
 in {
   vim.mini = {

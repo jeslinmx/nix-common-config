@@ -1,4 +1,8 @@
-{nixosModules, ...}: {lib, ...}: {
+{
+  nixosModules,
+  lib,
+  ...
+}: {
   imports = builtins.attrValues {
     inherit
       (nixosModules)

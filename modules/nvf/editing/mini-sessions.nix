@@ -1,4 +1,4 @@
-_: {...}: {
+{
   vim.mini.sessions = {
     enable = true;
     setupOpts = {

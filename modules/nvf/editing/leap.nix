@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   # nvf module does not allow modifying the root level mappings
   vim.lazy.plugins.leap-nvim = {
     package = "leap-nvim";

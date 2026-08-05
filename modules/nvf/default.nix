@@ -1,4 +1,4 @@
-{nvfModules, ...}: {...}: {
+{nvfModules, ...}: {
   imports = builtins.attrValues (removeAttrs nvfModules ["default"]);
   vim = {
     viAlias = true;

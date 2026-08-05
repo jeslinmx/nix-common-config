@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim.utility.snacks-nvim = {
     enable = true;
     setupOpts = {

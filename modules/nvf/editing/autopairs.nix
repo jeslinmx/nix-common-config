@@ -1,8 +1,4 @@
-_: {
-  lib,
-  pkgs,
-  ...
-}: {
+{lib, ...}: {
   vim = {
     autopairs.nvim-autopairs = {
       enable = true;

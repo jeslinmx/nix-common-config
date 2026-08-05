@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim.mini.hipatterns = {
     enable = true;
     setupOpts = {

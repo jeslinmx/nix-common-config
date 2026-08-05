@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim = let
     augroup = "mini-files-binds";
   in {

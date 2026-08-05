@@ -1,4 +1,4 @@
-{inputs, ...}: _: {
+{inputs, ...}: {
   home.file = {
     ".hammerspoon/Spoons/ReloadConfiguration.spoon".source = "${inputs.hammerspoons.outPath}/Source/ReloadConfiguration.spoon";
     ".hammerspoon/Spoons/PaperWM.spoon".source = inputs.paperwmspoon.outPath;

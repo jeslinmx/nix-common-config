@@ -1,4 +1,5 @@
-{nixosModules, ...}: {
+{
+  nixosModules,
   config,
   lib,
   pkgs,

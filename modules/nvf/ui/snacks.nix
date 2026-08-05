@@ -1,4 +1,5 @@
-{nvfModules, ...}: {
+{
+  nvfModules,
   config,
   lib,
   ...

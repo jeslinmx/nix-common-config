@@ -1,4 +1,4 @@
-_: {pkgs, ...}: {
+{pkgs, ...}: {
   services.voxtype = {
     enable = true;
     package = pkgs.voxtype-vulkan;

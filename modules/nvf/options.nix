@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim.options = {
     exrc = true; # load .nvimrc, .nvim.lua in workspace
 

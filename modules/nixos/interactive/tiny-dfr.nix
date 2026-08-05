@@ -1,4 +1,4 @@
-{...}: _: {
+{
   hardware.apple.touchBar = {
     enable = true;
     settings = {

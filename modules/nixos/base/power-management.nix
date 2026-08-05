@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   powerManagement.enable = true;
   services.thermald.enable = true;
   services.auto-cpufreq.enable = lib.mkForce false;

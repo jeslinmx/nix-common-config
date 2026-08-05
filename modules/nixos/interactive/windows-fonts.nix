@@ -1,4 +1,4 @@
-_: {pkgs, ...}: {
+{pkgs, ...}: {
   fonts.packages = builtins.attrValues {
     inherit
       (pkgs)

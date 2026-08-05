@@ -1,4 +1,4 @@
-{inputs, ...}: _: {
+{inputs, ...}: {
   imports = builtins.attrValues {
     inherit (inputs.dank-material-shell.nixosModules) dank-material-shell greeter;
   };

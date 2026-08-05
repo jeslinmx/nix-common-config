@@ -1,4 +1,5 @@
-{homeModules, ...}: {
+{
+  homeModules,
   lib,
   pkgs,
   ...

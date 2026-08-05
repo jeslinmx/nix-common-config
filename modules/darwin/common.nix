@@ -1,4 +1,8 @@
-{darwinModules, ...}: {lib, ...}: {
+{
+  darwinModules,
+  lib,
+  ...
+}: {
   imports = builtins.attrValues {
     inherit
       (darwinModules)

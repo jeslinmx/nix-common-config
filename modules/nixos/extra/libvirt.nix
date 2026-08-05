@@ -1,4 +1,4 @@
-_: {pkgs, ...}: {
+{pkgs, ...}: {
   virtualisation = {
     libvirtd.enable = true;
     libvirtd.qemu.vhostUserPackages = [pkgs.virtiofsd];

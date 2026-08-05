@@ -1,4 +1,8 @@
-{nvfModules, ...}: {lib, ...}: {
+{
+  nvfModules,
+  lib,
+  ...
+}: {
   imports = [nvfModules.kitchensink-image];
   vim.utility.leetcode-nvim = {
     enable = true;

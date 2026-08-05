@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   services = {
     upower = {
       enable = true;

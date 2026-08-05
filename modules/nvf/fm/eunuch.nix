@@ -1,4 +1,4 @@
-_: {pkgs, ...}: {
+{pkgs, ...}: {
   vim.lazy.plugins = {
     vim-eunuch = {
       package = pkgs.vimPlugins.vim-eunuch;

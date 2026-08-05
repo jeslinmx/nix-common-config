@@ -1,4 +1,4 @@
-_: {...}: {
+{
   systemd.services."polkit-agent-helper@".serviceConfig = {
     PrivateDevices = false;
     DeviceAllow = [

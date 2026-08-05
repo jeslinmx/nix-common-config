@@ -2,7 +2,7 @@
   inputs,
   nvfModules,
   ...
-}: {...}: {
+}: {
   imports = [inputs.nvf.homeManagerModules.default];
   programs.nvf = {
     enableManpages = true;

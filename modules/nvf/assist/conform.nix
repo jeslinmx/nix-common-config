@@ -1,4 +1,4 @@
-_: {...}: {
+{
   vim = {
     languages.enableFormat = true;
     formatter.conform-nvim = {

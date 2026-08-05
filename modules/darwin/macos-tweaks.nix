@@ -1,4 +1,4 @@
-_: _: {
+{
   system.defaults = {
     ".GlobalPreferences"."com.apple.mouse.scaling" = -1.0; # disable mouse accel
     controlcenter = {

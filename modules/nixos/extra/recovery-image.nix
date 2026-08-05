@@ -1,4 +1,4 @@
-_: {pkgs, ...}: let
+{pkgs, ...}: let
   netboot = import (pkgs.path + "/nixos/lib/eval-config.nix") {
     inherit (pkgs.stdenv.hostPlatform) system;
     modules = [

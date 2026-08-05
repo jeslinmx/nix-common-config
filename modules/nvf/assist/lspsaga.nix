@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim.lsp.enable = true;
   vim.lsp.lspsaga = {
     enable = true;

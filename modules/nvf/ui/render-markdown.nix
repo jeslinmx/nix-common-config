@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim.languages.markdown.extensions.render-markdown-nvim = {
     enable = true;
     setupOpts = {

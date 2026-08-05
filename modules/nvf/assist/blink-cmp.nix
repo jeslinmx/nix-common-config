@@ -1,4 +1,4 @@
-_: {...}: {
+{
   vim.autocomplete = {
     enableSharedCmpSources = true;
     blink-cmp = {

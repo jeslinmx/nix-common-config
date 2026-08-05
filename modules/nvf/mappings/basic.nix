@@ -1,4 +1,4 @@
-_: {lib, ...}: {
+{lib, ...}: {
   vim.mini.bufremove.enable = true;
   vim.keymaps = let
     inherit (lib.nvim.binds) mkKeymap;

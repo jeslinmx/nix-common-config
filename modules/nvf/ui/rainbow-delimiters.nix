@@ -1,4 +1,4 @@
-_: {config, ...}: {
+{config, ...}: {
   vim.visuals.rainbow-delimiters = {
     enable = true;
     setupOpts = {

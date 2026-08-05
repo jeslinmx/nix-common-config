@@ -1,4 +1,4 @@
-{...}: _: {
+{
   boot.kernelParams = [
     "zswap.enabled=1" # enables zswap
     "zswap.compressor=lz4" # compression algorithm

@@ -1,4 +1,4 @@
-_: { lib, ... }: {
+{lib, ...}: {
   programs.firefox = {
     profiles = {
       default = {

@@ -1,4 +1,4 @@
-_: {config, ...}: {
+{config, ...}: {
   security.polkit.enable = true;
   programs = {
     _1password.enable = true;

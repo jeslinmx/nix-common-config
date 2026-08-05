@@ -1,4 +1,4 @@
-_: {config, ...}: {
+{config, ...}: {
   programs.fzf = let
     basicHeader = "ctrl-space: toggle preview window; ctrl-p/n: previous/next command";
     fdHeader = "ctrl-g: include .gitignore; ctrl-h: include dotfiles; ${basicHeader}";

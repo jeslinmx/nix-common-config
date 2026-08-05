@@ -1,4 +1,8 @@
-{inputs, ...}: {pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [inputs.nix-rosetta-builder.darwinModules.default];
 
   # # for bootstrapping rosetta-builder

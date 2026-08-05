@@ -1,4 +1,4 @@
-_: {config, ...}: {
+{config, ...}: {
   vim.highlight = let
     inherit (config.vim.theme.base16-colors) base02 base03 base04 base08 base0B base0C base0D base0E;
   in {

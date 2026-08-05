@@ -1,4 +1,4 @@
-_: {pkgs, ...}: {
+{
   programs.lazygit = {
     settings = {
       gui = {

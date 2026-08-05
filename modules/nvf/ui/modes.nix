@@ -1,4 +1,4 @@
-_: {config, ...}: {
+{config, ...}: {
   vim.lazy.plugins.modes-nvim = {
     package = "modes-nvim";
     setupModule = "modes";

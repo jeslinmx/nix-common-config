@@ -8,16 +8,10 @@
 
   inputs = {
     # flake helpers
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.url = "github:hercules-ci/flake-parts/main";
 
     # nixpkgs
-    nixpkgs.url = "nixpkgs/nixos-unstable";
-    nixpkgs-darwin.url = "nixpkgs/nixpkgs-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
-    };
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
     # NixOS modules
     home-manager = {
@@ -25,25 +19,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dank-material-shell = {
-      url = "github:AvengeMedia/DankMaterialShell";
+      url = "github:AvengeMedia/DankMaterialShell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dms-plugin-registry = {
-      url = "github:AvengeMedia/dms-plugin-registry";
+      url = "github:AvengeMedia/dms-plugin-registry/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Darwin modules
-    nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
-    home-manager-darwin = {
-      url = "github:nix-community/home-manager/master";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
     nix-rosetta-builder = {
-      url = "github:cpick/nix-rosetta-builder";
+      url = "github:cpick/nix-rosetta-builder/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -53,11 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database = {
-      url = "github:nix-community/nix-index-database";
+      url = "github:nix-community/nix-index-database/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvf = {
-      url = "github:notashelf/nvf";
+      url = "github:notashelf/nvf/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

@@ -16,26 +16,30 @@
       "--prompt='fzf'"
       "--bind='${basicBinds}'"
     ];
-    fileWidgetCommand = "${config.programs.fzf.defaultCommand} -t file";
-    fileWidgetOptions =
-      config.programs.fzf.defaultOptions
-      ++ [
-        "--header='${fdHeader}'"
-        "--prompt=' '"
-        "--preview-window=border-sharp"
-        "--preview='bat --color=always --style=changes,header-filesize,numbers,rule,snip {}'"
-        "--bind='${fdBinds config.programs.fzf.fileWidgetCommand}'"
-      ];
-    changeDirWidgetCommand = "${config.programs.fzf.defaultCommand} -t directory";
-    changeDirWidgetOptions =
-      config.programs.fzf.defaultOptions
-      ++ [
-        "--header='${fdHeader}'"
-        "--prompt=' '"
-        "--preview-window=border-double"
-        "--preview='eza --color=always --git --icons --group-directories-first -l --tree --level=1 {}'"
-        "--bind='${fdBinds config.programs.fzf.changeDirWidgetCommand}'"
-      ];
-    historyWidgetOptions = config.programs.fzf.defaultOptions ++ ["--prompt=' '" "--border=rounded"];
+    fileWidget = {
+      command = "${config.programs.fzf.defaultCommand} -t file";
+      options =
+        config.programs.fzf.defaultOptions
+        ++ [
+          "--header='${fdHeader}'"
+          "--prompt=' '"
+          "--preview-window=border-sharp"
+          "--preview='bat --color=always --style=changes,header-filesize,numbers,rule,snip {}'"
+          "--bind='${fdBinds config.programs.fzf.fileWidgetCommand}'"
+        ];
+    };
+    changeDirWidget = {
+      command = "${config.programs.fzf.defaultCommand} -t directory";
+      options =
+        config.programs.fzf.defaultOptions
+        ++ [
+          "--header='${fdHeader}'"
+          "--prompt=' '"
+          "--preview-window=border-double"
+          "--preview='eza --color=always --git --icons --group-directories-first -l --tree --level=1 {}'"
+          "--bind='${fdBinds config.programs.fzf.changeDirWidgetCommand}'"
+        ];
+    };
+    historyWidget.command = "";
   };
 }

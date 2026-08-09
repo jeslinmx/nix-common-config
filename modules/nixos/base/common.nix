@@ -1,4 +1,5 @@
-flake @ {nixosModules, ...}: {
+{
+  flake,
   config,
   lib,
   pkgs,
@@ -6,7 +7,7 @@ flake @ {nixosModules, ...}: {
 }: {
   imports = builtins.attrValues {
     inherit
-      (nixosModules)
+      (flake.nixosModules)
       base-home-manager-users
       base-issue-ip
       base-locale-sg

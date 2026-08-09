@@ -1,13 +1,13 @@
 {
+  flake,
   config,
-  inputs,
   lib,
   pkgs,
   ...
 }: {
   imports = builtins.attrValues {
-    inherit (inputs.dank-material-shell.homeModules) dank-material-shell;
-    inherit (inputs.dms-plugin-registry.homeModules) default;
+    inherit (flake.inputs.dank-material-shell.homeModules) dank-material-shell;
+    inherit (flake.inputs.dms-plugin-registry.homeModules) default;
   };
 
   options.dms = let
@@ -22,7 +22,7 @@
   config = {
     programs = let
       # hotfix until https://github.com/AvengeMedia/DankMaterialShell/pull/1864 lands (v1.4.5)
-      dms = lib.getExe' inputs.dank-material-shell.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell "dms";
+      dms = lib.getExe' flake.inputs.dank-material-shell.packages.${pkgs.stdenv.hostPlatform.system}.dms-shell "dms";
       # dms = lib.getExe' config.programs.dank-material-shell.package "dms";
     in {
       dank-material-shell = {
@@ -100,7 +100,7 @@
           kaomojiPicker.enable = true;
           musicLyrics = {
             enable = true;
-            src = lib.mkForce inputs.dms-plugin-musiclyrics;
+            src = lib.mkForce flake.inputs.dms-plugin-musiclyrics;
             settings = {
               widgetMaxWidth = 180;
               showTitleWhenPaused = true;

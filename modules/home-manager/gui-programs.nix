@@ -1,11 +1,11 @@
 {
-  homeModules,
+  flake,
   lib,
   pkgs,
   ...
 }: {
   imports = builtins.attrValues {
-    inherit (homeModules) firefox ghostty;
+    inherit (flake.homeModules) firefox ghostty;
   };
 
   programs = lib.mkDefault {

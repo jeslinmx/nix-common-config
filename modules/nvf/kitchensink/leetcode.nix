@@ -1,9 +1,9 @@
 {
-  nvfModules,
+  flake,
   lib,
   ...
 }: {
-  imports = [nvfModules.kitchensink-image];
+  imports = [flake.nvfModules.kitchensink-image];
   vim.utility.leetcode-nvim = {
     enable = true;
     setupOpts = {

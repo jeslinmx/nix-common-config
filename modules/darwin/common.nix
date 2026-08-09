@@ -1,11 +1,11 @@
 {
-  darwinModules,
+  flake,
   lib,
   ...
 }: {
   imports = builtins.attrValues {
     inherit
-      (darwinModules)
+      (flake.darwinModules)
       stylix
       home-manager-users
       nix-config

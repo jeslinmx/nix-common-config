@@ -1,13 +1,13 @@
 {
-  inputs,
+  flake,
   pkgs,
   lib,
   ...
 }: let
-  inherit (inputs) tt-schemes;
+  inherit (flake.inputs) tt-schemes;
 in {
   imports = builtins.attrValues {
-    inherit (inputs.stylix.darwinModules) stylix;
+    inherit (flake.inputs.stylix.darwinModules) stylix;
   };
 
   stylix = lib.mkDefault {

@@ -1,13 +1,9 @@
-{
-  inputs,
-  nvfModules,
-  ...
-}: {
-  imports = [inputs.nvf.homeManagerModules.default];
+{flake, ...}: {
+  imports = [flake.inputs.nvf.homeManagerModules.default];
   programs.nvf = {
     enableManpages = true;
     defaultEditor = true;
-    settings = nvfModules.default;
+    settings = flake.nvfModules.default;
   };
   home = {
     sessionVariables = {

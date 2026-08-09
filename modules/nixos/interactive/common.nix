@@ -1,11 +1,11 @@
 {
-  nixosModules,
+  flake,
   lib,
   ...
 }: {
   imports = builtins.attrValues {
     inherit
-      (nixosModules)
+      (flake.nixosModules)
       base-common
       interactive-chinese-input
       interactive-enable-standard-hardware

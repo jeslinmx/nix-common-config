@@ -1,11 +1,11 @@
 {
+  flake,
   config,
-  inputs,
-  lib,
   options,
+  lib,
   ...
 }: {
-  imports = [inputs.home-manager.darwinModules.home-manager];
+  imports = [flake.inputs.home-manager.darwinModules.home-manager];
 
   options = let
     inherit (lib) types mkOption;

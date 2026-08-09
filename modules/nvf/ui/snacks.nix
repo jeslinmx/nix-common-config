@@ -1,10 +1,10 @@
 {
-  nvfModules,
+  flake,
   config,
   lib,
   ...
 }: {
-  imports = with nvfModules; [ui-snacks-pickers];
+  imports = with flake.nvfModules; [ui-snacks-pickers];
   vim.utility.snacks-nvim = {
     enable = true;
     setupOpts = {

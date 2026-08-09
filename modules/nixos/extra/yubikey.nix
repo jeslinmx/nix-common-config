@@ -1,11 +1,11 @@
 {
-  nixosModules,
+  flake,
   config,
   lib,
   pkgs,
   ...
 }: {
-  imports = [nixosModules.hotfix-486044-pam_u2f];
+  imports = [flake.nixosModules.hotfix-486044-pam_u2f];
   options.security.yubikey.lockOnRemoval = lib.mkEnableOption "automatic locking of session on Yubikey removal";
   config = {
     services = {

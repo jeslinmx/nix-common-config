@@ -1,11 +1,11 @@
 {
-  homeModules,
+  flake,
   pkgs,
   ...
 }: {
   imports = builtins.attrValues {
     inherit
-      (homeModules)
+      (flake.homeModules)
       asciinema
       atuin
       comma

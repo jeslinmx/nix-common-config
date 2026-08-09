@@ -1,9 +1,9 @@
 {
-  inputs,
+  flake,
   pkgs,
   ...
 }: {
-  imports = [inputs.nix-rosetta-builder.darwinModules.default];
+  imports = [flake.inputs.nix-rosetta-builder.darwinModules.default];
 
   # # for bootstrapping rosetta-builder
   # nix.linux-builder = {

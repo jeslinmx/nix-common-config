@@ -79,7 +79,7 @@
       imports = [./flake-module.nix];
 
       detect = {
-        extraArgs = {inherit (self) inputs darwinModules homeModules nixosModules nvfModules;};
+        extraArgs = {flake = self;};
         configurations.enable = false;
       };
 

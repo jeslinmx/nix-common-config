@@ -1,11 +1,11 @@
 {
-  inputs,
+  flake,
   config,
   lib,
   options,
   ...
 }: {
-  imports = [inputs.home-manager.nixosModules.home-manager];
+  imports = [flake.inputs.home-manager.nixosModules.home-manager];
 
   options = let
     inherit (lib) types mkOption;

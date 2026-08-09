@@ -1,6 +1,6 @@
-{inputs, ...}: {
+{flake, ...}: {
   imports = builtins.attrValues {
-    inherit (inputs.dank-material-shell.nixosModules) dank-material-shell greeter;
+    inherit (flake.inputs.dank-material-shell.nixosModules) dank-material-shell greeter;
   };
   programs.dank-material-shell = {
     enable = true;

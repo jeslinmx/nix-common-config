@@ -64,6 +64,10 @@
       url = "github:jeslinmx/dms-plugin-musiclyrics";
       flake = false;
     };
+    omniwm = {
+      url = "github:DavSanchez/nix-dotfiles/master";
+      flake = false;
+    };
   };
 
   outputs = {

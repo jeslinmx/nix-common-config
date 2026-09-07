@@ -84,7 +84,7 @@
 
       detect = {
         extraArgs = {flake = self;};
-        configurations.enable = false;
+        darwin.modules.enable = true;
       };
 
       flake = {
@@ -95,12 +95,6 @@
       systems = ["x86_64-linux" "aarch64-darwin"];
       perSystem = {pkgs, ...}: {
         formatter = pkgs.alejandra;
-        packages = let
-          nvfConf = nvf.lib.neovimConfiguration {
-            inherit pkgs;
-            modules = [self.nvfModules.default];
-          };
-        in {inherit (nvfConf) neovim;};
       };
     });
 }

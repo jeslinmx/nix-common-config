@@ -95,7 +95,7 @@ in {
       nixosModules = composeOptions "nixos" "modules" (x: x);
       nixosConfigurations = composeOptions "nixos" "configurations" (lib.mapAttrs (name: config:
         inputs.nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+          system = null;
           modules = [
             {
               networking.hostName = name;

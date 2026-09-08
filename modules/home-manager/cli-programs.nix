@@ -66,7 +66,6 @@
     git.enable = true;
     helix.enable = true;
     lazygit.enable = true;
-    nvf.enable = true;
     ssh.enable = true;
     starship.enable = true;
     tmux.enable = true;

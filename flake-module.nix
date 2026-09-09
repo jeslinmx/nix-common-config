@@ -67,21 +67,22 @@ in {
   };
   config = let
     inherit (import ./lib.nix lib) gatherModules;
-    composeOptions = system: type: post: let
+    composeOptions = output: system: type: post: let
       opts = cfg.${system}.${type};
     in
-      lib.mkIf opts.enable (
-        if lib.pathExists opts.directory
-        then
-          opts.directory
-          |> gatherModules (cfg.extraArgs // cfg.${system}.extraArgs // cfg.${type}.extraArgs // opts.extraArgs)
-          |> post
-        else {}
-      );
+      lib.optionalAttrs opts.enable {
+        ${output} =
+          if lib.pathExists opts.directory
+          then
+            opts.directory
+            |> gatherModules (cfg.extraArgs // cfg.${system}.extraArgs // cfg.${type}.extraArgs // opts.extraArgs)
+            |> post
+          else {};
+      };
   in {
-    flake = {
-      darwinModules = composeOptions "darwin" "modules" (x: x);
-      darwinConfigurations = composeOptions "darwin" "configurations" (lib.mapAttrs (name: config:
+    flake = lib.mkMerge [
+      (composeOptions "darwinModules" "darwin" "modules" (x: x))
+      (composeOptions "darwinConfigurations" "darwin" "configurations" (lib.mapAttrs (name: config:
         inputs.nix-darwin.lib.darwinSystem {
           modules = [
             {
@@ -90,10 +91,10 @@ in {
             }
             config
           ];
-        }));
+        })))
 
-      nixosModules = composeOptions "nixos" "modules" (x: x);
-      nixosConfigurations = composeOptions "nixos" "configurations" (lib.mapAttrs (name: config:
+      (composeOptions "nixosModules" "nixos" "modules" (x: x))
+      (composeOptions "nixosConfigurations" "nixos" "configurations" (lib.mapAttrs (name: config:
         inputs.nixpkgs.lib.nixosSystem {
           system = null;
           modules = [
@@ -103,29 +104,25 @@ in {
             }
             config
           ];
-        }));
+        })))
 
-      homeModules = composeOptions "home-manager" "modules" (x: x);
-      homeConfigurations = composeOptions "home-manager" "configurations" (lib.mapAttrs (
+      (composeOptions "homeModules" "home-manager" "modules" (x: x))
+      (composeOptions "homeConfigurations" "home-manager" "configurations" (lib.mapAttrs (
         _: config:
           inputs.home-manager.lib.homeManagerConfiguration {modules = [config];}
-      ));
+      )))
 
-      nvfModules = composeOptions "nvf" "modules" (x: x);
-    };
+      (composeOptions "nvfModules" "nvf" "modules" (x: x))
+    ];
 
     perSystem = {pkgs, ...}:
-      lib.mkMerge [
-        {
-          packages = composeOptions "nvf" "configurations" (lib.mapAttrs' (name: config: {
-            name = "neovim-${name}";
-            value =
-              (inputs.nvf.lib.neovimConfiguration {
-                inherit pkgs;
-                modules = [config];
-              }).neovim;
-          }));
-        }
-      ];
+      composeOptions "packages" "nvf" "configurations" (lib.mapAttrs' (name: config: {
+        name = "neovim-${name}";
+        value =
+          (inputs.nvf.lib.neovimConfiguration {
+            inherit pkgs;
+            modules = [config];
+          }).neovim;
+      }));
   };
 }

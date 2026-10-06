@@ -1,6 +1,6 @@
 {
   system.defaults = {
-    ".GlobalPreferences"."com.apple.mouse.scaling" = -1.0; # disable mouse accel
+    ".GlobalPreferences"."com.apple.mouse.scaling" = 0.875;
     controlcenter = {
       AirDrop = false;
       BatteryShowPercentage = true;
@@ -118,5 +118,6 @@
       EnableTilingOptionAccelerator = true; # alt+arrows to tile
       EnableTopTilingByEdgeDrag = true;
     };
+    CustomSystemPreferences.NSGlobalDomain."com.apple.mouse.linear" = 1; # disable mouse accel
   };
 }

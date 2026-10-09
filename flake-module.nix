@@ -81,7 +81,7 @@ in {
       };
   in {
     flake = lib.mkMerge [
-      (composeOptions "darwinModules" "darwin" "modules" (x: x))
+      (composeOptions "darwinModules" "darwin" "modules" lib.trivial.id)
       (composeOptions "darwinConfigurations" "darwin" "configurations" (lib.mapAttrs (name: config:
         inputs.nix-darwin.lib.darwinSystem {
           modules = [
@@ -93,7 +93,7 @@ in {
           ];
         })))
 
-      (composeOptions "nixosModules" "nixos" "modules" (x: x))
+      (composeOptions "nixosModules" "nixos" "modules" lib.trivial.id)
       (composeOptions "nixosConfigurations" "nixos" "configurations" (lib.mapAttrs (name: config:
         inputs.nixpkgs.lib.nixosSystem {
           system = null;
@@ -106,13 +106,13 @@ in {
           ];
         })))
 
-      (composeOptions "homeModules" "home-manager" "modules" (x: x))
+      (composeOptions "homeModules" "home-manager" "modules" lib.trivial.id)
       (composeOptions "homeConfigurations" "home-manager" "configurations" (lib.mapAttrs (
         _: config:
           inputs.home-manager.lib.homeManagerConfiguration {modules = [config];}
       )))
 
-      (composeOptions "nvfModules" "nvf" "modules" (x: x))
+      (composeOptions "nvfModules" "nvf" "modules" lib.trivial.id)
     ];
 
     perSystem = {pkgs, ...}:

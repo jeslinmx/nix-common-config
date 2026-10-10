@@ -113,16 +113,31 @@ in {
       )))
 
       (composeOptions "nvfModules" "nvf" "modules" lib.trivial.id)
+
+      (lib.mkIf (inputs ? "deploy-rs") {
+        sshHosts =
+          self.deploy.nodes
+          |> lib.mapAttrs (name: {
+            hostname ? name,
+            sshUser ? self.deploy.sshUser,
+            ...
+          }: {
+            HostName = hostname;
+            User = sshUser;
+          });
+      })
     ];
 
     perSystem = {pkgs, ...}:
-      composeOptions "packages" "nvf" "configurations" (lib.mapAttrs' (name: config: {
-        name = "neovim-${name}";
-        value =
-          (inputs.nvf.lib.neovimConfiguration {
-            inherit pkgs;
-            modules = [config];
-          }).neovim;
-      }));
+      lib.mkMerge [
+        (composeOptions "packages" "nvf" "configurations" (lib.mapAttrs' (name: config: {
+          name = "neovim-${name}";
+          value =
+            (inputs.nvf.lib.neovimConfiguration {
+              inherit pkgs;
+              modules = [config];
+            }).neovim;
+        })))
+      ];
   };
 }

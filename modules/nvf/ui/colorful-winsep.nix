@@ -1,10 +1,11 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
   vim.lazy.plugins."colorful-winsep.nvim" = {
-    enabled = config.vim.statusline.lualine.enable && config.vim.statusline.lualine.globalStatus;
+    enabled = config.vim.statusline.lualine.enable && lib.attrByPath ["options" "globalstatus"] false config.vim.statusline.lualine.setupOpts;
     package = pkgs.vimPlugins.colorful-winsep-nvim;
     setupModule = "colorful-winsep";
     setupOpts = {

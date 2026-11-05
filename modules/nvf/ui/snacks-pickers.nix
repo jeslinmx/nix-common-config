@@ -218,6 +218,8 @@
             };
           };
         };
+        # hotfix: https://github.com/folke/snacks.nvim/issues/2810
+        win.input.wo.virtualedit = "onemore";
       };
     };
   };

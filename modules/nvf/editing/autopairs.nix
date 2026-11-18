@@ -79,6 +79,13 @@
             end),
         }
       end
+      npairs.add_rules {
+        Rule("= ", ";", { "nix" })
+          :with_pair(cond.not_before_regex("[=!<>]=", 2))
+          :with_move(function(opts)
+            return opts.char == ";"
+          end),
+      }
     '';
   };
 }

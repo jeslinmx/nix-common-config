@@ -12,6 +12,7 @@
       fish
       fzf
       git
+      gpg
       lazygit
       nvf
       ssh
@@ -64,6 +65,7 @@
     fish.enable = true;
     fzf.enable = true;
     git.enable = true;
+    gpg.enable = true;
     helix.enable = true;
     lazygit.enable = true;
     ssh.enable = true;

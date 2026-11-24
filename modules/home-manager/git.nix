@@ -40,6 +40,7 @@
           lineNumber = true;
           extendedRegexp = true;
         };
+        log.showSignature = true;
         pull.ff = "only";
         status = {
           submoduleSummary = true;

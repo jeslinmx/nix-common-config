@@ -5,7 +5,7 @@
   ...
 }: {
   programs.ghostty = {
-    package = lib.mkIf pkgs.stdenv.isDarwin (lib.mkForce null);
+    package = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin (lib.mkForce null);
     clearDefaultKeybinds = true;
     settings = {
       focus-follows-mouse = true;
@@ -83,7 +83,7 @@
               ["cmd" "opt"]
               ["ctrl+shift" "ctrl"];
           in "${
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then trigger
             else replaceMacModifiers trigger
           }=${action}"

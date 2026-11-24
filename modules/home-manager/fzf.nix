@@ -25,7 +25,7 @@
           "--prompt=' '"
           "--preview-window=border-sharp"
           "--preview='bat --color=always --style=changes,header-filesize,numbers,rule,snip {}'"
-          "--bind='${fdBinds config.programs.fzf.fileWidgetCommand}'"
+          "--bind='${fdBinds config.programs.fzf.fileWidget.command}'"
         ];
     };
     changeDirWidget = {
@@ -37,7 +37,7 @@
           "--prompt=' '"
           "--preview-window=border-double"
           "--preview='eza --color=always --git --icons --group-directories-first -l --tree --level=1 {}'"
-          "--bind='${fdBinds config.programs.fzf.changeDirWidgetCommand}'"
+          "--bind='${fdBinds config.programs.fzf.changeDirWidget.command}'"
         ];
     };
     historyWidget.command = "";

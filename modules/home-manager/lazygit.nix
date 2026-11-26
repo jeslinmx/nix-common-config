@@ -31,6 +31,7 @@
         };
         truncateCopiedCommitHashesTo = 40;
         autoFetch = false;
+        overrideGpg = true;
       };
       notARepository = "skip";
       promptToReturnFromSubprocess = false;
